@@ -1,0 +1,49 @@
+---
+output:
+  github_document:
+    html_preview: false
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+options(tibble.print_min = 5, tibble.print_max = 5)
+```
+
+## tidyfec
+
+The tidyfec package aims to make campaign finance data more accessible in R and friendly with tidy workflows. It works by accessing data through the [OpenFEC API](https://api.open.fec.gov/developers/), which requires an [API key](https://api.data.gov/signup/) to run.
+
+## Installation
+
+Though I'm developing out in the open, this is very much pre-alpha release status. Installation is through the devtools package
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("stephenholzman/tidyfec")
+```
+
+## Examples
+Search for a candidates by name.
+
+```{r}
+library(tidyfec)
+library(tidyverse)
+source("data.gov.key")
+search_on_name <- tidyfec::search_candidates(api_key = api_key, name = "Obama", data_structure = "tidy")
+
+head(search_on_name)
+
+```
+
+Search for a specific election.
+
+```{r}
+search_on_election <- tidyfec::search_candidates(api_key = api_key, state = "VA", district = "05", office = "H", election_year = "2018", data_structure = "tidy")
+
+head(search_on_election)
+```
+
