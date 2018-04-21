@@ -13,4 +13,6 @@ Imports:
   httr,
   jsonlite,
   magrittr,
-  dplyr
+  dplyr,
+  tidyr,
+  tibble
