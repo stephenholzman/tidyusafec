@@ -15,4 +15,5 @@ Imports:
   magrittr,
   dplyr,
   tidyr,
+  purrr,
   tibble

@@ -31,7 +31,7 @@ Search for a candidates by name.
 
 ```{r}
 library(tidyfec)
-library(tidyverse)
+library(tidyverse, warn.conflicts = FALSE)
 source("data.gov.key")
 search_on_name <- tidyfec::search_candidates(api_key = api_key, name = "Obama", data_structure = "tidy")
 

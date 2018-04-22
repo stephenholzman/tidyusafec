@@ -21,7 +21,7 @@ Search for a candidates by name.
 
 ``` r
 library(tidyfec)
-library(tidyverse)
+library(tidyverse, warn.conflicts = FALSE)
 #> ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
 #> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
 #> ✔ tibble  1.4.2     ✔ dplyr   0.7.4

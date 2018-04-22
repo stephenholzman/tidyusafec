@@ -2,20 +2,63 @@
 % Please edit documentation in R/candidates.R
 \name{search_candidates}
 \alias{search_candidates}
-\title{Make a request to the OpenFEC API}
+\title{Search FEC records for Candidates}
 \usage{
-search_candidates(candidate_id = NULL, q = NULL,
-  max_first_file_date = NULL)
+search_candidates(data_structure = "both", candidate_id = NULL,
+  name = NULL, max_first_file_date = NULL, year = NULL, party = NULL,
+  api_key = NULL, candidate_status = NULL, state = NULL,
+  federal_funds_flag = NULL, has_raised_funds = NULL,
+  sort_hide_null = NULL, office = NULL, election_year = NULL,
+  sort_null_only = NULL, incumbent_challenge = NULL, cycle = NULL,
+  min_first_file_date = NULL, sort = NULL, district = NULL)
 }
 \arguments{
+\item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
+
 \item{candidate_id}{A character string of the OpenFEC endpoint.}
 
-\item{q}{A list with values of the parameters to use in the request.}
+\item{name}{Name (candidate or committee) to search for.}
+
+\item{max_first_file_date}{Selects all candidates whose first filing was received by the FEC before this date.}
+
+\item{year}{See records pertaining to a particular election year. The list of election years is based on a candidate filing a statement of candidacy (F2) for that year.}
+
+\item{party}{Three-letter code for the party affiliated with a candidate or committee. For example, DEM for Democratic Party and REP for Republican Party.}
+
+\item{api_key}{API key for https://api.data.gov. Get one at https://api.data.gov/signup.}
+
+\item{candidate_status}{One-letter code explaining if the candidate is: 'C' present candidate, 'F' future candidate, 'N' not yet a candidate, 'P' prior candidate}
+
+\item{state}{Two letter US state or territory abbreviation where a candidate runs for office. Either a character or character vector for selecting multiple states.}
+
+\item{federal_funds_flag}{A boolean the describes if a presidential candidate has accepted federal funds. The flag will be false for House and Senate candidates.}
+
+\item{has_raised_funds}{A boolean that describes if a candidate's committee has ever received any receipts for their campaign for this particular office. (Candidates have separate candidate IDs for each office.)}
+
+\item{sort_hide_null}{Hide null values on sorted column(s). Boolean.}
+
+\item{office}{Federal office candidate runs for: H, S or P}
+
+\item{election_year}{Year of election.}
+
+\item{sort_null_only}{Toggle that filters out all rows having sort column that is non-null.}
+
+\item{incumbent_challenge}{One-letter code ('I', 'C', 'O') explaining if the candidate is an incumbent, a challenger, or if the seat is open.}
+
+\item{cycle}{Two-year election cycle in which a candidate runs for office. Calculated from FEC Form 2. The cycle begins with an odd year and is named for its ending, even year. This cycle follows the traditional house election cycle and subdivides the presidential and Senate elections into comparable two-year blocks. To see data for the entire four years of a presidential term or six years of a senatorial term, you will need the election_full flag.}
+
+\item{min_first_file_date}{Selects all candidates whose first filing was received by the FEC after this date}
+
+\item{sort}{Provide a field to sort by. Use - for descending order.}
+
+\item{district}{Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.}
 }
 \description{
-Fetch basic information about candidates and their principal committees.
+tidycensus Documentation: Search for candidates. If tidy is TRUE, each row describes a candidate during a specific election cycle. The same candidate may have rows for multiple elections depending on search paramters.
 }
 \details{
+OpenFEC Documentation: Fetch basic information about candidates and their principal committees.
+
 Each result reflects a unique FEC candidate ID. That ID is assigned to the candidate for a particular office sought. If a candidate runs for the same office over time, that ID stays the same. If the same person runs for multiple offices — for example, a House candidate runs for a Senate office — that candidate will get a unique ID for each office.
 
 The candidate endpoints primarily use data from FEC registration Form 1, for candidate information, and Form 2, for committees information, with additional information to provide context.
