@@ -1,6 +1,6 @@
-#' Search FEC records for Candidates
+#' Get Financial Totals for Candidates
 #'
-#' tidycensus Documentation: Search for candidates. If tidy is TRUE, each row describes a candidate during a specific election cycle. The same candidate may have rows for multiple elections depending on search paramters.
+#' tidycensus Documentation: Get financial totals.
 #'
 #' OpenFEC Documentation: Fetch basic information about candidates and their principal committees.
 #'
