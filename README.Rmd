@@ -47,3 +47,11 @@ search_on_election <- tidyfec::search_candidates(api_key = api_key, state = "VA"
 head(search_on_election)
 ```
 
+Search for candidate totals.
+
+```{r}
+candidate_totals <- get_candidate_totals(api_key = api_key, candidate_ids = search_on_election$candidate_id, data_structure = "tidy")
+
+head(candidate_totals)
+```
+

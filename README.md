@@ -22,7 +22,7 @@ Search for a candidates by name.
 ``` r
 library(tidyfec)
 library(tidyverse, warn.conflicts = FALSE)
-#> ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ── Attaching packages ─────────────────────── tidyverse 1.2.1 ──
 #> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
 #> ✔ tibble  1.4.2     ✔ dplyr   0.7.4
 #> ✔ tidyr   0.8.0     ✔ stringr 1.3.0
@@ -31,7 +31,7 @@ library(tidyverse, warn.conflicts = FALSE)
 #> Warning: package 'tidyr' was built under R version 3.4.3
 #> Warning: package 'stringr' was built under R version 3.4.3
 #> Warning: package 'forcats' was built under R version 3.4.3
-#> ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 source("data.gov.key")
@@ -77,4 +77,45 @@ head(search_on_election)
 #> #   active_through <int>, incumbent_challenge_full <chr>,
 #> #   last_f2_date <chr>, district <chr>, principal_committees <list>,
 #> #   committee_id <chr>, committee_name <chr>
+```
+
+Search for candidate totals.
+
+``` r
+candidate_totals <- get_candidate_totals(api_key = api_key, candidate_ids = search_on_election$candidate_id, data_structure = "tidy")
+
+head(candidate_totals)
+#> # A tibble: 6 x 46
+#>   .      loan_repayments candidate_id last_net_operati… transfers_from_ot…
+#>   <list>           <dbl> <chr>                    <dbl>              <dbl>
+#> 1 <list…              0. H8VA05155              274198.                 0.
+#> 2 <list…              0. H8VA05148               28288.                 0.
+#> 3 <list…              0. H6VA05142               11516.                 0.
+#> 4 <list…          20000. H6VA05142               34038.             12889.
+#> 5 <list…              0. H8VA05114              295051.            146608.
+#> # ... with 1 more row, and 41 more variables: receipts <dbl>,
+#> #   offsets_to_fundraising_expenditures <dbl>, other_receipts <dbl>,
+#> #   candidate_contribution <dbl>,
+#> #   individual_unitemized_contributions <dbl>,
+#> #   operating_expenditures <dbl>, individual_contributions <dbl>,
+#> #   fundraising_disbursements <dbl>,
+#> #   political_party_committee_contributions <dbl>,
+#> #   coverage_start_date <chr>, exempt_legal_accounting_disbursement <dbl>,
+#> #   full_election <lgl>, loan_repayments_candidate_loans <dbl>,
+#> #   offsets_to_legal_accounting <dbl>, last_debts_owed_to_committee <dbl>,
+#> #   transfers_to_other_authorized_committee <dbl>,
+#> #   refunded_other_political_committee_contributions <dbl>,
+#> #   last_debts_owed_by_committee <dbl>, net_contributions <dbl>,
+#> #   refunded_political_party_committee_contributions <dbl>,
+#> #   federal_funds <dbl>, other_disbursements <dbl>,
+#> #   coverage_end_date <chr>, last_net_contributions <dbl>,
+#> #   offsets_to_operating_expenditures <dbl>, last_report_year <int>,
+#> #   other_political_committee_contributions <dbl>,
+#> #   individual_itemized_contributions <dbl>, loans <dbl>, cycle <int>,
+#> #   last_report_type_full <chr>, last_cash_on_hand_end_period <dbl>,
+#> #   loan_repayments_other_loans <dbl>, loans_made_by_candidate <dbl>,
+#> #   net_operating_expenditures <dbl>, contributions <dbl>,
+#> #   contribution_refunds <dbl>,
+#> #   total_offsets_to_operating_expenditures <dbl>, disbursements <dbl>,
+#> #   last_beginning_image_number <chr>, all_other_loans <dbl>
 ```

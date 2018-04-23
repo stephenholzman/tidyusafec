@@ -4,14 +4,14 @@
 \alias{get_candidate_totals}
 \title{Search FEC records for Candidates}
 \usage{
-get_candidate_totals(data_structure = "both", candidate_id = NULL,
+get_candidate_totals(data_structure = "both", candidate_ids = NULL,
   sort_null_only = NULL, cycle = NULL, sort = NULL, designation = NULL,
-  type = NULL, full_election = NULL, api_key = NULL)
+  type = NULL, full_election = TRUE, api_key = NULL)
 }
 \arguments{
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
 
-\item{candidate_id}{A character string of the OpenFEC endpoint.}
+\item{candidate_ids}{A character vector of candidate ids to get financial totals for. Required to run.}
 
 \item{sort_null_only}{Toggle that filters out all rows having sort column that is non-null.}
 
