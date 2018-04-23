@@ -17,9 +17,9 @@
 #' @param candidate_ids A character vector of candidate ids to get financial totals for. Required to run.
 #' @param api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.
 
-get_candidate_totals <- function(data_structure = 'both', candidate_ids = NULL,
+get_candidate_totals <- function(data, data_structure = 'tidy', candidate_ids = NULL,
                               sort_null_only = NULL, cycle = NULL, sort = NULL, designation = NULL, type = NULL,
-                              full_election = TRUE, api_key = NULL){
+                              full_election = TRUE, api_key = Sys.getenv("DATAGOV_API_KEY")){
 
   if (is.null(api_key)) {
 
@@ -29,7 +29,12 @@ get_candidate_totals <- function(data_structure = 'both', candidate_ids = NULL,
 
   if (is.null(candidate_ids)) {
 
-    stop('Argument for candidate_ids is required')
+    if("candidate_id" %in% names(data)){
+      candidate_ids <- data[["candidate_id"]]
+    }else{
+      stop('Argument for candidate_ids is required')
+    }
+
 
   }
 
@@ -119,7 +124,47 @@ get_candidate_totals <- function(data_structure = 'both', candidate_ids = NULL,
       disbursements = map_dbl(. , "disbursements", .default = NA),
       last_beginning_image_number = map_chr(. , "last_beginning_image_number", .default = NA),
       all_other_loans = map_dbl(. , "all_other_loans", .default = NA)
-    )
+    ) %>%
+    gather(key = "type_of_funds", value = "amount",
+           loan_repayments, last_net_operating_expenditures, transfers_from_other_authorized_committee,
+           receipts, offsets_to_fundraising_expenditures,
+           other_receipts,
+           candidate_contribution,
+           individual_unitemized_contributions,
+           operating_expenditures,
+           individual_contributions,
+           fundraising_disbursements,
+           political_party_committee_contributions,
+           exempt_legal_accounting_disbursement,
+           loan_repayments_candidate_loans,
+           offsets_to_legal_accounting,
+           last_debts_owed_to_committee,
+           transfers_to_other_authorized_committee,
+           refunded_other_political_committee_contributions,
+           last_debts_owed_by_committee,
+           net_contributions,
+           refunded_political_party_committee_contributions,
+           federal_funds,
+           other_disbursements,
+           last_net_contributions,
+           offsets_to_operating_expenditures,
+           other_political_committee_contributions,
+           individual_itemized_contributions,
+           loans,
+           last_cash_on_hand_end_period,
+           loan_repayments_other_loans,
+           loans_made_by_candidate,
+           net_operating_expenditures,
+           contributions,
+           contribution_refunds,
+           total_offsets_to_operating_expenditures,
+           disbursements,
+           all_other_loans)
+
+  if("candidate_id" %in% names(data)){
+    tidy_candidates <- left_join(tidy_candidates, data, by =c ("candidate_id" = "candidate_id"))
+  }
+
   object_to_return <- list(
     tidy = tidy_candidates,
     raw_responses = responses
@@ -137,3 +182,7 @@ get_candidate_totals <- function(data_structure = 'both', candidate_ids = NULL,
   }
 
 }
+
+tidyfec_filters<- list(
+  top_level = c("receipts", "disbursements", "last_cash_on_hand_end_period")
+)

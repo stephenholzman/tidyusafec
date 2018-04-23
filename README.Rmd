@@ -27,49 +27,25 @@ devtools::install_github("stephenholzman/tidyfec")
 ```
 
 ## Examples
-Search for a candidates by name.
 
 ```{r}
 library(tidyfec)
-library(tidyverse, warn.conflicts = FALSE)
-source("data.gov.key")
-search_on_name <- tidyfec::search_candidates(api_key = api_key, name = "Obama", data_structure = "tidy")
+library(tidyverse)
 
-head(search_on_name)
+#data_gov_api_key("api-key-string")
+#install api key
 
-```
+df <- search_candidates(state = "VA", district = "10", office = "H", election_year = "2018") %>%
+  get_candidate_totals() %>%
+  filter(type_of_funds %in% tidyfec_filters$top_level, cycle == "2018") %>%
+  separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right")
 
-Search for a specific election.
-
-```{r}
-search_on_election <- tidyfec::search_candidates(api_key = api_key, state = "VA", district = "05", office = "H", election_year = "2018", data_structure = "tidy")
-
-head(search_on_election)
-```
-
-Search for candidate totals.
-
-```{r}
-candidate_totals <- get_candidate_totals(api_key = api_key, candidate_ids = search_on_election$candidate_id, data_structure = "tidy")
-
-head(candidate_totals)
-```
-
-Visualize
-
-```{r}
-library(ggplot2)
-candidate_totals %>%
-  filter(cycle == "2018") %>%
-  left_join(search_on_election, by = c("candidate_id" = "candidate_id")) %>%
-  separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right") %>%
-  gather(key = "type", value = "amount", receipts, disbursements, last_cash_on_hand_end_period) %>%
+df  %>%
   ggplot() +
   geom_bar(aes(x = last_name, y = amount), stat = "identity") +
-  facet_wrap(~type) +
-  scale_y_continuous(labels = scales::dollar, breaks = seq(0,1000000,by=500000)) +
+  facet_wrap(~type_of_funds) +
+  scale_y_continuous(labels = scales::dollar) +
   coord_flip() +
   theme_bw()
 
 ```
-

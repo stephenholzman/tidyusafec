@@ -28,9 +28,9 @@
 #' @param sort Provide a field to sort by. Use - for descending order.
 #' @param district Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.
 
-search_candidates <- function(data_structure = 'both', candidate_id = NULL,
+search_candidates <- function(data_structure = 'tidy', candidate_id = NULL,
                               name = NULL, max_first_file_date = NULL, year = NULL, party = NULL,
-                              api_key = NULL, candidate_status = NULL, state = NULL,
+                              api_key = Sys.getenv("DATAGOV_API_KEY"), candidate_status = NULL, state = NULL,
                               federal_funds_flag = NULL, has_raised_funds = NULL,
                               sort_hide_null = NULL, office = NULL, election_year = NULL,
                               sort_null_only = NULL, incumbent_challenge = NULL, cycle = NULL,
