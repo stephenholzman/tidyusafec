@@ -55,3 +55,19 @@ candidate_totals <- get_candidate_totals(api_key = api_key, candidate_ids = sear
 head(candidate_totals)
 ```
 
+Visualize
+
+```{r}
+library(ggplot2)
+candidate_totals %>%
+  filter(cycle == "2018") %>%
+  left_join(search_on_election, by = c("candidate_id" = "candidate_id")) %>%
+  gather(key = "type", value = "amount", receipts, disbursements, last_cash_on_hand_end_period) %>%
+  ggplot() +
+  geom_bar(aes(x = name, y = amount), stat = "identity") +
+  facet_wrap(~type) +
+  scale_y_continuous(labels = scales::dollar) +
+  coord_flip()
+
+```
+

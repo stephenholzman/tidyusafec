@@ -22,7 +22,7 @@ Search for a candidates by name.
 ``` r
 library(tidyfec)
 library(tidyverse, warn.conflicts = FALSE)
-#> ── Attaching packages ─────────────────────── tidyverse 1.2.1 ──
+#> ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ──
 #> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
 #> ✔ tibble  1.4.2     ✔ dplyr   0.7.4
 #> ✔ tidyr   0.8.0     ✔ stringr 1.3.0
@@ -31,7 +31,7 @@ library(tidyverse, warn.conflicts = FALSE)
 #> Warning: package 'tidyr' was built under R version 3.4.3
 #> Warning: package 'stringr' was built under R version 3.4.3
 #> Warning: package 'forcats' was built under R version 3.4.3
-#> ── Conflicts ────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 source("data.gov.key")
@@ -119,3 +119,20 @@ head(candidate_totals)
 #> #   total_offsets_to_operating_expenditures <dbl>, disbursements <dbl>,
 #> #   last_beginning_image_number <chr>, all_other_loans <dbl>
 ```
+
+Visualize
+
+``` r
+library(ggplot2)
+candidate_totals %>%
+  filter(cycle == "2018") %>%
+  left_join(search_on_election, by = c("candidate_id" = "candidate_id")) %>%
+  gather(key = "type", value = "amount", receipts, disbursements, last_cash_on_hand_end_period) %>%
+  ggplot() +
+  geom_bar(aes(x = name, y = amount), stat = "identity") +
+  facet_wrap(~type) +
+  scale_y_continuous(labels = scales::dollar) +
+  coord_flip()
+```
+
+![](README-unnamed-chunk-6-1.png)
