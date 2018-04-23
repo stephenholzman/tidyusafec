@@ -127,12 +127,14 @@ library(ggplot2)
 candidate_totals %>%
   filter(cycle == "2018") %>%
   left_join(search_on_election, by = c("candidate_id" = "candidate_id")) %>%
+  separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right") %>%
   gather(key = "type", value = "amount", receipts, disbursements, last_cash_on_hand_end_period) %>%
   ggplot() +
-  geom_bar(aes(x = name, y = amount), stat = "identity") +
+  geom_bar(aes(x = last_name, y = amount), stat = "identity") +
   facet_wrap(~type) +
-  scale_y_continuous(labels = scales::dollar) +
-  coord_flip()
+  scale_y_continuous(labels = scales::dollar, breaks = seq(0,1000000,by=500000)) +
+  coord_flip() +
+  theme_bw()
 ```
 
 ![](README-unnamed-chunk-6-1.png)
