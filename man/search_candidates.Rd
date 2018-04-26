@@ -4,10 +4,10 @@
 \alias{search_candidates}
 \title{Search FEC records for Candidates}
 \usage{
-search_candidates(data_structure = "both", candidate_id = NULL,
+search_candidates(data_structure = "tidy", candidate_id = NULL,
   name = NULL, max_first_file_date = NULL, year = NULL, party = NULL,
-  api_key = NULL, candidate_status = NULL, state = NULL,
-  federal_funds_flag = NULL, has_raised_funds = NULL,
+  api_key = Sys.getenv("DATAGOV_API_KEY"), candidate_status = NULL,
+  state = NULL, federal_funds_flag = NULL, has_raised_funds = NULL,
   sort_hide_null = NULL, office = NULL, election_year = NULL,
   sort_null_only = NULL, incumbent_challenge = NULL, cycle = NULL,
   min_first_file_date = NULL, sort = NULL, district = NULL)

@@ -38,3 +38,7 @@ data_gov_api_key <- function (key, overwrite = FALSE, install = FALSE)
     Sys.setenv(DATAGOV_API_KEY = key)
   }
 }
+
+tidyfec_filters<- list(
+  top_level = c("receipts", "disbursements", "last_cash_on_hand_end_period")
+)

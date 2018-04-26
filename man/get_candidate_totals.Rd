@@ -2,16 +2,19 @@
 % Please edit documentation in R/candidate.R
 \name{get_candidate_totals}
 \alias{get_candidate_totals}
-\title{Search FEC records for Candidates}
+\title{Get Financial Totals for Candidates}
 \usage{
-get_candidate_totals(data_structure = "both", candidate_ids = NULL,
+get_candidate_totals(data, data_structure = "tidy", candidate_ids = NULL,
   sort_null_only = NULL, cycle = NULL, sort = NULL, designation = NULL,
-  type = NULL, full_election = TRUE, api_key = NULL)
+  type = NULL, full_election = TRUE,
+  api_key = Sys.getenv("DATAGOV_API_KEY"))
 }
 \arguments{
+\item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_ids is required.}
+
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
 
-\item{candidate_ids}{A character vector of candidate ids to get financial totals for. Required to run.}
+\item{candidate_ids}{A character vector of candidate ids to get financial totals for. Either this argument or a dataframe containing a column called 'candidate_id' passed in the 'data' argument is required.}
 
 \item{sort_null_only}{Toggle that filters out all rows having sort column that is non-null.}
 
@@ -28,12 +31,8 @@ get_candidate_totals(data_structure = "both", candidate_ids = NULL,
 \item{api_key}{API key for https://api.data.gov. Get one at https://api.data.gov/signup.}
 }
 \description{
-tidycensus Documentation: Search for candidates. If tidy is TRUE, each row describes a candidate during a specific election cycle. The same candidate may have rows for multiple elections depending on search paramters.
+tidyfec Documentation: Get financial totals.
 }
 \details{
-OpenFEC Documentation: Fetch basic information about candidates and their principal committees.
-
-Each result reflects a unique FEC candidate ID. That ID is assigned to the candidate for a particular office sought. If a candidate runs for the same office over time, that ID stays the same. If the same person runs for multiple offices — for example, a House candidate runs for a Senate office — that candidate will get a unique ID for each office.
-
-The candidate endpoints primarily use data from FEC registration Form 1, for candidate information, and Form 2, for committees information, with additional information to provide context.
+OpenFEC Documentation: This endpoint provides information about a committee's Form 3, Form 3X, or Form 3P financial reports, which are aggregated by two-year period. We refer to two-year periods as a cycle.
 }
