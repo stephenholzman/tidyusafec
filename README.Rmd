@@ -28,7 +28,7 @@ devtools::install_github("stephenholzman/tidyfec")
 
 ## Examples
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 library(tidyfec)
 library(tidyverse)
 
