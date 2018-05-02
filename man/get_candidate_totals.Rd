@@ -31,7 +31,7 @@ get_candidate_totals(data, data_structure = "tidy", candidate_ids = NULL,
 \item{api_key}{API key for https://api.data.gov. Get one at https://api.data.gov/signup.}
 }
 \description{
-tidyfec Documentation: Get financial totals.
+Get financial totals.
 }
 \details{
 OpenFEC Documentation: This endpoint provides information about a committee's Form 3, Form 3X, or Form 3P financial reports, which are aggregated by two-year period. We refer to two-year periods as a cycle.
