@@ -32,8 +32,9 @@ devtools::install_github("stephenholzman/tidyfec")
 library(tidyfec)
 library(tidyverse)
 
-#data_gov_api_key("api-key-string")
 #install api key
+#data_gov_api_key("api-key-string")
+
 
 df <- search_candidates(state = "VA", district = "10", office = "H", election_year = "2018") %>%
   get_candidate_totals() %>%

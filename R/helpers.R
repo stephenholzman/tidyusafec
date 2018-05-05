@@ -1,4 +1,4 @@
-#Note: This code is lifted from Kyle Walker's tidycensus package (MIT License).
+#Note: The code for data_gov_api_key is lifted from Kyle Walker's tidycensus package (MIT License).
 
 data_gov_api_key <- function (key, overwrite = FALSE, install = FALSE)
 {

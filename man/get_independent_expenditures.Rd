@@ -60,5 +60,5 @@ get_independent_expenditures(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
 \item{line_number}{Filter for form and line number using the following format: FORM-LINENUMBER. For example an argument such as F3X-16 would filter down to all entries from form F3X line number 16.}
 }
 \description{
-Get specific line item expenditures for indepdendent expenditures. Schedule E covers "outside spending".
+Get specific line item expenditures for independent expenditures. Schedule E covers "outside spending".
 }

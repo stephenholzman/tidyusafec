@@ -4,12 +4,12 @@
 \alias{get_openfec}
 \title{Make a request to the OpenFEC API}
 \usage{
-get_openfec(path, query = list())
+get_openfec(path, query_parameters = list())
 }
 \arguments{
 \item{path}{A character string of the OpenFEC endpoint.}
 
-\item{query}{A list with values of the parameters to use in the request.}
+\item{query_parameters}{A list with values of the parameters to use in the request.}
 }
 \description{
 Constructs a full URL and sends a GET request to the OpenFEC API. Returns the JSON response as a list if successful. OpenFEC ends points and parameters are documented at https://api.open.fec.gov/developers/.

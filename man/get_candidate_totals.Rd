@@ -4,17 +4,17 @@
 \alias{get_candidate_totals}
 \title{Get Financial Totals for Candidates}
 \usage{
-get_candidate_totals(data, data_structure = "tidy", candidate_ids = NULL,
+get_candidate_totals(data, data_structure = "tidy", candidate_id = NULL,
   sort_null_only = NULL, cycle = NULL, sort = NULL, designation = NULL,
   type = NULL, full_election = TRUE,
   api_key = Sys.getenv("DATAGOV_API_KEY"))
 }
 \arguments{
-\item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_ids is required.}
+\item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_id is required.}
 
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
 
-\item{candidate_ids}{A character vector of candidate ids to get financial totals for. Either this argument or a dataframe containing a column called 'candidate_id' passed in the 'data' argument is required.}
+\item{candidate_id}{A character vector of candidate ids to get financial totals for. Either this argument or a dataframe containing a column called 'candidate_id' passed in the 'data' argument is required.}
 
 \item{sort_null_only}{Toggle that filters out all rows having sort column that is non-null.}
 
@@ -35,4 +35,9 @@ Get financial totals.
 }
 \details{
 OpenFEC Documentation: This endpoint provides information about a committee's Form 3, Form 3X, or Form 3P financial reports, which are aggregated by two-year period. We refer to two-year periods as a cycle.
+}
+\examples{
+
+
+
 }
