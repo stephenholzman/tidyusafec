@@ -65,7 +65,7 @@ get_candidate_totals <- function(
 
   for(c_id in candidate_id){
 
-    Sys.sleep(.5) #With an upgraded key, max limit is 120 calls per minute.
+    Sys.sleep(.5) #With an upgraded key, max limit is 120 calls per minute. May be giving up a little performance for now in favor of being nice to FEC servers.
     message("Getting totals for: ", c_id)
 
     query_parameters <- list(
@@ -157,7 +157,9 @@ get_candidate_totals <- function(
       all_other_loans = map_dbl(. , "all_other_loans", .default = NA)
     ) %>%
     gather(key = "type_of_funds", value = "amount",
-           loan_repayments, last_net_operating_expenditures, transfers_from_other_authorized_committee,
+           loan_repayments,
+           last_net_operating_expenditures,
+           transfers_from_other_authorized_committee,
            receipts, offsets_to_fundraising_expenditures,
            other_receipts,
            candidate_contribution,
@@ -193,7 +195,7 @@ get_candidate_totals <- function(
            all_other_loans)
 
   if("candidate_id" %in% names(data)){
-    tidy_candidates <- left_join(tidy_candidates, data, by =c ("candidate_id" = "candidate_id"))
+    tidy_candidates <- left_join(tidy_candidates, data, by = c("candidate_id" = "candidate_id"))
   }
 
   object_to_return <- list(
