@@ -21,17 +21,18 @@ Examples
 library(tidyfec)
 library(tidyverse)
 
-#data_gov_api_key("api-key-string")
 #install api key
+#data_gov_api_key("api-key-string")
+
 
 df <- search_candidates(state = "VA", district = "10", office = "H", election_year = "2018") %>%
-  get_candidate_totals() %>%
-  filter(type_of_funds %in% tidyfec_filters$top_level, cycle == "2018") %>%
-  separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right")
+  get_candidate_totals()
 
-df  %>%
+df %>% filter(type_of_funds %in% tidyfec_filters$candidate_totals$type_of_funds$top_level, cycle == "2018") %>%
+  separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right") %>%
+  arrange(-desc(amount)) %>%
   ggplot() +
-  geom_bar(aes(x = last_name, y = amount), stat = "identity") +
+  geom_bar(aes(x = forcats::as_factor(last_name), y = amount), stat = "identity") +
   facet_wrap(~type_of_funds) +
   scale_y_continuous(labels = scales::dollar) +
   coord_flip() +
