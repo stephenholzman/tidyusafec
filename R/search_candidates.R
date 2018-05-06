@@ -102,7 +102,7 @@ search_candidates <- function(
 
     for(i in 2:total_pages){
 
-      if(i == 1 | i %% 10 == 0 | i == total_pages){
+      if(i == 2 | i %% 10 == 0 | i == total_pages){
         message("On page ", i,"/",total_pages)
       }
 
