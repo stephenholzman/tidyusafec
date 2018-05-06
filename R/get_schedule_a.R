@@ -351,3 +351,6 @@ get_itemized_contributions <- function(
 # tidy_donations %>%
 #   ggplot() +
 #   geom_boxplot(mapping = aes(x = contribution_receipt_date, y = contribution_receipt_amount))
+
+#' @rdname get_itemized_contributions
+get_schedule_a <- get_itemized_contributions
