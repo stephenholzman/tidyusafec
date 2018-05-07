@@ -63,7 +63,7 @@ get_itemized_contributions <- function(
   max_amount = NULL,
   committee_id = NULL,
   last_contribution_receipt_amount = NULL,
-  is_individual = TRUE,
+  is_individual = NULL,
   max_image_number = NULL,
   two_year_transaction_period = NULL,
   line_number = NULL
