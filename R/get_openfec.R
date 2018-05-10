@@ -28,14 +28,14 @@ get_openfec <- function(path, query_parameters = list()) {
       if(!is.null(parsed_response$message)){
         sprintf(
           "OpenFEC API request failed. [%s]\n%s\n<%s>",
-          status_code(response),
+          httr::status_code(response),
           paste0("OpenFEC message: ", parsed_response$message),
           response$url
         )
       }else{
         sprintf(
           "OpenFEC API request failed. [%s]\n%s\n%s\n<%s>",
-          status_code(response),
+          httr::status_code(response),
           paste0("OpenFEC code: ", parsed_response$error$code),
           paste0("OpenFEC message: ", parsed_response$error$message),
           response$url

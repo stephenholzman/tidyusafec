@@ -4,9 +4,10 @@
 \alias{get_itemized_disbursements}
 \title{Get Itemized Campaign Disbursements}
 \usage{
-get_itemized_disbursements(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
-  data_structure = "tidy", recipient_state = NULL, sort_null_only = NULL,
-  recipient_city = NULL, sort_hide_null = NULL, max_date = NULL,
+get_itemized_disbursements(data = NULL,
+  api_key = Sys.getenv("DATAGOV_API_KEY"), data_structure = "tidy",
+  recipient_state = NULL, sort_null_only = NULL, recipient_city = NULL,
+  sort_hide_null = NULL, max_date = NULL,
   disbursement_purpose_category = NULL, last_disbursement_amount = NULL,
   recipient_name = NULL, sort = NULL, min_amount = NULL,
   min_date = NULL, last_disbursement_date = NULL, min_image_number = NULL,

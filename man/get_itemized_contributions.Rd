@@ -15,7 +15,7 @@ get_itemized_contributions(data = NULL,
   contributor_zip = NULL, min_date = NULL, contributor_state = NULL,
   min_image_number = NULL, last_contributor_aggregate_ytd = NULL,
   image_number = NULL, max_amount = NULL, committee_id = NULL,
-  last_contribution_receipt_amount = NULL, is_individual = TRUE,
+  last_contribution_receipt_amount = NULL, is_individual = NULL,
   max_image_number = NULL, two_year_transaction_period = NULL,
   line_number = NULL)
 
@@ -29,7 +29,7 @@ get_schedule_a(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   contributor_state = NULL, min_image_number = NULL,
   last_contributor_aggregate_ytd = NULL, image_number = NULL,
   max_amount = NULL, committee_id = NULL,
-  last_contribution_receipt_amount = NULL, is_individual = TRUE,
+  last_contribution_receipt_amount = NULL, is_individual = NULL,
   max_image_number = NULL, two_year_transaction_period = NULL,
   line_number = NULL)
 }
