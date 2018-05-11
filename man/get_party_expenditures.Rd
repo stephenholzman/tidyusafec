@@ -5,14 +5,14 @@
 \alias{get_schedule_f}
 \title{Get Party Expenditures for Federal Candidates}
 \usage{
-get_party_expenditures(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
+get_party_expenditures(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", payee_name = NULL, cycle = NULL,
   sort_null_only = NULL, sort_hide_null = NULL, max_date = NULL,
   candidate_id = NULL, sort = NULL, min_amount = NULL, min_date = NULL,
   min_image_number = NULL, image_number = NULL, max_amount = NULL,
   committee_id = NULL, max_image_number = NULL, line_number = NULL)
 
-get_schedule_f(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
+get_schedule_f(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", payee_name = NULL, cycle = NULL,
   sort_null_only = NULL, sort_hide_null = NULL, max_date = NULL,
   candidate_id = NULL, sort = NULL, min_amount = NULL, min_date = NULL,
