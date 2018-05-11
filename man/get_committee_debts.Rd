@@ -5,7 +5,7 @@
 \alias{get_schedule_d}
 \title{Get Debts Owed}
 \usage{
-get_committee_debts(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
+get_committee_debts(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", min_amount_incurred = NULL,
   min_payment_period = NULL, max_payment_period = NULL,
   creditor_debtor_name = NULL, sort_null_only = NULL,
@@ -15,7 +15,7 @@ get_committee_debts(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
   image_number = NULL, max_amount = NULL, committee_id = NULL,
   max_image_number = NULL, line_number = NULL)
 
-get_schedule_d(data, api_key = Sys.getenv("DATAGOV_API_KEY"),
+get_schedule_d(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", min_amount_incurred = NULL,
   min_payment_period = NULL, max_payment_period = NULL,
   creditor_debtor_name = NULL, sort_null_only = NULL,
