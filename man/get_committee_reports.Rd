@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_committee_reports.R
 \name{get_committee_reports}
 \alias{get_committee_reports}
-\title{Title}
+\title{Get Committee Reports}
 \usage{
 get_committee_reports(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", committee_id = NULL, sort_null_only = NULL,
@@ -25,6 +25,8 @@ get_committee_reports(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
 \item{api_key}{api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.}
 
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
+
+\item{committee_id}{A unique identifier assigned to each committee or filer registered with the FEC. In general committee id's begin with the letter C which is followed by eight digits.}
 
 \item{sort_null_only}{Toggle that filters out all rows having sort column that is non-null}
 
@@ -121,8 +123,36 @@ Supplement
 - Y party, qualified
 - Z national party non-federal account}
 
-\item{min_total_contributions}{}
+\item{is_amended}{Report has been amended}
+
+\item{max_independent_expenditures}{Filter for all amounts less than a value.}
+
+\item{cycle}{Filter records to only those that were applicable to a given two-year period.The cycle begins with an odd year and is named for its ending, even year.}
+
+\item{candidate_id}{A unique identifier assigned to each candidate registered with the FEC. If a person runs for several offices, that person will have separate candidate IDs for each office.}
+
+\item{min_disbursements_amount}{Filter for all amounts greater than a value.}
+
+\item{min_receipts_amount}{Filter for all amounts greater than a value.}
+
+\item{max_receipts_amount}{Filter for all amounts less than a value.}
+
+\item{sort}{Provide a field to sort by. Use - for descending order.}
+
+\item{max_disbursements_amount}{Filter for all amounts less than a value.}
+
+\item{min_party_coordinated_expenditures}{Filter for all amounts greater than a value.}
+
+\item{max_debts_owed_expenditures}{Filter for all amounts less than a value.}
+
+\item{max_party_coordinated_expenditures}{Filter for all amounts less than a value.}
+
+\item{min_total_contributions}{Filter for all amounts greater than a value.}
 }
 \description{
-Title
+Each report represents the summary information from FEC Form 3, Form 3X and Form 3P. These reports have key statistics that illuminate the financial status of a given committee. Things like cash on hand, debts owed by committee, total receipts, and total disbursements are especially helpful for understanding a committee's financial dealings.
+}
+\details{
+By default, this endpoint includes both amended and final versions of each report. To restrict to only the final versions of each report, use is_amended=false; to view only reports that have been amended, use is_amended=true.
+Several different reporting structures exist, depending on the type of organization that submits financial information. To see an example of these reporting requirements, look at the summary and detailed summary pages of FEC Form 3, Form 3X, and Form 3P.
 }
