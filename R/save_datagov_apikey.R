@@ -1,4 +1,4 @@
-#Note: The code for data_gov_api_key is lifted from Kyle Walker's tidycensus package (MIT License).
+#Note: The code for save_datagov_apikey is lifted from Kyle Walker's tidycensus package (MIT License).
 
 #' Save a data.gov API key
 #'
@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-data_gov_api_key <- function (key, overwrite = FALSE, install = FALSE)
+save_datagov_apikey <- function (key, overwrite = FALSE, install = FALSE)
 {
   if (install) {
     home <- Sys.getenv("HOME")
