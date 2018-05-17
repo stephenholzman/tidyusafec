@@ -10,7 +10,7 @@ get_openfec <- function(path, query_parameters = list()) {
   #Wrangle the list to turn queries with multiple arguments in a vector into a compatible list with multiple items in the list with the same name.
   query_parameters <- query_parameters %>% unlist()
 
-  names(query_parameters) <- str_remove_all(names(query_parameters), pattern = '[0123456789]')
+  names(query_parameters) <- stringr::str_remove_all(names(query_parameters), pattern = '[0123456789]')
 
   query_parameters <- as.list(query_parameters)
 

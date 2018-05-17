@@ -27,7 +27,15 @@
 #' @param min_first_file_date Selects all candidates whose first filing was received by the FEC after this date
 #' @param sort Provide a field to sort by. Use - for descending order.
 #' @param district Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.
-
+#'
+#' @import purrr dplyr
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#'
+#'
 search_candidates <- function(
   data_structure = 'tidy',
   candidate_id = NULL,
@@ -125,7 +133,7 @@ search_candidates <- function(
 
   tidy_candidates <- purrr::map(responses, function(x) x$parsed$results) %>%
     unlist(recursive = F) %>%
-    tibble(
+    tibble::tibble(
       load_date = map_chr(. , "load_date", .default = NA),
       last_file_date = map_chr(. , "last_file_date", .default = NA),
       candidate_id = map_chr(. , "candidate_id", .default = NA),

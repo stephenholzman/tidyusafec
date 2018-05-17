@@ -63,3 +63,8 @@ Each result reflects a unique FEC candidate ID. That ID is assigned to the candi
 
 The candidate endpoints primarily use data from FEC registration Form 1, for candidate information, and Form 2, for committees information, with additional information to provide context.
 }
+\examples{
+
+
+
+}

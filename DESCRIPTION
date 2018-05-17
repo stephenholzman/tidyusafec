@@ -16,4 +16,7 @@ Imports:
   dplyr,
   tidyr,
   purrr,
+  stringr,
   tibble
+Suggests: 
+    testthat
