@@ -1,5 +1,5 @@
 ---
-title: "tidyfec Search Functions"
+title: "Search Functions"
 author: "Stephen Holzman"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
