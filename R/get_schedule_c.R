@@ -232,6 +232,6 @@ get_itemized_loans <- function(
 
 }
 
-#' @rdname get_committee_loans
+#' @rdname get_itemized_loans
 #' @export
 get_schedule_c <- get_itemized_loans

@@ -122,6 +122,17 @@
   <span class='kw'>image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>recipient_committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>disbursement_description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>two_year_transaction_period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>line_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>get_schedule_b</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>),
+  <span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>, <span class='kw'>recipient_state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>recipient_city</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>disbursement_purpose_category</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_disbursement_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>recipient_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_disbursement_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>recipient_committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>disbursement_description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>two_year_transaction_period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>line_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>

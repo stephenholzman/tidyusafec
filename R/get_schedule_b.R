@@ -265,7 +265,7 @@ get_itemized_disbursements <- function(
   }
 }
 
-#' @rdname get_schedule_b
+#' @rdname get_itemized_disbursements
 #' @export
 
 get_schedule_b <- get_itemized_disbursements

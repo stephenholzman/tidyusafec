@@ -231,6 +231,6 @@ get_itemized_debts <- function(
 
 }
 
-#' @rdname get_committee_debts
+#' @rdname get_itemized_debts
 #' @export
 get_schedule_d <- get_itemized_debts

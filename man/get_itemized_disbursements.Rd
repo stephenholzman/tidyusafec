@@ -2,12 +2,24 @@
 % Please edit documentation in R/get_schedule_b.R
 \name{get_itemized_disbursements}
 \alias{get_itemized_disbursements}
+\alias{get_schedule_b}
 \title{Get Itemized Campaign Disbursements}
 \usage{
 get_itemized_disbursements(data = NULL,
   api_key = Sys.getenv("DATAGOV_API_KEY"), data_structure = "tidy",
   recipient_state = NULL, sort_null_only = NULL, recipient_city = NULL,
   sort_hide_null = NULL, max_date = NULL,
+  disbursement_purpose_category = NULL, last_disbursement_amount = NULL,
+  recipient_name = NULL, sort = NULL, min_amount = NULL,
+  min_date = NULL, last_disbursement_date = NULL, min_image_number = NULL,
+  image_number = NULL, max_amount = NULL, recipient_committee_id = NULL,
+  committee_id = NULL, max_image_number = NULL,
+  disbursement_description = NULL, two_year_transaction_period = NULL,
+  line_number = NULL)
+
+get_schedule_b(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
+  data_structure = "tidy", recipient_state = NULL, sort_null_only = NULL,
+  recipient_city = NULL, sort_hide_null = NULL, max_date = NULL,
   disbursement_purpose_category = NULL, last_disbursement_amount = NULL,
   recipient_name = NULL, sort = NULL, min_amount = NULL,
   min_date = NULL, last_disbursement_date = NULL, min_image_number = NULL,

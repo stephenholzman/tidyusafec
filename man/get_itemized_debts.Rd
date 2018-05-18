@@ -2,9 +2,20 @@
 % Please edit documentation in R/get_schedule_d.R
 \name{get_itemized_debts}
 \alias{get_itemized_debts}
+\alias{get_schedule_d}
 \title{Get Debts Owed}
 \usage{
 get_itemized_debts(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
+  data_structure = "tidy", min_amount_incurred = NULL,
+  min_payment_period = NULL, max_payment_period = NULL,
+  creditor_debtor_name = NULL, sort_null_only = NULL,
+  nature_of_debt = NULL, sort_hide_null = NULL, max_date = NULL,
+  candidate_id = NULL, max_amount_incurred = NULL, sort = NULL,
+  min_amount = NULL, min_date = NULL, min_image_number = NULL,
+  image_number = NULL, max_amount = NULL, committee_id = NULL,
+  max_image_number = NULL, line_number = NULL)
+
+get_schedule_d(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", min_amount_incurred = NULL,
   min_payment_period = NULL, max_payment_period = NULL,
   creditor_debtor_name = NULL, sort_null_only = NULL,
