@@ -30,7 +30,7 @@
 #' @examples
 #'
 #'
-get_committee_loans <- function(
+get_itemized_loans <- function(
   data = NULL,
   api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy",
@@ -233,5 +233,5 @@ get_committee_loans <- function(
 }
 
 #' @rdname get_committee_loans
-#'
-get_schedule_c <- get_committee_loans
+#' @export
+get_schedule_c <- get_itemized_loans

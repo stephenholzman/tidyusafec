@@ -255,5 +255,5 @@ get_independent_expenditures <- function(
 }
 
 #' @rdname get_independent_expenditures
-#'
+#' @export
 get_schedule_e <- get_independent_expenditures

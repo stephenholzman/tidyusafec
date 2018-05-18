@@ -111,8 +111,28 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-searching" class="hasAnchor"><a href="#section-searching" class="anchor"></a>Searching</h2>
+          <p class="section-desc"><p>Used to search FEC records.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="search_candidates.html">search_candidates()</a></code> </p>
+        </td>
+        <td><p>Search FEC records for Candidates</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="search_elections.html">search_elections()</a></code> </p>
+        </td>
+        <td><p>Search For Elections</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-get-aggregated-data" class="hasAnchor"><a href="#section-get-aggregated-data" class="anchor"></a>Get Aggregated Data</h2>
+          <p class="section-desc"><p>Used to get top level data about candidates, committees, or elections.</p></p>
         </th>
       </tr>
       <tr>
@@ -124,28 +144,24 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="get_committee_debts.html">get_committee_debts()</a></code> <code><a href="get_committee_debts.html">get_schedule_d()</a></code> </p>
-        </td>
-        <td><p>Get Debts Owed</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="get_committee_loans.html">get_committee_loans()</a></code> <code><a href="get_committee_loans.html">get_schedule_c()</a></code> </p>
-        </td>
-        <td><p>Get Loans</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="get_committee_reports.html">get_committee_reports()</a></code> </p>
         </td>
         <td><p>Get Committee Reports</p></td>
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="get_independent_expenditures.html">get_independent_expenditures()</a></code> <code><a href="get_independent_expenditures.html">get_schedule_e()</a></code> </p>
+          <p><code><a href="get_election_summary.html">get_election_summary()</a></code> </p>
         </td>
-        <td><p>Get line item expenditures for independent expenditures.</p></td>
-      </tr><tr>
+        <td><p>Get Election Summary</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-get-itemized-data" class="hasAnchor"><a href="#section-get-itemized-data" class="anchor"></a>Get Itemized Data</h2>
+          <p class="section-desc"><p>Used to get itemized data for committees.</p></p>
+        </th>
+      </tr>
+      <tr>
         <!--  -->
         <td>
           <p><code><a href="get_itemized_contributions.html">get_itemized_contributions()</a></code> <code><a href="get_itemized_contributions.html">get_schedule_a()</a></code> </p>
@@ -160,16 +176,36 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="get_openfec.html">get_openfec()</a></code> </p>
+          <p><code><a href="get_itemized_loans.html">get_itemized_loans()</a></code> </p>
         </td>
-        <td><p>Make a request to the OpenFEC API</p></td>
+        <td><p>Get Loans</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_itemized_debts.html">get_itemized_debts()</a></code> </p>
+        </td>
+        <td><p>Get Debts Owed</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_independent_expenditures.html">get_independent_expenditures()</a></code> <code><a href="get_independent_expenditures.html">get_schedule_e()</a></code> </p>
+        </td>
+        <td><p>Get line item expenditures for independent expenditures.</p></td>
       </tr><tr>
         <!--  -->
         <td>
           <p><code><a href="get_party_expenditures.html">get_party_expenditures()</a></code> <code><a href="get_party_expenditures.html">get_schedule_f()</a></code> </p>
         </td>
         <td><p>Get Party Expenditures for Federal Candidates</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-utility-functions" class="hasAnchor"><a href="#section-utility-functions" class="anchor"></a>Utility Functions</h2>
+          <p class="section-desc"><p>Functions for setting up workflows.</p></p>
+        </th>
+      </tr>
+      <tr>
         <!--  -->
         <td>
           <p><code><a href="save_datagov_apikey.html">save_datagov_apikey()</a></code> </p>
@@ -178,15 +214,9 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="search_candidates.html">search_candidates()</a></code> </p>
+          <p><code><a href="get_openfec.html">get_openfec()</a></code> </p>
         </td>
-        <td><p>Search FEC records for Candidates</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="search_elections.html">search_elections()</a></code> </p>
-        </td>
-        <td><p>Search For Elections</p></td>
+        <td><p>Make a request to the OpenFEC API</p></td>
       </tr>
     </tbody>
     </table>
@@ -195,7 +225,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-searching">Searching</a></li>
+      <li><a href="#section-get-aggregated-data">Get Aggregated Data</a></li>
+      <li><a href="#section-get-itemized-data">Get Itemized Data</a></li>
+      <li><a href="#section-utility-functions">Utility Functions</a></li>
     </ul>
   </div>
 </div>

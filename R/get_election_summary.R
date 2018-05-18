@@ -1,3 +1,19 @@
+#' Get Election Summary
+#'
+#' @param data A dataframe or tibble. Usually this will be the returned result of search_elections(). If columns called cycle, office, district, and state are in the table, . Either this argument or candidate_id is required.
+#' @param data_structure A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.
+#' @param api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.
+#' @param district Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.
+#' @param cycle Two-year election cycle in which a candidate runs for office. Calculated from FEC Form 2. The cycle begins with an odd year and is named for its ending, even year. This cycle follows the traditional house election cycle and subdivides the presidential and Senate elections into comparable two-year blocks. To see data for the entire four years of a presidential term or six years of a senatorial term, you will need the election_full flag.
+#' @param office Federal office candidate runs for: H, S or P
+#' @param election_full Aggregate values over full election period
+#' @param state US state or territory where a candidate runs for office
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
 get_election_summary <- function(
   data = NULL,
   data_structure = "tidy",

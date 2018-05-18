@@ -282,4 +282,5 @@ get_itemized_contributions <- function(
 }
 
 #' @rdname get_itemized_contributions
+#' @export
 get_schedule_a <- get_itemized_contributions

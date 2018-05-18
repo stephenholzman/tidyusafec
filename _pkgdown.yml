@@ -1,0 +1,37 @@
+reference:
+  - title: "Searching"
+    desc: >
+      Used to search FEC records.
+    contents:
+      - search_candidates
+      - search_elections
+  - title: "Get Aggregated Data"
+    desc: >
+      Used to get top level data about candidates, committees, or elections.
+    contents:
+      - get_candidate_totals
+      - get_committee_reports
+      - get_election_summary
+  - title: "Get Itemized Data"
+    desc: >
+      Used to get itemized data for committees.
+    contents:
+      - get_schedule_a
+      - get_itemized_contributions
+      - get_schedule_b
+      - get_itemized_disbursements
+      - get_schedule_c
+      - get_itemized_loans
+      - get_schedule_d
+      - get_itemized_debts
+      - get_schedule_e
+      - get_independent_expenditures
+      - get_schedule_f
+      - get_party_expenditures
+  - title: "Utility Functions"
+    desc: >
+      Functions for setting up workflows.
+    contents:
+      - save_datagov_apikey
+      - get_openfec
+

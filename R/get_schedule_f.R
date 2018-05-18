@@ -232,5 +232,5 @@ get_party_expenditures <- function(
 }
 
 #' @rdname get_party_expenditures
-#'
+#' @export
 get_schedule_f <- get_party_expenditures
