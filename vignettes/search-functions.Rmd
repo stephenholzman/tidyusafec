@@ -1,0 +1,73 @@
+---
+title: "tidyfec Search Functions"
+author: "Stephen Holzman"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tidyfec Search Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The tidyfec workflow typically starts by searching for some group of candidates, committees, or elections using one of the search functions.
+
+- `search_candidates()` by default currently returns a tibble with information about candidates and their committees (one row for each unique pair)
+- `search_elections()` by default currently returns a tibble with information about elections, including the incumbent candidate if applicable.
+
+These functions send queries to the OpenFEC API, so you also need to register for a key.
+
+#### Setup Libraries and API Keys
+
+```{r}
+library(tidyverse)
+library(tidyfec)
+
+#save_datagov_apikey(key = "DATA.GOV KEY STRING")
+```
+
+
+## search_candidates()
+
+A variety of search criteria are supported. Perhaps you want to find all candidates in a particular race, the committee ids of a candidate by their name, all candidates of a party in a particular state, or some other combination. Some examples are below and documentation for each argument can be accessed in RStudio using `?search_candidates`. 
+
+#### Search for Candidates Currently in a Particular Race
+
+```{r}
+va_10_house_candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "10", candidate_status = "C")
+
+head(va_10_house_candidates)
+```
+
+
+#### Search For Candidate by Name
+
+```{r}
+obamas <- search_candidates(name = "Obama")
+
+head(obamas)
+```
+
+#### Search for All Candidates of a Party in a State
+
+```{r}
+texas_republicans <- search_candidates(state = "VA", party = "REP", election_year = 2018)
+
+head(texas_republicans)
+```
+
+#### Search for All Candidates Running for Senate
+
+```{r}
+senate_candidates <- search_candidates(election_year = 2018, office = "S", candidate_status = "C")
+
+head(senate_candidates)
+```
+
+

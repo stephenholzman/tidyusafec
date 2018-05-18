@@ -4,6 +4,7 @@
 #' @param path A character string of the OpenFEC endpoint.
 #' @param query_parameters A list with values of the parameters to use in the request.
 #'
+#' @export
 
 get_openfec <- function(path, query_parameters = list()) {
 

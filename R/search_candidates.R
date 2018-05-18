@@ -179,7 +179,13 @@ search_candidates <- function(
     #We want to unnest the principal committees so we have a row for every canidate-committee pair, but keep some other lists preserved (for now at least. Eventually need to check info about committees to narrow these down further).
     tidyr::unnest(principal_committees, .preserve = c("election_years", "cycles", "election_districts")) %>%
     mutate(committee_id = map_chr(principal_committees, function(x) x$committee_id),
-           committee_name = map_chr(principal_committees, function(x) x$name))
+           committee_name = map_chr(principal_committees, function(x) x$name),
+           treasurer_name = map_chr(principal_committees, function(x) x$treasurer_name),
+           earliest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% min()),
+           latest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% max()),
+           earliest_election_year = map_int(election_years, function(x) x %>% unlist() %>% min()),
+           latest_election_year = map_int(election_years, function(x) x %>% unlist() %>% max())
+           )
 
   message("Total Principal Committees associated with these candidates: ",length(levels(as.factor(tidy_candidates$committee_id))))
 
