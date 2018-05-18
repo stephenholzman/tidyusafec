@@ -15,7 +15,7 @@ search_candidates(data_structure = "tidy", candidate_id = NULL,
 \arguments{
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
 
-\item{candidate_id}{A character string of the OpenFEC endpoint.}
+\item{candidate_id}{A unique identifier assigned to each candidate registered with the FEC. If a person runs for several offices, that person will have separate candidate IDs for each office.}
 
 \item{name}{Name (candidate or committee) to search for.}
 

@@ -8,7 +8,7 @@
 #'
 #' The candidate endpoints primarily use data from FEC registration Form 1, for candidate information, and Form 2, for committees information, with additional information to provide context.
 #' @param data_structure A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.
-#' @param candidate_id A character string of the OpenFEC endpoint.
+#' @param candidate_id A unique identifier assigned to each candidate registered with the FEC. If a person runs for several offices, that person will have separate candidate IDs for each office.
 #' @param name Name (candidate or committee) to search for.
 #' @param max_first_file_date Selects all candidates whose first filing was received by the FEC before this date.
 #' @param year See records pertaining to a particular election year. The list of election years is based on a candidate filing a statement of candidacy (F2) for that year.
