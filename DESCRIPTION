@@ -1,10 +1,10 @@
-Package: tidyfec
+Package: tidyusafec
 Type: Package
-Title: Get Campaign Finance Data from the FEC
+Title: Get Campaign Finance Data into R. tidyusafec uses the OpenFEC API.
 Version: 0.1.0
 Authors@R: person("Stephen","Holzman", role = c("aut", "cre"), email = "stephen@chartsoncharts.com")
 Maintainer: Stephen Holzman <stephen@chartsoncharts.com>
-Description: The tidyfec package works with the OpenFEC API to get campaign finance data in tidy format directly inside R. For advanced usage where tidy format isn't appropriate, you can use this package as a wrapper for the full API.
+Description: The tidyusafec package works with the OpenFEC API to get campaign finance data in tidy format directly inside R. For advanced usage where tidy format isn't appropriate, you can use this package as a wrapper for the full API.
 License: MIT
 Encoding: UTF-8
 LazyData: true
