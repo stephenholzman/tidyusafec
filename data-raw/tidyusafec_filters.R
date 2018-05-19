@@ -1,4 +1,4 @@
-tidyfec_filters <- list(
+tidyusafec_filters <- list(
   candidate_totals = list(
     type_of_funds = list(
       top_level = c(
@@ -25,7 +25,7 @@ tidyfec_filters <- list(
   )
 )
 
-usethis::use_data(tidyfec_filters, overwrite = TRUE)
+usethis::use_data(tidyusafec_filters, overwrite = TRUE)
 # loan_repayments,
 # last_net_operating_expenditures,
 # transfers_from_other_authorized_committee,

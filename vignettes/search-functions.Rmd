@@ -4,7 +4,7 @@ author: "Stephen Holzman"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tidyfec Search Functions}
+  %\VignetteIndexEntry{Search Functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The tidyfec workflow typically starts by searching for some group of candidates, committees, or elections using one of the search functions.
+The tidyusafec workflow typically starts by searching for some group of candidates, committees, or elections using one of the search functions.
 
 - `search_candidates()` by default currently returns a tibble with information about candidates and their committees (one row for each unique pair)
 - `search_elections()` by default currently returns a tibble with information about elections, including the incumbent candidate if applicable.
@@ -27,7 +27,7 @@ These functions send queries to the OpenFEC API, so you also need to register fo
 
 ```{r}
 library(tidyverse)
-library(tidyfec)
+library(tidyusafec)
 
 #save_datagov_apikey(key = "DATA.GOV KEY STRING")
 ```

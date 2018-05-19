@@ -1,6 +1,6 @@
 library(testthat)
 library(tidyverse)
-library(tidyfec)
+library(tidyusafec)
 library(purrr)
 
-test_check("tidyfec")
+test_check("tidyusafec")
