@@ -16,7 +16,7 @@ get_openfec <- function(path, query_parameters = list()) {
   query_parameters <- as.list(query_parameters)
 
   #Set user agent
-  useragent <- httr::user_agent("https://github.com/stephenholzman/tidyfec")
+  useragent <- httr::user_agent("https://github.com/stephenholzman/tidyusafec")
 
   url <- httr::modify_url('https://api.open.fec.gov/', path = paste0("/v1",path), query = query_parameters)
 
