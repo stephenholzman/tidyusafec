@@ -18,8 +18,10 @@ Imports:
   purrr,
   stringr,
   tibble
-Suggests: 
+Suggests:
     testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/stephenholzman/tidyusafec
+BugReports: https://github.com/stephenholzman/tidyusafec/issues
