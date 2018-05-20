@@ -1,0 +1,147 @@
+---
+title: "Intro"
+author: "Stephen Holzman"
+date: "5/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+tidyusafec is an [R package](https://www.r-project.org/) for accessing campaign finance data through the Federal Election Commission's [OpenFEC API](https://api.open.fec.gov/developers/). It depends on having R installed ([windows](https://cran.r-project.org/bin/windows/base/) | [mac](https://cran.r-project.org/bin/macosx/)), and suggests you also install the integrated development environment [RStudio](https://www.rstudio.com/products/rstudio/download/) if you are just beginning with R. tidyusafec is an independent open source project under MIT license maintained by [Stephen Holzman](github.com/stephenholzman). It is not affiliated with or endorsed by the FEC or any of the other software projects mentioned.
+
+## Installing the tidyusafec R package
+
+Depending on where R packages are hosted, you can install them from inside R with functions. Use `install.packages` to get the `devtools` package from CRAN. Use `install_github` to get `tidyusafec` from the [Github repository](https://github.com/stephenholzman/tidyusafec).
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("stephenholzman/tidyusafec")
+```
+
+Load packages:
+
+```{r}
+library(tidyverse)
+library(tidyusafec)
+```
+
+
+## Registering for an API Key and Saving It
+
+[To facilitate support and prevent abuse, the FEC requires registering for an API key to be sent with every request.](https://api.data.gov/signup/)
+
+tidyusafec makes it easy to send requests to the FEC website's API for data. Some of the functions can realistically trigger thousands of requests spread out over several minutes. Check your email for an API key and substitute it for YOUR_API_KEY inside these quotes:
+
+```{r, eval = FALSE}
+save_datagov_apikey(key = "YOUR_API_KEY")
+```
+
+Running this saves the API Key on your machine so tidyusafec functions can use it automatically.
+
+By default, the FEC limits individuals to 1000 requests every hour. This is probably enough for general use like:
+
+ - 200 candidate-by-election searches leading to 800 requests for an individual candidate's financial totals per hour
+ 
+ - 100,000 itemized contributions per hour.
+ 
+ If you see yourself going over that limit, you can send APIinfo@fec.gov a request for their 120 calls per minute upgrade.
+
+## Start With a Search Function
+
+`search_candidates` is the most common way to begin an analysis. An example search might look like:
+
+```{r}
+va_05_house <- search_candidates(state = "VA",
+                                 district = "05",
+                                 election_year = "2018",
+                                 office = "H")
+
+va_05_house
+```
+
+Each row returned by `search_candidates` contains a unique candidate_id-committee_id pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.
+
+There are 31 columns of various information, some more noteworthy than others.
+
+```{r}
+
+va_05_house %>%
+  select(name, candidate_id, committee_id, committee_name, candidate_status)
+
+```
+
+The functions that get data require these unqiue id variables. `candidate_status` is a notable column to filter on and be aware of. It goes by FEC status according to records filed and processed, not necessarily what candidates have announced about their intentions.
+
+Some filter strategies are below, or you could use `search_candidates` better when you know exactly what you are looking for.
+
+```{r, eval = FALSE}
+
+#Candidates still actively campaigning based on public announcements.
+va_05_house %>%
+  filter(str_detect(name, "COCKBURN|GARRETT"))
+
+#Candidates who are still current as far as the FEC knows.
+va_05_house %>%
+  filter(candidate_status == "C")
+
+#An alternative search if we know we only want current candidates from the start.
+va_05_house <- search_candidates(state = "VA",
+                                 district = "05",
+                                 election_year = "2018",
+                                 office = "H",
+                                 candidate_status = "C")
+
+```
+
+## Get Financial Data
+
+The results of a `search_candidates` can be piped (using `%>%`) into one of the appropriate functions that begin with a `get_` prefix.
+
+As an example, let's first use `search_candidates` to find everyone running for the open senate seat in Texas.
+
+```{r}
+texas_senate <- search_candidates(state = "TX",
+                                  office = "S",
+                                  election_year = "2018",
+                                  candidate_status = "C")
+
+texas_senate
+```
+
+Start by getting financial totals for each candidate.
+
+```{r}
+texas_candidate_totals <- texas_senate %>%
+  get_candidate_totals()
+
+texas_candidate_totals
+```
+
+The tibbles returned by `get_` functions are tidy (except for some list columns that remain while developing the package). This makes it possible to cleanly pipe results into existing tidyverse tools with minimal data wrangling.
+
+```{r}
+texas_candidate_totals %>%
+  filter(type_of_funds == "receipts") %>%
+  ggplot() +
+  geom_bar(aes(x = name, y = amount), stat = "identity") +
+  coord_flip()
+```
+
+There is also a list available in the package `tidyusafec_filters` that contain useful vectors to filter on. For example:
+
+```{r}
+texas_candidate_totals %>%
+  filter(str_detect(name, "CRUZ|BETO"),
+         type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$top_level) %>%
+  mutate(type_of_funds = type_of_funds %>%
+           str_replace_all("_"," ") %>%
+           str_to_title()
+         ) %>%
+  ggplot() +
+  geom_bar(aes(x = type_of_funds, y = amount), stat = "identity") +
+  facet_wrap(~name) +
+  coord_flip()
+```
+

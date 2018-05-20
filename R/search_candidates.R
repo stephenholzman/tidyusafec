@@ -28,7 +28,7 @@
 #' @param sort Provide a field to sort by. Use - for descending order.
 #' @param district Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.
 #'
-#' @import purrr dplyr
+#' @import purrr dplyr magrittr
 #' @return
 #' @export
 #'
