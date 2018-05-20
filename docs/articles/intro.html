@@ -36,10 +36,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../articles/intro.html">Intro</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -52,10 +49,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/search-functions.html">Search Functions</a>
     </li>
     <li>
-      <a href="../articles/search-functions.html">Search Functions</a>
+      <a href="../articles/get-aggregated.html">Get Aggregated Data</a>
+    </li>
+    <li>
+      <a href="../articles/get-itemized.html">Get Itemized Data</a>
+    </li>
+    <li>
+      <a href="../articles/guide-fec-data.html">Guide to FEC Data</a>
+    </li>
+    <li>
+      <a href="../articles/fec-resources.html">FEC Resources</a>
     </li>
   </ul>
 </li>
@@ -92,29 +98,29 @@
     
     
 <p>tidyusafec is an <a href="https://www.r-project.org/">R package</a> for accessing campaign finance data through the Federal Election Commission’s <a href="https://api.open.fec.gov/developers/">OpenFEC API</a>. It depends on having R installed (<a href="https://cran.r-project.org/bin/windows/base/">windows</a> | <a href="https://cran.r-project.org/bin/macosx/">mac</a>), and suggests you also install the integrated development environment <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a> if you are just beginning with R. tidyusafec is an independent open source project under MIT license maintained by <a href="github.com/stephenholzman">Stephen Holzman</a>. It is not affiliated with or endorsed by the FEC or any of the other software projects mentioned.</p>
-<div id="installing-the-tidyusafec-r-package" class="section level2">
+<div id="installing" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installing-the-tidyusafec-r-package" class="anchor"></a>Installing the tidyusafec R package</h2>
+<a href="#installing" class="anchor"></a>1. Installing</h2>
 <p>Depending on where R packages are hosted, you can install them from inside R with functions. Use <code>install.packages</code> to get the <code>devtools</code> package from CRAN. Use <code>install_github</code> to get <code>tidyusafec</code> from the <a href="https://github.com/stephenholzman/tidyusafec">Github repository</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"stephenholzman/tidyusafec"</span>)</code></pre></div>
 <p>Load packages:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.4     
-## ✔ tibble  1.4.2          ✔ dplyr   0.7.4     
-## ✔ tidyr   0.8.0          ✔ stringr 1.3.1     
-## ✔ readr   1.1.1          ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyusafec)</code></pre></div>
-<pre><code>## Warning: replacing previous import 'magrittr::set_names' by
-## 'purrr::set_names' when loading 'tidyusafec'</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="co">#&gt; ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</span>
+<span class="co">#&gt; ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.4     </span>
+<span class="co">#&gt; ✔ tibble  1.4.2          ✔ dplyr   0.7.4     </span>
+<span class="co">#&gt; ✔ tidyr   0.8.0          ✔ stringr 1.3.1     </span>
+<span class="co">#&gt; ✔ readr   1.1.1          ✔ forcats 0.3.0</span>
+<span class="co">#&gt; ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span>
+<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
+<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span>
+<span class="kw">library</span>(tidyusafec)
+<span class="co">#&gt; Warning: replacing previous import 'magrittr::set_names' by</span>
+<span class="co">#&gt; 'purrr::set_names' when loading 'tidyusafec'</span></code></pre></div>
 </div>
-<div id="registering-for-an-api-key-and-saving-it" class="section level2">
+<div id="api-key" class="section level2">
 <h2 class="hasAnchor">
-<a href="#registering-for-an-api-key-and-saving-it" class="anchor"></a>Registering for an API Key and Saving It</h2>
+<a href="#api-key" class="anchor"></a>2. API Key</h2>
 <p><a href="https://api.data.gov/signup/">To facilitate support and prevent abuse, the FEC requires registering for an API key to be sent with every request.</a></p>
 <p>tidyusafec makes it easy to send requests to the FEC website’s API for data. Some of the functions can realistically trigger thousands of requests spread out over several minutes. Check your email for an API key and substitute it for YOUR_API_KEY inside these quotes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/save_datagov_apikey.html">save_datagov_apikey</a></span>(<span class="dt">key =</span> <span class="st">"YOUR_API_KEY"</span>)</code></pre></div>
@@ -126,53 +132,56 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 </ul>
 <p>If you see yourself going over that limit, you can send <a href="mailto:APIinfo@fec.gov">APIinfo@fec.gov</a> a request for their 120 calls per minute upgrade.</p>
 </div>
-<div id="start-with-a-search-function" class="section level2">
+<div id="start-with-a-search" class="section level2">
 <h2 class="hasAnchor">
-<a href="#start-with-a-search-function" class="anchor"></a>Start With a Search Function</h2>
+<a href="#start-with-a-search" class="anchor"></a>3. Start With a Search</h2>
 <p><code>search_candidates</code> is the most common way to begin an analysis. An example search might look like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">va_05_house &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"VA"</span>,
                                  <span class="dt">district =</span> <span class="st">"05"</span>,
                                  <span class="dt">election_year =</span> <span class="st">"2018"</span>,
-                                 <span class="dt">office =</span> <span class="st">"H"</span>)</code></pre></div>
-<pre><code>## Candidates found: 7</code></pre>
-<pre><code>## Total Principal Committees associated with these candidates: 7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">va_05_house</code></pre></div>
-<pre><code>## # A tibble: 7 x 31
-##   .        load_date      last_file_date candidate_id election_years party
-##   &lt;list&gt;   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        &lt;list&gt;         &lt;chr&gt;
-## 1 &lt;list [… 2017-10-16T21… 2017-07-24     H8VA05155    &lt;list [1]&gt;     DEM  
-## 2 &lt;list [… 2017-10-24T21… 2017-07-02     H8VA05148    &lt;list [1]&gt;     DEM  
-## 3 &lt;list [… 2017-05-23T07… 2017-05-16     H6VA05142    &lt;list [2]&gt;     REP  
-## 4 &lt;list [… 2018-01-30T21… 2018-01-29     H8VA05163    &lt;list [1]&gt;     DEM  
-## 5 &lt;list [… 2017-10-01T20… 2017-10-01     H8VA05114    &lt;list [1]&gt;     DEM  
-## 6 &lt;list [… 2017-10-16T21… 2017-05-26     H8VA05130    &lt;list [1]&gt;     DEM  
-## 7 &lt;list [… 2017-09-27T20… 2017-05-17     H8VA05122    &lt;list [1]&gt;     DEM  
-## # ... with 25 more variables: candidate_status &lt;chr&gt;, office_full &lt;chr&gt;,
-## #   state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;, has_raised_funds &lt;lgl&gt;,
-## #   office &lt;chr&gt;, election_districts &lt;list&gt;, name &lt;chr&gt;,
-## #   district_number &lt;int&gt;, cycles &lt;list&gt;, incumbent_challenge &lt;chr&gt;,
-## #   party_full &lt;chr&gt;, first_file_date &lt;chr&gt;, active_through &lt;int&gt;,
-## #   incumbent_challenge_full &lt;chr&gt;, last_f2_date &lt;chr&gt;, district &lt;chr&gt;,
-## #   principal_committees &lt;list&gt;, committee_id &lt;chr&gt;, committee_name &lt;chr&gt;,
-## #   treasurer_name &lt;chr&gt;, earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,
-## #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</code></pre>
-<p>Each row returned by <code>search_candidates</code> contains a unique candidate_id-committee_id pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.</p>
+                                 <span class="dt">office =</span> <span class="st">"H"</span>)
+<span class="co">#&gt; Candidates found: 7</span>
+<span class="co">#&gt; Total Principal Committees associated with these candidates: 7</span>
+
+va_05_house
+<span class="co">#&gt; # A tibble: 7 x 31</span>
+<span class="co">#&gt;   .        load_date      last_file_date candidate_id election_years party</span>
+<span class="co">#&gt;   &lt;list&gt;   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        &lt;list&gt;         &lt;chr&gt;</span>
+<span class="co">#&gt; 1 &lt;list [… 2017-10-16T21… 2017-07-24     H8VA05155    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; 2 &lt;list [… 2017-10-24T21… 2017-07-02     H8VA05148    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; 3 &lt;list [… 2017-05-23T07… 2017-05-16     H6VA05142    &lt;list [2]&gt;     REP  </span>
+<span class="co">#&gt; 4 &lt;list [… 2018-01-30T21… 2018-01-29     H8VA05163    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; 5 &lt;list [… 2017-10-01T20… 2017-10-01     H8VA05114    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; 6 &lt;list [… 2017-10-16T21… 2017-05-26     H8VA05130    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; 7 &lt;list [… 2017-09-27T20… 2017-05-17     H8VA05122    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; # ... with 25 more variables: candidate_status &lt;chr&gt;, office_full &lt;chr&gt;,</span>
+<span class="co">#&gt; #   state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;, has_raised_funds &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   office &lt;chr&gt;, election_districts &lt;list&gt;, name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   district_number &lt;int&gt;, cycles &lt;list&gt;, incumbent_challenge &lt;chr&gt;,</span>
+<span class="co">#&gt; #   party_full &lt;chr&gt;, first_file_date &lt;chr&gt;, active_through &lt;int&gt;,</span>
+<span class="co">#&gt; #   incumbent_challenge_full &lt;chr&gt;, last_f2_date &lt;chr&gt;, district &lt;chr&gt;,</span>
+<span class="co">#&gt; #   principal_committees &lt;list&gt;, committee_id &lt;chr&gt;, committee_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   treasurer_name &lt;chr&gt;, earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,</span>
+<span class="co">#&gt; #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</span></code></pre></div>
+<p>Each row returned by <code>search_candidates</code> contains a unique <code>candidate_id</code> + <code>committee_id</code> pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.</p>
 <p>There are 31 columns of various information, some more noteworthy than others.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">va_05_house <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(name, candidate_id, committee_id, committee_name, candidate_status)</code></pre></div>
-<pre><code>## # A tibble: 7 x 5
-##   name        candidate_id committee_id committee_name    candidate_status
-##   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;           
-## 1 COCKBURN, … H8VA05155    C00650366    LESLIE COCKBURN … C               
-## 2 CULLOP, BE… H8VA05148    C00649020    CULLOP FOR CONGR… C               
-## 3 GARRETT, T… H6VA05142    C00607101    TOM GARRETT FOR … C               
-## 4 GAUGHAN, W… H8VA05163    C00667618    VOTEGAUGHAN       N               
-## 5 HUFFSTETLE… H8VA05114    C00637918    FRIENDS OF RD     C               
-## 6 SLATE, ADAM H8VA05130    C00639153    ADAM SLATE FOR C… C               
-## 7 SNEATHERN,… H8VA05122    C00640698    SNEATHERN FOR CO… C</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+va_05_house <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(name, candidate_id, committee_id, committee_name, candidate_status)
+<span class="co">#&gt; # A tibble: 7 x 5</span>
+<span class="co">#&gt;   name        candidate_id committee_id committee_name    candidate_status</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;           </span>
+<span class="co">#&gt; 1 COCKBURN, … H8VA05155    C00650366    LESLIE COCKBURN … C               </span>
+<span class="co">#&gt; 2 CULLOP, BE… H8VA05148    C00649020    CULLOP FOR CONGR… C               </span>
+<span class="co">#&gt; 3 GARRETT, T… H6VA05142    C00607101    TOM GARRETT FOR … C               </span>
+<span class="co">#&gt; 4 GAUGHAN, W… H8VA05163    C00667618    VOTEGAUGHAN       N               </span>
+<span class="co">#&gt; 5 HUFFSTETLE… H8VA05114    C00637918    FRIENDS OF RD     C               </span>
+<span class="co">#&gt; 6 SLATE, ADAM H8VA05130    C00639153    ADAM SLATE FOR C… C               </span>
+<span class="co">#&gt; 7 SNEATHERN,… H8VA05122    C00640698    SNEATHERN FOR CO… C</span></code></pre></div>
 <p>The functions that get data require these unqiue id variables. <code>candidate_status</code> is a notable column to filter on and be aware of. It goes by FEC status according to records filed and processed, not necessarily what candidates have announced about their intentions.</p>
 <p>Some filter strategies are below, or you could use <code>search_candidates</code> better when you know exactly what you are looking for.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Candidates still actively campaigning based on public announcements.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co">#Candidates still actively campaigning based on public announcements.</span>
 va_05_house <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"COCKBURN|GARRETT"</span>))
 
@@ -189,80 +198,82 @@ va_05_house &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 </div>
 <div id="get-financial-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#get-financial-data" class="anchor"></a>Get Financial Data</h2>
-<p>The results of a <code>search_candidates</code> can be piped (using <code>%&gt;%</code>) into one of the appropriate functions that begin with a <code>get_</code> prefix.</p>
+<a href="#get-financial-data" class="anchor"></a>4. Get Financial Data</h2>
+<p>The results of <code>search_candidates</code> can be piped (using <code>%&gt;%</code>) into one of the appropriate functions that begin with a <code>get_</code> prefix.</p>
 <p>As an example, let’s first use <code>search_candidates</code> to find everyone running for the open senate seat in Texas.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_senate &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"TX"</span>,
                                   <span class="dt">office =</span> <span class="st">"S"</span>,
                                   <span class="dt">election_year =</span> <span class="st">"2018"</span>,
-                                  <span class="dt">candidate_status =</span> <span class="st">"C"</span>)</code></pre></div>
-<pre><code>## Candidates found: 5</code></pre>
-<pre><code>## Total Principal Committees associated with these candidates: 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_senate</code></pre></div>
-<pre><code>## # A tibble: 5 x 31
-##   .        load_date      last_file_date candidate_id election_years party
-##   &lt;list&gt;   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        &lt;list&gt;         &lt;chr&gt;
-## 1 &lt;list [… 2018-05-14T23… 2017-10-23     S8TX00335    &lt;list [1]&gt;     IND  
-## 2 &lt;list [… 2018-05-11T00… 2018-05-09     S2TX00312    &lt;list [2]&gt;     REP  
-## 3 &lt;list [… 2018-02-17T09… 2017-05-23     S8TX00319    &lt;list [1]&gt;     REP  
-## 4 &lt;list [… 2018-02-17T09… 2017-11-16     S8TX00350    &lt;list [1]&gt;     REP  
-## 5 &lt;list [… 2018-02-17T09… 2017-03-31     S8TX00285    &lt;list [1]&gt;     DEM  
-## # ... with 25 more variables: candidate_status &lt;chr&gt;, office_full &lt;chr&gt;,
-## #   state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;, has_raised_funds &lt;lgl&gt;,
-## #   office &lt;chr&gt;, election_districts &lt;list&gt;, name &lt;chr&gt;,
-## #   district_number &lt;int&gt;, cycles &lt;list&gt;, incumbent_challenge &lt;chr&gt;,
-## #   party_full &lt;chr&gt;, first_file_date &lt;chr&gt;, active_through &lt;int&gt;,
-## #   incumbent_challenge_full &lt;chr&gt;, last_f2_date &lt;chr&gt;, district &lt;chr&gt;,
-## #   principal_committees &lt;list&gt;, committee_id &lt;chr&gt;, committee_name &lt;chr&gt;,
-## #   treasurer_name &lt;chr&gt;, earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,
-## #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</code></pre>
+                                  <span class="dt">candidate_status =</span> <span class="st">"C"</span>)
+<span class="co">#&gt; Candidates found: 5</span>
+<span class="co">#&gt; Total Principal Committees associated with these candidates: 5</span>
+
+texas_senate
+<span class="co">#&gt; # A tibble: 5 x 31</span>
+<span class="co">#&gt;   .        load_date      last_file_date candidate_id election_years party</span>
+<span class="co">#&gt;   &lt;list&gt;   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        &lt;list&gt;         &lt;chr&gt;</span>
+<span class="co">#&gt; 1 &lt;list [… 2018-05-14T23… 2017-10-23     S8TX00335    &lt;list [1]&gt;     IND  </span>
+<span class="co">#&gt; 2 &lt;list [… 2018-05-11T00… 2018-05-09     S2TX00312    &lt;list [2]&gt;     REP  </span>
+<span class="co">#&gt; 3 &lt;list [… 2018-02-17T09… 2017-05-23     S8TX00319    &lt;list [1]&gt;     REP  </span>
+<span class="co">#&gt; 4 &lt;list [… 2018-02-17T09… 2017-11-16     S8TX00350    &lt;list [1]&gt;     REP  </span>
+<span class="co">#&gt; 5 &lt;list [… 2018-02-17T09… 2017-03-31     S8TX00285    &lt;list [1]&gt;     DEM  </span>
+<span class="co">#&gt; # ... with 25 more variables: candidate_status &lt;chr&gt;, office_full &lt;chr&gt;,</span>
+<span class="co">#&gt; #   state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;, has_raised_funds &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   office &lt;chr&gt;, election_districts &lt;list&gt;, name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   district_number &lt;int&gt;, cycles &lt;list&gt;, incumbent_challenge &lt;chr&gt;,</span>
+<span class="co">#&gt; #   party_full &lt;chr&gt;, first_file_date &lt;chr&gt;, active_through &lt;int&gt;,</span>
+<span class="co">#&gt; #   incumbent_challenge_full &lt;chr&gt;, last_f2_date &lt;chr&gt;, district &lt;chr&gt;,</span>
+<span class="co">#&gt; #   principal_committees &lt;list&gt;, committee_id &lt;chr&gt;, committee_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   treasurer_name &lt;chr&gt;, earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,</span>
+<span class="co">#&gt; #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</span></code></pre></div>
 <p>Start by getting financial totals for each candidate.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_candidate_totals &lt;-<span class="st"> </span>texas_senate <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/get_candidate_totals.html">get_candidate_totals</a></span>()</code></pre></div>
-<pre><code>## Getting totals for: S8TX00335</code></pre>
-<pre><code>## Getting totals for: S2TX00312</code></pre>
-<pre><code>## Getting totals for: S8TX00319</code></pre>
-<pre><code>## Getting totals for: S8TX00350</code></pre>
-<pre><code>## Getting totals for: S8TX00285</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_candidate_totals</code></pre></div>
-<pre><code>## # A tibble: 222 x 41
-##    ..x     candidate_id coverage_start_da… full_election coverage_end_date
-##    &lt;list&gt;  &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt;         &lt;chr&gt;            
-##  1 &lt;list … S8TX00335    2017-10-01T00:00:… TRUE          2018-03-31T00:00…
-##  2 &lt;list … S2TX00312    2013-01-01T00:00:… TRUE          2018-03-31T00:00…
-##  3 &lt;list … S2TX00312    2011-01-01T00:00:… TRUE          2012-12-31T00:00…
-##  4 &lt;list … S8TX00319    2017-04-01T00:00:… TRUE          2018-02-14T00:00…
-##  5 &lt;list … S8TX00350    2017-11-16T00:00:… TRUE          2018-03-31T00:00…
-##  6 &lt;list … S8TX00285    2017-01-01T00:00:… TRUE          2018-03-31T00:00…
-##  7 &lt;list … S8TX00335    2017-10-01T00:00:… TRUE          2018-03-31T00:00…
-##  8 &lt;list … S2TX00312    2013-01-01T00:00:… TRUE          2018-03-31T00:00…
-##  9 &lt;list … S2TX00312    2011-01-01T00:00:… TRUE          2012-12-31T00:00…
-## 10 &lt;list … S8TX00319    2017-04-01T00:00:… TRUE          2018-02-14T00:00…
-## # ... with 212 more rows, and 36 more variables: last_report_year &lt;int&gt;,
-## #   cycle &lt;int&gt;, last_report_type_full &lt;chr&gt;,
-## #   last_beginning_image_number &lt;chr&gt;, type_of_funds &lt;chr&gt;, amount &lt;dbl&gt;,
-## #   ..y &lt;list&gt;, load_date &lt;chr&gt;, last_file_date &lt;chr&gt;,
-## #   election_years &lt;list&gt;, party &lt;chr&gt;, candidate_status &lt;chr&gt;,
-## #   office_full &lt;chr&gt;, state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;,
-## #   has_raised_funds &lt;lgl&gt;, office &lt;chr&gt;, election_districts &lt;list&gt;,
-## #   name &lt;chr&gt;, district_number &lt;int&gt;, cycles &lt;list&gt;,
-## #   incumbent_challenge &lt;chr&gt;, party_full &lt;chr&gt;, first_file_date &lt;chr&gt;,
-## #   active_through &lt;int&gt;, incumbent_challenge_full &lt;chr&gt;,
-## #   last_f2_date &lt;chr&gt;, district &lt;chr&gt;, principal_committees &lt;list&gt;,
-## #   committee_id &lt;chr&gt;, committee_name &lt;chr&gt;, treasurer_name &lt;chr&gt;,
-## #   earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,
-## #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/get_candidate_totals.html">get_candidate_totals</a></span>()
+<span class="co">#&gt; Getting totals for: S8TX00335</span>
+<span class="co">#&gt; Getting totals for: S2TX00312</span>
+<span class="co">#&gt; Getting totals for: S8TX00319</span>
+<span class="co">#&gt; Getting totals for: S8TX00350</span>
+<span class="co">#&gt; Getting totals for: S8TX00285</span>
+
+texas_candidate_totals
+<span class="co">#&gt; # A tibble: 222 x 41</span>
+<span class="co">#&gt;    ..x     candidate_id coverage_start_da… full_election coverage_end_date</span>
+<span class="co">#&gt;    &lt;list&gt;  &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt;         &lt;chr&gt;            </span>
+<span class="co">#&gt;  1 &lt;list … S8TX00335    2017-10-01T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  2 &lt;list … S2TX00312    2013-01-01T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  3 &lt;list … S2TX00312    2011-01-01T00:00:… TRUE          2012-12-31T00:00…</span>
+<span class="co">#&gt;  4 &lt;list … S8TX00319    2017-04-01T00:00:… TRUE          2018-02-14T00:00…</span>
+<span class="co">#&gt;  5 &lt;list … S8TX00350    2017-11-16T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  6 &lt;list … S8TX00285    2017-01-01T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  7 &lt;list … S8TX00335    2017-10-01T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  8 &lt;list … S2TX00312    2013-01-01T00:00:… TRUE          2018-03-31T00:00…</span>
+<span class="co">#&gt;  9 &lt;list … S2TX00312    2011-01-01T00:00:… TRUE          2012-12-31T00:00…</span>
+<span class="co">#&gt; 10 &lt;list … S8TX00319    2017-04-01T00:00:… TRUE          2018-02-14T00:00…</span>
+<span class="co">#&gt; # ... with 212 more rows, and 36 more variables: last_report_year &lt;int&gt;,</span>
+<span class="co">#&gt; #   cycle &lt;int&gt;, last_report_type_full &lt;chr&gt;,</span>
+<span class="co">#&gt; #   last_beginning_image_number &lt;chr&gt;, type_of_funds &lt;chr&gt;, amount &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   ..y &lt;list&gt;, load_date &lt;chr&gt;, last_file_date &lt;chr&gt;,</span>
+<span class="co">#&gt; #   election_years &lt;list&gt;, party &lt;chr&gt;, candidate_status &lt;chr&gt;,</span>
+<span class="co">#&gt; #   office_full &lt;chr&gt;, state &lt;chr&gt;, federal_funds_flag &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   has_raised_funds &lt;lgl&gt;, office &lt;chr&gt;, election_districts &lt;list&gt;,</span>
+<span class="co">#&gt; #   name &lt;chr&gt;, district_number &lt;int&gt;, cycles &lt;list&gt;,</span>
+<span class="co">#&gt; #   incumbent_challenge &lt;chr&gt;, party_full &lt;chr&gt;, first_file_date &lt;chr&gt;,</span>
+<span class="co">#&gt; #   active_through &lt;int&gt;, incumbent_challenge_full &lt;chr&gt;,</span>
+<span class="co">#&gt; #   last_f2_date &lt;chr&gt;, district &lt;chr&gt;, principal_committees &lt;list&gt;,</span>
+<span class="co">#&gt; #   committee_id &lt;chr&gt;, committee_name &lt;chr&gt;, treasurer_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   earliest_cycle &lt;int&gt;, latest_cycle &lt;int&gt;,</span>
+<span class="co">#&gt; #   earliest_election_year &lt;int&gt;, latest_election_year &lt;int&gt;</span></code></pre></div>
 <p>The tibbles returned by <code>get_</code> functions are tidy (except for some list columns that remain while developing the package). This makes it possible to cleanly pipe results into existing tidyverse tools with minimal data wrangling.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_candidate_totals <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(type_of_funds <span class="op">==</span><span class="st"> "receipts"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> name, <span class="dt">y =</span> amount), <span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>There is also a list available in the package <code>tidyusafec_filters</code> that contain useful vectors to filter on. For example:</p>
+<p><img src="README-unnamed-chunk-9-1.png" width="700"></p>
+<p>There is a list available in the package called <code>tidyusafec_filters</code> that contain useful vectors to filter on. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texas_candidate_totals <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"CRUZ|BETO"</span>),
-         type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>top_level) <span class="op">%&gt;%</span>
+         type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>receipts_smallest_components) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type_of_funds =</span> type_of_funds <span class="op">%&gt;%</span>
 <span class="st">           </span><span class="kw">str_replace_all</span>(<span class="st">"_"</span>,<span class="st">" "</span>) <span class="op">%&gt;%</span>
 <span class="st">           </span><span class="kw">str_to_title</span>()
@@ -271,7 +282,7 @@ va_05_house &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> type_of_funds, <span class="dt">y =</span> amount), <span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="README-unnamed-chunk-10-1.png" width="700"></p>
 </div>
   </div>
 
@@ -280,10 +291,10 @@ va_05_house &lt;-<span class="st"> </span><span class="kw"><a href="../reference
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#installing-the-tidyusafec-r-package">Installing the tidyusafec R package</a></li>
-      <li><a href="#registering-for-an-api-key-and-saving-it">Registering for an API Key and Saving It</a></li>
-      <li><a href="#start-with-a-search-function">Start With a Search Function</a></li>
-      <li><a href="#get-financial-data">Get Financial Data</a></li>
+<li><a href="#installing">1. Installing</a></li>
+      <li><a href="#api-key">2. API Key</a></li>
+      <li><a href="#start-with-a-search">3. Start With a Search</a></li>
+      <li><a href="#get-financial-data">4. Get Financial Data</a></li>
       </ul>
 </div>
       </div>

@@ -6,12 +6,16 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
 ```
 
 tidyusafec is an [R package](https://www.r-project.org/) for accessing campaign finance data through the Federal Election Commission's [OpenFEC API](https://api.open.fec.gov/developers/). It depends on having R installed ([windows](https://cran.r-project.org/bin/windows/base/) | [mac](https://cran.r-project.org/bin/macosx/)), and suggests you also install the integrated development environment [RStudio](https://www.rstudio.com/products/rstudio/download/) if you are just beginning with R. tidyusafec is an independent open source project under MIT license maintained by [Stephen Holzman](github.com/stephenholzman). It is not affiliated with or endorsed by the FEC or any of the other software projects mentioned.
 
-## Installing the tidyusafec R package
+## 1. Installing
 
 Depending on where R packages are hosted, you can install them from inside R with functions. Use `install.packages` to get the `devtools` package from CRAN. Use `install_github` to get `tidyusafec` from the [Github repository](https://github.com/stephenholzman/tidyusafec).
 
@@ -28,7 +32,7 @@ library(tidyusafec)
 ```
 
 
-## Registering for an API Key and Saving It
+## 2. API Key
 
 [To facilitate support and prevent abuse, the FEC requires registering for an API key to be sent with every request.](https://api.data.gov/signup/)
 
@@ -48,7 +52,7 @@ By default, the FEC limits individuals to 1000 requests every hour. This is prob
  
  If you see yourself going over that limit, you can send APIinfo@fec.gov a request for their 120 calls per minute upgrade.
 
-## Start With a Search Function
+## 3. Start With a Search
 
 `search_candidates` is the most common way to begin an analysis. An example search might look like:
 
@@ -61,7 +65,7 @@ va_05_house <- search_candidates(state = "VA",
 va_05_house
 ```
 
-Each row returned by `search_candidates` contains a unique candidate_id-committee_id pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.
+Each row returned by `search_candidates` contains a unique `candidate_id` + `committee_id` pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.
 
 There are 31 columns of various information, some more noteworthy than others.
 
@@ -95,9 +99,9 @@ va_05_house <- search_candidates(state = "VA",
 
 ```
 
-## Get Financial Data
+## 4. Get Financial Data
 
-The results of a `search_candidates` can be piped (using `%>%`) into one of the appropriate functions that begin with a `get_` prefix.
+The results of `search_candidates` can be piped (using `%>%`) into one of the appropriate functions that begin with a `get_` prefix.
 
 As an example, let's first use `search_candidates` to find everyone running for the open senate seat in Texas.
 
@@ -129,12 +133,12 @@ texas_candidate_totals %>%
   coord_flip()
 ```
 
-There is also a list available in the package `tidyusafec_filters` that contain useful vectors to filter on. For example:
+There is a list available in the package called `tidyusafec_filters` that contain useful vectors to filter on. For example:
 
 ```{r}
 texas_candidate_totals %>%
   filter(str_detect(name, "CRUZ|BETO"),
-         type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$top_level) %>%
+         type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$receipts_smallest_components) %>%
   mutate(type_of_funds = type_of_funds %>%
            str_replace_all("_"," ") %>%
            str_to_title()
@@ -144,4 +148,3 @@ texas_candidate_totals %>%
   facet_wrap(~name) +
   coord_flip()
 ```
-

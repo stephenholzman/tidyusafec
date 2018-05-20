@@ -1,3 +1,27 @@
+navbar:
+  type: default
+  left:
+  - text: Intro
+    href: articles/intro.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Search Functions
+      href: articles/search-functions.html
+    - text: Get Aggregated Data
+      href: articles/get-aggregated.html
+    - text: Get Itemized Data
+      href: articles/get-itemized.html
+    - text: Guide to FEC Data
+      href: articles/guide-fec-data.html
+    - text: FEC Resources
+      href: articles/fec-resources.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/stephenholzman/tidyusafec
+
+
 reference:
   - title: "Searching"
     desc: >
