@@ -64,14 +64,14 @@ get_independent_expenditures <- function(
 
   }
 
-  #Use the committee_id column if data has it and it hasn't been supplied (usually a search_candidates() result)
+  #Use the candidate_id column if data has it and it hasn't been supplied (usually a search_candidates() result)
   if (!is.null(data)){
 
-    if (is.null(committee_id)){
+    if (is.null(candidate_id)){
 
-      if ('committee_id' %in% names(data)){
+      if ('candidate_id' %in% names(data)){
 
-        committee_id <- data[['committee_id']]
+        candidate_id <- data[['candidate_id']]
 
       }
 
@@ -79,7 +79,7 @@ get_independent_expenditures <- function(
 
   }
 
-  committee_id <- committee_id %>%
+  candidate_id <- candidate_id %>%
     unique()
 
   responses <- list()
