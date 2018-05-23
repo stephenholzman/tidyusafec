@@ -234,7 +234,8 @@ get_independent_expenditures <- function(
       candidate_suffix = map_chr(. , "candidate_suffix", .default = NA),
       category_code = map_chr(. , "category_code", .default = NA),
       back_reference_transaction_id = map_chr(. , "back_reference_transaction_id", .default = NA)
-    )
+    ) %>%
+    mutate(committee_name = map_chr(committee, function(x) x$name))
 
   object_to_return <- list(
     tidy = tidy_donations,
