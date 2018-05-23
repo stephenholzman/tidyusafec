@@ -1,6 +1,6 @@
 #' Get line item expenditures for independent expenditures.
 #'
-#' Get specific line item expenditures for independent expenditures. Schedule E covers "outside spending".
+#' Get specific line item expenditures for independent expenditures. Schedule E covers "outside spending". Filter on memo_code and is_notice.
 #'
 #' @param data A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_ids is required
 #' @param api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.
