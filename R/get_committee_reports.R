@@ -166,6 +166,8 @@ get_committee_reports <- function(
   committee_id <- committee_id %>%
     unique()
 
+  committee_id <- committee_id[!is.na(committee_id)]
+
   responses <- list()
 
   #Because this endpoint depends on a candidate ID, we have to make requests separately for each one.
