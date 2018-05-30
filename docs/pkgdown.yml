@@ -2,6 +2,7 @@ pandoc: 1.19.2.1
 pkgdown: 1.0.0.9000
 pkgdown_sha: 5eeb2aab0b68924bcde72ded0f7326070eaa0fa0
 articles:
+  get-aggregated: get-aggregated.html
   intro: intro.html
   search-functions: search-functions.html
 

@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intro • tidyusafec</title>
+<title>Get Aggregated Data • tidyusafec</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Intro">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Get Aggregated Data">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -85,882 +85,50 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Intro</h1>
+      <h1>Get Aggregated Data</h1>
                         <h4 class="author">Stephen Holzman</h4>
             
-            <h4 class="date">5/19/2018</h4>
+            <h4 class="date">5/30/2018</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/stephenholzman/tidyusafec/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
-      <div class="hidden name"><code>intro.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/stephenholzman/tidyusafec/blob/master/vignettes/get-aggregated.Rmd"><code>vignettes/get-aggregated.Rmd</code></a></small>
+      <div class="hidden name"><code>get-aggregated.Rmd</code></div>
 
     </div>
 
     
     
-<p>tidyusafec is an <a href="https://www.r-project.org/">R package</a> for accessing campaign finance data through the Federal Election Commission’s <a href="https://api.open.fec.gov/developers/">OpenFEC API</a>. It depends on having R installed (<a href="https://cran.r-project.org/bin/windows/base/">windows</a> | <a href="https://cran.r-project.org/bin/macosx/">mac</a>), and suggests you also install the integrated development environment <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a> if you are just beginning with R. tidyusafec is an independent open source project under MIT license maintained by <a href="github.com/stephenholzman">Stephen Holzman</a>. It is not affiliated with or endorsed by the FEC or any of the other software projects mentioned.</p>
-<div id="installing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installing" class="anchor"></a>1. Installing</h2>
-<p>Depending on where R packages are hosted, you can install them from inside R with functions. Use <code>install.packages</code> to get the <code>devtools</code> package from CRAN. Use <code>install_github</code> to get <code>tidyusafec</code> from the <a href="https://github.com/stephenholzman/tidyusafec">Github repository</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"stephenholzman/tidyusafec"</span>)</code></pre></div>
-<p>Load packages:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(tidyusafec)</code></pre></div>
-</div>
-<div id="api-key" class="section level2">
-<h2 class="hasAnchor">
-<a href="#api-key" class="anchor"></a>2. API Key</h2>
-<p><a href="https://api.data.gov/signup/">To facilitate support and prevent abuse, the FEC requires registering for an API key to be sent with every request.</a></p>
-<p>tidyusafec makes it easy to send requests to the FEC website’s API for data. Some of the functions can realistically trigger thousands of requests spread out over several minutes. Check your email for an API key and substitute it for YOUR_API_KEY inside these quotes:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/save_datagov_apikey.html">save_datagov_apikey</a></span>(<span class="dt">key =</span> <span class="st">"YOUR_API_KEY"</span>)</code></pre></div>
-<p>Running this saves the API Key on your machine so tidyusafec functions can use it automatically.</p>
-<p>By default, the FEC limits individuals to 1000 requests every hour. This is probably enough for general use like:</p>
+<p>These functions cover anything that isn’t itemized data. Want to know how much money a candidate has raised? Look at data from every filing their committee has ever made? How much outside money has been spent in an election?</p>
+<p>As shown in these examples, the tidyusafec suggested workflow is to pipe (<code>%&gt;%</code>) the results of a function with the <code>search_</code> prefix into a function with the <code>get_</code> prefix.</p>
 <ul>
-<li><p>200 candidate-by-election searches leading to 800 requests for an individual candidate’s financial totals per hour</p></li>
-<li><p>100,000 itemized contributions per hour.</p></li>
+<li>
+<code><a href="../reference/get_candidate_totals.html">get_candidate_totals()</a></code> by default currently returns a tibble with information about a candidate’s funding totals, what you would typically see on the summary tables of the FEC site.</li>
+<li>
+<code><a href="../reference/get_committee_reports.html">get_committee_reports()</a></code> by default currently returns a tibble with information about committee reports. Mostly useful for looking at quarterly report trends.</li>
+<li>
+<code><a href="../reference/get_election_summary.html">get_election_summary()</a></code> by default currently returns a tibble with financial summaries by election.</li>
 </ul>
-<p>If you see yourself going over that limit, you can send <a href="mailto:APIinfo@fec.gov">APIinfo@fec.gov</a> a request for their 120 calls per minute upgrade.</p>
-</div>
-<div id="start-with-a-search" class="section level2">
-<h2 class="hasAnchor">
-<a href="#start-with-a-search" class="anchor"></a>3. Start With a Search</h2>
-<p><code>search_candidates</code> is the most common way to begin an analysis. An example search might look like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wv_senate &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"WV"</span>,
-                                 <span class="dt">election_year =</span> <span class="st">"2018"</span>,
-                                 <span class="dt">office =</span> <span class="st">"S"</span>)</code></pre></div>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;">
-load_date
-</th>
-<th style="text-align:left;">
-last_file_date
-</th>
-<th style="text-align:left;">
-candidate_id
-</th>
-<th style="text-align:left;">
-election_years
-</th>
-<th style="text-align:left;">
-party
-</th>
-<th style="text-align:left;">
-candidate_status
-</th>
-<th style="text-align:left;">
-office_full
-</th>
-<th style="text-align:left;">
-state
-</th>
-<th style="text-align:left;">
-federal_funds_flag
-</th>
-<th style="text-align:left;">
-has_raised_funds
-</th>
-<th style="text-align:left;">
-office
-</th>
-<th style="text-align:left;">
-election_districts
-</th>
-<th style="text-align:left;">
-name
-</th>
-<th style="text-align:right;">
-district_number
-</th>
-<th style="text-align:left;">
-cycles
-</th>
-<th style="text-align:left;">
-incumbent_challenge
-</th>
-<th style="text-align:left;">
-party_full
-</th>
-<th style="text-align:left;">
-first_file_date
-</th>
-<th style="text-align:right;">
-active_through
-</th>
-<th style="text-align:left;">
-incumbent_challenge_full
-</th>
-<th style="text-align:left;">
-last_f2_date
-</th>
-<th style="text-align:left;">
-district
-</th>
-<th style="text-align:left;">
-committee_id
-</th>
-<th style="text-align:left;">
-committee_name
-</th>
-<th style="text-align:left;">
-treasurer_name
-</th>
-<th style="text-align:right;">
-earliest_cycle
-</th>
-<th style="text-align:right;">
-latest_cycle
-</th>
-<th style="text-align:right;">
-earliest_election_year
-</th>
-<th style="text-align:right;">
-latest_election_year
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-2018-02-22T21:14:12
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-S8WV00150
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, DON
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00662445
-</td>
-<td style="text-align:left;">
-DON BLANKENSHIP FOR U.S. SENATE
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, PAULA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2017-07-12
-</td>
-<td style="text-align:left;">
-S8WV00135
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-COPLEY, JIMMY DALE II
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-07-12
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-07-12
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:left;">
-S8WV00127
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-JENKINS, EVAN H
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00548271
-</td>
-<td style="text-align:left;">
-JENKINS FOR SENATE
-</td>
-<td style="text-align:left;">
-KILGORE, PAUL A
-</td>
-<td style="text-align:right;">
-2014
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-04-20T21:11:18
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-S0WV00090
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2018)
-</td>
-<td style="text-align:left;">
-DEM
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”, “00”, “00”)
-</td>
-<td style="text-align:left;">
-MANCHIN III, JOE
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
-</td>
-<td style="text-align:left;">
-I
-</td>
-<td style="text-align:left;">
-DEMOCRATIC PARTY
-</td>
-<td style="text-align:left;">
-2010-07-22
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Incumbent
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00486563
-</td>
-<td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
-</td>
-<td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-04-24T21:15:20
-</td>
-<td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-S8WV00143
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-MORRISEY, PATRICK MR
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-07-17
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00651075
-</td>
-<td style="text-align:left;">
-MORRISEY FOR SENATE INC
-</td>
-<td style="text-align:left;">
-CRATE, BRADLEY MR
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-03-30T21:07:47
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-S8WV00168
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-NEWBROUGH, JACK
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2018-02-03
-</td>
-<td style="text-align:left;">
-S8WV00119
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-DEM
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-SWEARENGIN, PAULA JEAN
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-DEMOCRATIC PARTY
-</td>
-<td style="text-align:left;">
-2017-05-08
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2018-02-03
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00640219
-</td>
-<td style="text-align:left;">
-PAULA SWEARENGIN 2018
-</td>
-<td style="text-align:left;">
-TERI DALTON
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2018-03-30T21:07:47
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-S8WV00176
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-WILLIS, THOMAS (TOM)
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Each row returned by <code>search_candidates</code> contains a unique <code>candidate_id</code> + <code>committee_id</code> pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.</p>
-<p><code>candidate_status</code> is a notable column to filter on and be aware of. It goes by FEC status according to records filed and processed, not necessarily what candidates have announced about their intentions.</p>
-<p>Some filter strategies are below, or you could use <code>search_candidates</code> better when you know exactly what you are looking for.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co">#Candidates still actively campaigning based on public announcements.</span>
-wv_senate <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"MANCHIN|MORRISEY|BLANKENSHIP"</span>))
+<div id="setup-libraries-and-api-keys" class="section level4">
+<h4 class="hasAnchor">
+<a href="#setup-libraries-and-api-keys" class="anchor"></a>Setup Libraries and API Keys</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(tidyusafec)
 
-<span class="co">#Candidates who are still current as far as the FEC knows.</span>
-wv_senate <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(candidate_status <span class="op">==</span><span class="st"> "C"</span>)
-
-<span class="co">#An alternative search if we know we only want current candidates from the start.</span>
-wv_senate &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"WV"</span>,
-                                 <span class="dt">election_year =</span> <span class="st">"2018"</span>,
-                                 <span class="dt">office =</span> <span class="st">"S"</span>,
-                                 <span class="dt">candidate_status =</span> <span class="st">"C"</span>)</code></pre></div>
+<span class="kw"><a href="../reference/save_datagov_apikey.html">save_datagov_apikey</a></span>(<span class="dt">key =</span> <span class="st">"DATA.GOV KEY STRING"</span>)</code></pre></div>
 </div>
-<div id="get-financial-data" class="section level2">
+<div id="get_candidate_totals" class="section level2">
 <h2 class="hasAnchor">
-<a href="#get-financial-data" class="anchor"></a>4. Get Financial Data</h2>
-<p>The results of <code>search_candidates</code> can be piped (using <code>%&gt;%</code>) into one of the appropriate functions that begin with a <code>get_</code> prefix.</p>
-<p>Start by getting financial totals for each candidate.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wv_senate_totals &lt;-<span class="st"> </span>wv_senate <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/get_candidate_totals.html">get_candidate_totals</a></span>()</code></pre></div>
+<a href="#get_candidate_totals" class="anchor"></a>get_candidate_totals()</h2>
+<p>Each row of the tibble returned is a specific total given in the <code>amount</code> column. The <code>type_of_funds</code> column shows what that amount applies to. Pipe the results of <code>search_candidates</code> to get additional columns with context like name, office, state, etc.</p>
+<div id="get-totals-for-candidates-currently-in-a-particular-race" class="section level4">
+<h4 class="hasAnchor">
+<a href="#get-totals-for-candidates-currently-in-a-particular-race" class="anchor"></a>Get Totals for Candidates Currently in a Particular Race</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">va_05_house_candidates &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"10"</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/get_candidate_totals.html">get_candidate_totals</a></span>()
+
+<span class="kw">select</span>(va_05_house_candidates[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,], <span class="op">-</span>principal_committees) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">format =</span> <span class="st">"html"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/kableExtra/topics/kable_styling">kable_styling</a></span>() <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/kableExtra/topics/scroll_box">scroll_box</a></span>(<span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"200px"</span>)</code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -1082,16 +250,16 @@ latest_election_year
 <tbody>
 <tr>
 <td style="text-align:left;">
-S8WV00150
+H8VA05155
 </td>
 <td style="text-align:left;">
-2017-11-28T00:00:00+00:00
+2017-07-13T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -1100,37 +268,37 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200360060
+201804239111720149
 </td>
 <td style="text-align:left;">
 loan_repayments
 </td>
 <td style="text-align:right;">
-0
+0.00
 </td>
 <td style="text-align:left;">
-2018-02-22T21:14:12
+2017-10-16T21:00:02
 </td>
 <td style="text-align:left;">
-2017-12-01
+2017-07-24
 </td>
 <td style="text-align:left;">
 list(2018)
 </td>
 <td style="text-align:left;">
-REP
+DEM
 </td>
 <td style="text-align:left;">
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -1139,16 +307,16 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-BLANKENSHIP, DON
+COCKBURN, LESLIE
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -1157,10 +325,10 @@ list(2018)
 C
 </td>
 <td style="text-align:left;">
-REPUBLICAN PARTY
+DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-12-01
+2017-07-13
 </td>
 <td style="text-align:right;">
 2018
@@ -1169,138 +337,22 @@ REPUBLICAN PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2017-12-01
+2017-07-24
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00662445
+C00650366
 </td>
 <td style="text-align:left;">
-DON BLANKENSHIP FOR U.S. SENATE
+LESLIE COCKBURN FOR CONGRESS
 </td>
 <td style="text-align:left;">
-BLANKENSHIP, PAULA
+MELE, STEVE
 </td>
 <td style="text-align:right;">
 2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00127
-</td>
-<td style="text-align:left;">
-2017-01-01T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201804260200360145
-</td>
-<td style="text-align:left;">
-loan_repayments
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-JENKINS, EVAN H
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-05-09
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00548271
-</td>
-<td style="text-align:left;">
-JENKINS FOR SENATE
-</td>
-<td style="text-align:left;">
-KILGORE, PAUL A
-</td>
-<td style="text-align:right;">
-2014
 </td>
 <td style="text-align:right;">
 2018
@@ -1314,355 +366,7 @@ KILGORE, PAUL A
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
-</td>
-<td style="text-align:left;">
-2013-01-01T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201804260200359877
-</td>
-<td style="text-align:left;">
-loan_repayments
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-04-20T21:11:18
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2018)
-</td>
-<td style="text-align:left;">
-DEM
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”, “00”, “00”)
-</td>
-<td style="text-align:left;">
-MANCHIN III, JOE
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
-</td>
-<td style="text-align:left;">
-I
-</td>
-<td style="text-align:left;">
-DEMOCRATIC PARTY
-</td>
-<td style="text-align:left;">
-2010-07-22
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Incumbent
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00486563
-</td>
-<td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
-</td>
-<td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S0WV00090
-</td>
-<td style="text-align:left;">
-2011-01-01T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2012-12-31T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2012
-</td>
-<td style="text-align:right;">
-2012
-</td>
-<td style="text-align:left;">
-YEAR-END
-</td>
-<td style="text-align:left;">
-13020044250
-</td>
-<td style="text-align:left;">
-loan_repayments
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-04-20T21:11:18
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2018)
-</td>
-<td style="text-align:left;">
-DEM
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”, “00”, “00”)
-</td>
-<td style="text-align:left;">
-MANCHIN III, JOE
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
-</td>
-<td style="text-align:left;">
-I
-</td>
-<td style="text-align:left;">
-DEMOCRATIC PARTY
-</td>
-<td style="text-align:left;">
-2010-07-22
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Incumbent
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00486563
-</td>
-<td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
-</td>
-<td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S0WV00090
-</td>
-<td style="text-align:left;">
-2010-07-20T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2010-12-31T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:left;">
-YEAR-END
-</td>
-<td style="text-align:left;">
-11020020070
-</td>
-<td style="text-align:left;">
-loan_repayments
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-04-20T21:11:18
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2018)
-</td>
-<td style="text-align:left;">
-DEM
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”, “00”, “00”)
-</td>
-<td style="text-align:left;">
-MANCHIN III, JOE
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
-</td>
-<td style="text-align:left;">
-I
-</td>
-<td style="text-align:left;">
-DEMOCRATIC PARTY
-</td>
-<td style="text-align:left;">
-2010-07-22
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Incumbent
-</td>
-<td style="text-align:left;">
-2018-04-12
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00486563
-</td>
-<td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
-</td>
-<td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2010
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00143
+H8VA05148
 </td>
 <td style="text-align:left;">
 2017-07-01T00:00:00+00:00
@@ -1671,7 +375,7 @@ S8WV00143
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -1680,138 +384,22 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200359778
+201804209110419709
 </td>
 <td style="text-align:left;">
 loan_repayments
 </td>
 <td style="text-align:right;">
-0
+0.00
 </td>
 <td style="text-align:left;">
-2018-04-24T21:15:20
+2017-10-24T21:01:05
 </td>
 <td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-MORRISEY, PATRICK MR
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-07-17
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00651075
-</td>
-<td style="text-align:left;">
-MORRISEY FOR SENATE INC
-</td>
-<td style="text-align:left;">
-CRATE, BRADLEY MR
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00119
-</td>
-<td style="text-align:left;">
-2017-05-14T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201805080200366081
-</td>
-<td style="text-align:left;">
-loan_repayments
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2018-02-03
+2017-07-02
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -1823,10 +411,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -1835,16 +423,16 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-SWEARENGIN, PAULA JEAN
+CULLOP, BENJAMIN NIEL
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -1856,7 +444,7 @@ C
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-05-08
+2017-07-02
 </td>
 <td style="text-align:right;">
 2018
@@ -1865,19 +453,19 @@ DEMOCRATIC PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2018-02-03
+2017-07-02
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00640219
+C00649020
 </td>
 <td style="text-align:left;">
-PAULA SWEARENGIN 2018
+CULLOP FOR CONGRESS
 </td>
 <td style="text-align:left;">
-TERI DALTON
+VANDEVER, JASON
 </td>
 <td style="text-align:right;">
 2018
@@ -1894,123 +482,7 @@ TERI DALTON
 </tr>
 <tr>
 <td style="text-align:left;">
-S8WV00150
-</td>
-<td style="text-align:left;">
-2017-11-28T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201804260200360060
-</td>
-<td style="text-align:left;">
-last_net_operating_expenditures
-</td>
-<td style="text-align:right;">
-1046651
-</td>
-<td style="text-align:left;">
-2018-02-22T21:14:12
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, DON
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00662445
-</td>
-<td style="text-align:left;">
-DON BLANKENSHIP FOR U.S. SENATE
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, PAULA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00127
+H6VA05142
 </td>
 <td style="text-align:left;">
 2017-01-01T00:00:00+00:00
@@ -2019,7 +491,7 @@ S8WV00127
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-08T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -2028,25 +500,25 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200360145
+201804169108269935
 </td>
 <td style="text-align:left;">
-last_net_operating_expenditures
+loan_repayments
 </td>
 <td style="text-align:right;">
-562043
+0.00
 </td>
 <td style="text-align:left;">
-2018-02-17T09:16:20
+2017-05-23T07:10:20
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-05-16
 </td>
 <td style="text-align:left;">
-list(2018)
+list(2016, 2018)
 </td>
 <td style="text-align:left;">
 REP
@@ -2055,10 +527,10 @@ REP
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2067,16 +539,248 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”, “05”)
 </td>
 <td style="text-align:left;">
-JENKINS, EVAN H
+GARRETT, THOMAS ALEXANDER MR. JR.
 </td>
 <td style="text-align:right;">
-0
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H6VA05142
+</td>
+<td style="text-align:left;">
+2016-01-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2016-12-31T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+YEAR-END
+</td>
+<td style="text-align:left;">
+201702029042407932
+</td>
+<td style="text-align:left;">
+loan_repayments
+</td>
+<td style="text-align:right;">
+20000.00
+</td>
+<td style="text-align:left;">
+2017-05-23T07:10:20
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+REP
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”, “05”)
+</td>
+<td style="text-align:left;">
+GARRETT, THOMAS ALEXANDER MR. JR.
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H8VA05114
+</td>
+<td style="text-align:left;">
+2017-04-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2018-04-15T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+PRE-CONVENTION
+</td>
+<td style="text-align:left;">
+201804239111725619
+</td>
+<td style="text-align:left;">
+loan_repayments
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+2017-10-01T20:55:35
+</td>
+<td style="text-align:left;">
+2017-10-01
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+DEM
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”)
+</td>
+<td style="text-align:left;">
+HUFFSTETLER, ROGER DEAN RD
+</td>
+<td style="text-align:right;">
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -2085,10 +789,10 @@ list(2018)
 C
 </td>
 <td style="text-align:left;">
-REPUBLICAN PARTY
+DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-04-18
 </td>
 <td style="text-align:right;">
 2018
@@ -2097,22 +801,22 @@ REPUBLICAN PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-10-01
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00548271
+C00637918
 </td>
 <td style="text-align:left;">
-JENKINS FOR SENATE
+FRIENDS OF RD
 </td>
 <td style="text-align:left;">
-KILGORE, PAUL A
+JOHNSON, SARAH
 </td>
 <td style="text-align:right;">
-2014
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -2126,16 +830,16 @@ KILGORE, PAUL A
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05130
 </td>
 <td style="text-align:left;">
-2013-01-01T00:00:00+00:00
+2017-04-01T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-03-31T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -2144,25 +848,25 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+APRIL QUARTERLY
 </td>
 <td style="text-align:left;">
-201804260200359877
+201804139108013236
 </td>
 <td style="text-align:left;">
-last_net_operating_expenditures
+loan_repayments
 </td>
 <td style="text-align:right;">
-313028
+0.00
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-10-16T21:00:02
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-26
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -2171,10 +875,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2183,58 +887,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+SLATE, ADAM
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-05-26
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-26
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00639153
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+ADAM SLATE FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+MCREYNOLDS, JAMES M.
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -2242,43 +946,43 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05122
 </td>
 <td style="text-align:left;">
-2011-01-01T00:00:00+00:00
+2017-04-01T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2012-12-31T00:00:00+00:00
+2018-03-31T00:00:00+00:00
 </td>
 <td style="text-align:right;">
-2012
+2018
 </td>
 <td style="text-align:right;">
-2012
+2018
 </td>
 <td style="text-align:left;">
-YEAR-END
+APRIL QUARTERLY
 </td>
 <td style="text-align:left;">
-13020044250
+201804159108200524
 </td>
 <td style="text-align:left;">
-last_net_operating_expenditures
+loan_repayments
 </td>
 <td style="text-align:right;">
--257664
+0.00
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-09-27T20:56:17
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-17
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -2287,10 +991,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2299,58 +1003,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+SNEATHERN, ANDREW
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-05-17
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-17
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00640698
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+SNEATHERN FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+PAULE-CARRES, PATTI
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -2358,43 +1062,43 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05155
 </td>
 <td style="text-align:left;">
-2010-07-20T00:00:00+00:00
+2017-07-13T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2010-12-31T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
-2010
+2018
 </td>
 <td style="text-align:right;">
-2010
+2018
 </td>
 <td style="text-align:left;">
-YEAR-END
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-11020020070
+201804239111720149
 </td>
 <td style="text-align:left;">
 last_net_operating_expenditures
 </td>
 <td style="text-align:right;">
-72401
+42137.83
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-10-16T21:00:02
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-07-24
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -2403,10 +1107,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2415,58 +1119,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+COCKBURN, LESLIE
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-07-13
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-07-24
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00650366
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+LESLIE COCKBURN FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+MELE, STEVE
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -2474,7 +1178,7 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S8WV00143
+H8VA05148
 </td>
 <td style="text-align:left;">
 2017-07-01T00:00:00+00:00
@@ -2483,7 +1187,7 @@ S8WV00143
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -2492,138 +1196,22 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200359778
+201804209110419709
 </td>
 <td style="text-align:left;">
 last_net_operating_expenditures
 </td>
 <td style="text-align:right;">
-554720
+28287.72
 </td>
 <td style="text-align:left;">
-2018-04-24T21:15:20
+2017-10-24T21:01:05
 </td>
 <td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-MORRISEY, PATRICK MR
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-07-17
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2018-04-17
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00651075
-</td>
-<td style="text-align:left;">
-MORRISEY FOR SENATE INC
-</td>
-<td style="text-align:left;">
-CRATE, BRADLEY MR
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00119
-</td>
-<td style="text-align:left;">
-2017-05-14T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201805080200366081
-</td>
-<td style="text-align:left;">
-last_net_operating_expenditures
-</td>
-<td style="text-align:right;">
-14217
-</td>
-<td style="text-align:left;">
-2018-02-17T09:16:20
-</td>
-<td style="text-align:left;">
-2018-02-03
+2017-07-02
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -2635,10 +1223,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2647,16 +1235,16 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-SWEARENGIN, PAULA JEAN
+CULLOP, BENJAMIN NIEL
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -2668,7 +1256,7 @@ C
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-05-08
+2017-07-02
 </td>
 <td style="text-align:right;">
 2018
@@ -2677,19 +1265,19 @@ DEMOCRATIC PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2018-02-03
+2017-07-02
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00640219
+C00649020
 </td>
 <td style="text-align:left;">
-PAULA SWEARENGIN 2018
+CULLOP FOR CONGRESS
 </td>
 <td style="text-align:left;">
-TERI DALTON
+VANDEVER, JASON
 </td>
 <td style="text-align:right;">
 2018
@@ -2706,123 +1294,7 @@ TERI DALTON
 </tr>
 <tr>
 <td style="text-align:left;">
-S8WV00150
-</td>
-<td style="text-align:left;">
-2017-11-28T00:00:00+00:00
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-2018-04-18T00:00:00+00:00
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-PRE-PRIMARY
-</td>
-<td style="text-align:left;">
-201804260200360060
-</td>
-<td style="text-align:left;">
-transfers_from_other_authorized_committee
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-2018-02-22T21:14:12
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-REP
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-Senate
-</td>
-<td style="text-align:left;">
-WV
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:left;">
-S
-</td>
-<td style="text-align:left;">
-list(“00”)
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, DON
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-list(2018)
-</td>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-REPUBLICAN PARTY
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:left;">
-Challenger
-</td>
-<td style="text-align:left;">
-2017-12-01
-</td>
-<td style="text-align:left;">
-00
-</td>
-<td style="text-align:left;">
-C00662445
-</td>
-<td style="text-align:left;">
-DON BLANKENSHIP FOR U.S. SENATE
-</td>
-<td style="text-align:left;">
-BLANKENSHIP, PAULA
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-2018
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-S8WV00127
+H6VA05142
 </td>
 <td style="text-align:left;">
 2017-01-01T00:00:00+00:00
@@ -2831,7 +1303,7 @@ S8WV00127
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-08T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -2840,25 +1312,25 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200360145
+201804169108269935
 </td>
 <td style="text-align:left;">
-transfers_from_other_authorized_committee
+last_net_operating_expenditures
 </td>
 <td style="text-align:right;">
-0
+11516.07
 </td>
 <td style="text-align:left;">
-2018-02-17T09:16:20
+2017-05-23T07:10:20
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-05-16
 </td>
 <td style="text-align:left;">
-list(2018)
+list(2016, 2018)
 </td>
 <td style="text-align:left;">
 REP
@@ -2867,10 +1339,10 @@ REP
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2879,16 +1351,248 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”, “05”)
 </td>
 <td style="text-align:left;">
-JENKINS, EVAN H
+GARRETT, THOMAS ALEXANDER MR. JR.
 </td>
 <td style="text-align:right;">
-0
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H6VA05142
+</td>
+<td style="text-align:left;">
+2016-01-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2016-12-31T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+YEAR-END
+</td>
+<td style="text-align:left;">
+201702029042407932
+</td>
+<td style="text-align:left;">
+last_net_operating_expenditures
+</td>
+<td style="text-align:right;">
+34037.67
+</td>
+<td style="text-align:left;">
+2017-05-23T07:10:20
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+REP
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”, “05”)
+</td>
+<td style="text-align:left;">
+GARRETT, THOMAS ALEXANDER MR. JR.
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H8VA05114
+</td>
+<td style="text-align:left;">
+2017-04-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2018-04-15T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+PRE-CONVENTION
+</td>
+<td style="text-align:left;">
+201804239111725619
+</td>
+<td style="text-align:left;">
+last_net_operating_expenditures
+</td>
+<td style="text-align:right;">
+58715.92
+</td>
+<td style="text-align:left;">
+2017-10-01T20:55:35
+</td>
+<td style="text-align:left;">
+2017-10-01
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+DEM
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”)
+</td>
+<td style="text-align:left;">
+HUFFSTETLER, ROGER DEAN RD
+</td>
+<td style="text-align:right;">
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -2897,10 +1601,10 @@ list(2018)
 C
 </td>
 <td style="text-align:left;">
-REPUBLICAN PARTY
+DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-04-18
 </td>
 <td style="text-align:right;">
 2018
@@ -2909,22 +1613,22 @@ REPUBLICAN PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2017-05-09
+2017-10-01
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00548271
+C00637918
 </td>
 <td style="text-align:left;">
-JENKINS FOR SENATE
+FRIENDS OF RD
 </td>
 <td style="text-align:left;">
-KILGORE, PAUL A
+JOHNSON, SARAH
 </td>
 <td style="text-align:right;">
-2014
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -2938,16 +1642,16 @@ KILGORE, PAUL A
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05130
 </td>
 <td style="text-align:left;">
-2013-01-01T00:00:00+00:00
+2017-04-01T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-03-31T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -2956,25 +1660,25 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+APRIL QUARTERLY
 </td>
 <td style="text-align:left;">
-201804260200359877
+201804139108013236
 </td>
 <td style="text-align:left;">
-transfers_from_other_authorized_committee
+last_net_operating_expenditures
 </td>
 <td style="text-align:right;">
-264342
+61.11
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-10-16T21:00:02
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-26
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -2983,10 +1687,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -2995,58 +1699,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+SLATE, ADAM
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-05-26
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-26
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00639153
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+ADAM SLATE FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+MCREYNOLDS, JAMES M.
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -3054,43 +1758,43 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05122
 </td>
 <td style="text-align:left;">
-2011-01-01T00:00:00+00:00
+2017-04-01T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2012-12-31T00:00:00+00:00
+2018-03-31T00:00:00+00:00
 </td>
 <td style="text-align:right;">
-2012
+2018
 </td>
 <td style="text-align:right;">
-2012
+2018
 </td>
 <td style="text-align:left;">
-YEAR-END
+APRIL QUARTERLY
 </td>
 <td style="text-align:left;">
-13020044250
+201804159108200524
 </td>
 <td style="text-align:left;">
-transfers_from_other_authorized_committee
+last_net_operating_expenditures
 </td>
 <td style="text-align:right;">
-29341
+89583.63
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-09-27T20:56:17
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-17
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -3099,10 +1803,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -3111,58 +1815,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+SNEATHERN, ANDREW
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-05-17
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-05-17
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00640698
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+SNEATHERN FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+PAULE-CARRES, PATTI
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -3170,43 +1874,43 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S0WV00090
+H8VA05155
 </td>
 <td style="text-align:left;">
-2010-07-20T00:00:00+00:00
+2017-07-13T00:00:00+00:00
 </td>
 <td style="text-align:left;">
 TRUE
 </td>
 <td style="text-align:left;">
-2010-12-31T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
-2010
+2018
 </td>
 <td style="text-align:right;">
-2010
+2018
 </td>
 <td style="text-align:left;">
-YEAR-END
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-11020020070
+201804239111720149
 </td>
 <td style="text-align:left;">
 transfers_from_other_authorized_committee
 </td>
 <td style="text-align:right;">
-0
+0.00
 </td>
 <td style="text-align:left;">
-2018-04-20T21:11:18
+2017-10-16T21:00:02
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-07-24
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
 DEM
@@ -3215,10 +1919,10 @@ DEM
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -3227,58 +1931,58 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”, “00”, “00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MANCHIN III, JOE
+COCKBURN, LESLIE
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
-list(2010, 2012, 2014, 2016, 2018)
+list(2018)
 </td>
 <td style="text-align:left;">
-I
+C
 </td>
 <td style="text-align:left;">
 DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2010-07-22
+2017-07-13
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:left;">
-Incumbent
+Challenger
 </td>
 <td style="text-align:left;">
-2018-04-12
+2017-07-24
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00486563
+C00650366
 </td>
 <td style="text-align:left;">
-MANCHIN FOR WEST VIRGINIA
+LESLIE COCKBURN FOR CONGRESS
 </td>
 <td style="text-align:left;">
-JACK ROSSI
-</td>
-<td style="text-align:right;">
-2010
+MELE, STEVE
 </td>
 <td style="text-align:right;">
 2018
 </td>
 <td style="text-align:right;">
-2010
+2018
+</td>
+<td style="text-align:right;">
+2018
 </td>
 <td style="text-align:right;">
 2018
@@ -3286,7 +1990,7 @@ JACK ROSSI
 </tr>
 <tr>
 <td style="text-align:left;">
-S8WV00143
+H8VA05148
 </td>
 <td style="text-align:left;">
 2017-07-01T00:00:00+00:00
@@ -3295,7 +1999,7 @@ S8WV00143
 TRUE
 </td>
 <td style="text-align:left;">
-2018-04-18T00:00:00+00:00
+2018-04-15T00:00:00+00:00
 </td>
 <td style="text-align:right;">
 2018
@@ -3304,37 +2008,37 @@ TRUE
 2018
 </td>
 <td style="text-align:left;">
-PRE-PRIMARY
+PRE-CONVENTION
 </td>
 <td style="text-align:left;">
-201804260200359778
+201804209110419709
 </td>
 <td style="text-align:left;">
 transfers_from_other_authorized_committee
 </td>
 <td style="text-align:right;">
-53031
+0.00
 </td>
 <td style="text-align:left;">
-2018-04-24T21:15:20
+2017-10-24T21:01:05
 </td>
 <td style="text-align:left;">
-2018-04-17
+2017-07-02
 </td>
 <td style="text-align:left;">
 list(2018)
 </td>
 <td style="text-align:left;">
-REP
+DEM
 </td>
 <td style="text-align:left;">
 C
 </td>
 <td style="text-align:left;">
-Senate
+House
 </td>
 <td style="text-align:left;">
-WV
+VA
 </td>
 <td style="text-align:left;">
 FALSE
@@ -3343,16 +2047,16 @@ FALSE
 TRUE
 </td>
 <td style="text-align:left;">
-S
+H
 </td>
 <td style="text-align:left;">
-list(“00”)
+list(“05”)
 </td>
 <td style="text-align:left;">
-MORRISEY, PATRICK MR
+CULLOP, BENJAMIN NIEL
 </td>
 <td style="text-align:right;">
-0
+5
 </td>
 <td style="text-align:left;">
 list(2018)
@@ -3361,10 +2065,10 @@ list(2018)
 C
 </td>
 <td style="text-align:left;">
-REPUBLICAN PARTY
+DEMOCRATIC PARTY
 </td>
 <td style="text-align:left;">
-2017-07-17
+2017-07-02
 </td>
 <td style="text-align:right;">
 2018
@@ -3373,19 +2077,483 @@ REPUBLICAN PARTY
 Challenger
 </td>
 <td style="text-align:left;">
-2018-04-17
+2017-07-02
 </td>
 <td style="text-align:left;">
-00
+05
 </td>
 <td style="text-align:left;">
-C00651075
+C00649020
 </td>
 <td style="text-align:left;">
-MORRISEY FOR SENATE INC
+CULLOP FOR CONGRESS
 </td>
 <td style="text-align:left;">
-CRATE, BRADLEY MR
+VANDEVER, JASON
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H6VA05142
+</td>
+<td style="text-align:left;">
+2017-01-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2018-04-08T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+PRE-CONVENTION
+</td>
+<td style="text-align:left;">
+201804169108269935
+</td>
+<td style="text-align:left;">
+transfers_from_other_authorized_committee
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+2017-05-23T07:10:20
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+REP
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”, “05”)
+</td>
+<td style="text-align:left;">
+GARRETT, THOMAS ALEXANDER MR. JR.
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H6VA05142
+</td>
+<td style="text-align:left;">
+2016-01-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2016-12-31T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+YEAR-END
+</td>
+<td style="text-align:left;">
+201702029042407932
+</td>
+<td style="text-align:left;">
+transfers_from_other_authorized_committee
+</td>
+<td style="text-align:right;">
+12889.20
+</td>
+<td style="text-align:left;">
+2017-05-23T07:10:20
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+REP
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”, “05”)
+</td>
+<td style="text-align:left;">
+GARRETT, THOMAS ALEXANDER MR. JR.
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2016, 2018)
+</td>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:left;">
+REPUBLICAN PARTY
+</td>
+<td style="text-align:left;">
+2016-01-27
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Incumbent
+</td>
+<td style="text-align:left;">
+2017-05-16
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00607101
+</td>
+<td style="text-align:left;">
+TOM GARRETT FOR CONGRESS
+</td>
+<td style="text-align:left;">
+WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ.
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H8VA05114
+</td>
+<td style="text-align:left;">
+2017-04-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2018-04-15T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+PRE-CONVENTION
+</td>
+<td style="text-align:left;">
+201804239111725619
+</td>
+<td style="text-align:left;">
+transfers_from_other_authorized_committee
+</td>
+<td style="text-align:right;">
+146608.46
+</td>
+<td style="text-align:left;">
+2017-10-01T20:55:35
+</td>
+<td style="text-align:left;">
+2017-10-01
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+DEM
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”)
+</td>
+<td style="text-align:left;">
+HUFFSTETLER, ROGER DEAN RD
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+DEMOCRATIC PARTY
+</td>
+<td style="text-align:left;">
+2017-04-18
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Challenger
+</td>
+<td style="text-align:left;">
+2017-10-01
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00637918
+</td>
+<td style="text-align:left;">
+FRIENDS OF RD
+</td>
+<td style="text-align:left;">
+JOHNSON, SARAH
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H8VA05130
+</td>
+<td style="text-align:left;">
+2017-04-01T00:00:00+00:00
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+2018-03-31T00:00:00+00:00
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+APRIL QUARTERLY
+</td>
+<td style="text-align:left;">
+201804139108013236
+</td>
+<td style="text-align:left;">
+transfers_from_other_authorized_committee
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+2017-10-16T21:00:02
+</td>
+<td style="text-align:left;">
+2017-05-26
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+DEM
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+House
+</td>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:left;">
+list(“05”)
+</td>
+<td style="text-align:left;">
+SLATE, ADAM
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+list(2018)
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+DEMOCRATIC PARTY
+</td>
+<td style="text-align:left;">
+2017-05-26
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Challenger
+</td>
+<td style="text-align:left;">
+2017-05-26
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+C00639153
+</td>
+<td style="text-align:left;">
+ADAM SLATE FOR CONGRESS
+</td>
+<td style="text-align:left;">
+MCREYNOLDS, JAMES M.
 </td>
 <td style="text-align:right;">
 2018
@@ -3403,27 +2571,7 @@ CRATE, BRADLEY MR
 </tbody>
 </table>
 </div>
-<p>The tibbles returned by <code>get_</code> functions are tidy (except for some list columns that remain while developing the package). This makes it possible to cleanly pipe results into existing tidyverse tools with minimal data wrangling.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wv_senate_totals <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(type_of_funds <span class="op">==</span><span class="st"> "receipts"</span>,
-         cycle <span class="op">==</span><span class="st"> </span><span class="dv">2018</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> name, <span class="dt">y =</span> amount), <span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="receipts-total-example.png" width="100%"></p>
-<p>A list is available called <code>tidyusafec_filters</code> that contain useful vectors to filter on. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wv_senate_totals <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"MANCHIN|MORRISEY|BLANKENSHIP"</span>),
-         type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>receipts_smallest_components) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type_of_funds =</span> type_of_funds <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">str_replace_all</span>(<span class="st">"_"</span>,<span class="st">" "</span>) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">str_to_title</span>()
-         ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> name, <span class="dt">y =</span> amount), <span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type_of_funds,<span class="dt">labeller =</span> <span class="kw">label_wrap_gen</span>(<span class="dt">width=</span><span class="dv">15</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="receipts-by-type-total-example.png" width="100%"></p>
+</div>
 </div>
   </div>
 
@@ -3432,10 +2580,7 @@ CRATE, BRADLEY MR
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#installing">1. Installing</a></li>
-      <li><a href="#api-key">2. API Key</a></li>
-      <li><a href="#start-with-a-search">3. Start With a Search</a></li>
-      <li><a href="#get-financial-data">4. Get Financial Data</a></li>
+<li><a href="#get_candidate_totals">get_candidate_totals()</a></li>
       </ul>
 </div>
       </div>
