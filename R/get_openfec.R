@@ -22,7 +22,17 @@ get_openfec <- function(path, query_parameters = list()) {
 
   response <- httr::GET(url, useragent)
 
+
+  if(httr::status_code(response) == 500){
+    stop(sprintf(
+      "OpenFEC API request failed. [%s]\n%s",
+      httr::status_code(response),
+      "Internal server error."
+    ),call. = FALSE)
+  }
+
   parsed_response <- jsonlite::fromJSON(httr::content(response, "text", encoding="UTF-8"), simplifyVector = FALSE)
+
 
   if (httr::status_code(response) != 200) {
     stop(
