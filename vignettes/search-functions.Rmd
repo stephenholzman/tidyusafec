@@ -21,15 +21,13 @@ The tidyusafec workflow typically starts by searching for some group of candidat
 - `search_candidates()` by default currently returns a tibble with information about candidates and their committees (one row for each unique pair)
 - `search_elections()` by default currently returns a tibble with information about elections, including the incumbent candidate if applicable.
 
-These functions send queries to the OpenFEC API, so you also need to register for a key.
-
 #### Setup Libraries and API Keys
 
-```{r}
+```{r, eval = FALSE}
 library(tidyverse)
 library(tidyusafec)
 
-#save_datagov_apikey(key = "DATA.GOV KEY STRING")
+save_datagov_apikey(key = "DATA.GOV KEY STRING")
 ```
 
 
@@ -39,35 +37,2155 @@ A variety of search criteria are supported. Perhaps you want to find all candida
 
 #### Search for Candidates Currently in a Particular Race
 
-```{r}
+```{r, results='asis', eval = FALSE}
 va_10_house_candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "10", candidate_status = "C")
 
-head(va_10_house_candidates)
+select(va_10_house_candidates, -principal_committees) %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
 ```
-
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> load_date </th>
+   <th style="text-align:left;"> last_file_date </th>
+   <th style="text-align:left;"> candidate_id </th>
+   <th style="text-align:left;"> election_years </th>
+   <th style="text-align:left;"> party </th>
+   <th style="text-align:left;"> candidate_status </th>
+   <th style="text-align:left;"> office_full </th>
+   <th style="text-align:left;"> state </th>
+   <th style="text-align:left;"> federal_funds_flag </th>
+   <th style="text-align:left;"> has_raised_funds </th>
+   <th style="text-align:left;"> office </th>
+   <th style="text-align:left;"> election_districts </th>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:right;"> district_number </th>
+   <th style="text-align:left;"> cycles </th>
+   <th style="text-align:left;"> incumbent_challenge </th>
+   <th style="text-align:left;"> party_full </th>
+   <th style="text-align:left;"> first_file_date </th>
+   <th style="text-align:right;"> active_through </th>
+   <th style="text-align:left;"> incumbent_challenge_full </th>
+   <th style="text-align:left;"> last_f2_date </th>
+   <th style="text-align:left;"> district </th>
+   <th style="text-align:left;"> committee_id </th>
+   <th style="text-align:left;"> committee_name </th>
+   <th style="text-align:left;"> treasurer_name </th>
+   <th style="text-align:right;"> earliest_cycle </th>
+   <th style="text-align:right;"> latest_cycle </th>
+   <th style="text-align:right;"> earliest_election_year </th>
+   <th style="text-align:right;"> latest_election_year </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2017-10-16T21:00:02 </td>
+   <td style="text-align:left;"> 2017-07-07 </td>
+   <td style="text-align:left;"> H8VA10148 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> ADAMS, KIMBERLY </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-07-07 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-07-07 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00649665 </td>
+   <td style="text-align:left;"> KIMBERLY ADAMS FOR CONGRESS </td>
+   <td style="text-align:left;"> GRUBER, CATHERINE </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-08T21:14:37 </td>
+   <td style="text-align:left;"> 2017-10-13 </td>
+   <td style="text-align:left;"> H8VA10163 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> BIGGINS, JULIA ELIZABETH DR. </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-10-13 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-10-13 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00658245 </td>
+   <td style="text-align:left;"> BIGGINS FOR VIRGINIA </td>
+   <td style="text-align:left;"> BIGGINS, JULIA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-03-10T21:00:28 </td>
+   <td style="text-align:left;"> 2017-03-10 </td>
+   <td style="text-align:left;"> H4VA10089 </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10", "10", "10") </td>
+   <td style="text-align:left;"> COMSTOCK, BARBARA </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2014-01-17 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2017-03-10 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00554261 </td>
+   <td style="text-align:left;"> COMSTOCK FOR CONGRESS </td>
+   <td style="text-align:left;"> MARSTON, CHRIS MR. </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-06-07 </td>
+   <td style="text-align:left;"> H8VA10122 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> FRIEDMAN, ALISON </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-06-07 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-06-07 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00647024 </td>
+   <td style="text-align:left;"> ALISON FOR VIRGINIA </td>
+   <td style="text-align:left;"> STEPHAN, AMY </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-05-11 </td>
+   <td style="text-align:left;"> H8VA10114 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> HANSON, DAVID BRUCE MR. </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-05-11 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-05-11 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00640524 </td>
+   <td style="text-align:left;"> DAVE HANSON FOR CONGRESS </td>
+   <td style="text-align:left;"> HANSON, TERESA ELIZABETH MRS. </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-03-12T21:07:33 </td>
+   <td style="text-align:left;"> 2018-03-11 </td>
+   <td style="text-align:left;"> H8VA10080 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> HELMER, DANIEL </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-03-31 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-03-11 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00636738 </td>
+   <td style="text-align:left;"> HELMER FOR CONGRESS </td>
+   <td style="text-align:left;"> TATTRIE, DARRYL </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-01-04T21:07:09 </td>
+   <td style="text-align:left;"> 2017-07-25 </td>
+   <td style="text-align:left;"> H8VA10155 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> HILL, SHAK </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-07-24 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-07-25 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00651224 </td>
+   <td style="text-align:left;"> SHAK HILL FOR CONGRESS </td>
+   <td style="text-align:left;"> CURTIS, ELIZABETH </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-08T21:14:37 </td>
+   <td style="text-align:left;"> 2018-01-07 </td>
+   <td style="text-align:left;"> H8VA10171 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> PELLETIER, PAUL </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-10-18 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-01-07 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00658351 </td>
+   <td style="text-align:left;"> PAUL PELLETIER FOR CONGRESS </td>
+   <td style="text-align:left;"> HALL, KIMBERLY </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-06-26 </td>
+   <td style="text-align:left;"> H8VA10130 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> SRAN, DEEP </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-06-26 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-06-26 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00648048 </td>
+   <td style="text-align:left;"> DEEP SRAN FOR CONGRESS </td>
+   <td style="text-align:left;"> DESAI, PINANK </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-04-18 </td>
+   <td style="text-align:left;"> H8VA10098 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> STOVER, LINDSEY DAVIS </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-04-18 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-04-18 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00637892 </td>
+   <td style="text-align:left;"> LINDSEY FOR CONGRESS </td>
+   <td style="text-align:left;"> EDWARDS, LEA ANN </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-04-20 </td>
+   <td style="text-align:left;"> H8VA10106 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> WEXTON, JENNIFER </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2017-04-20 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-04-20 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> C00638023 </td>
+   <td style="text-align:left;"> WEXTON FOR CONGRESS </td>
+   <td style="text-align:left;"> KOWALSKI, JOAN </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+</tbody>
+</table></div>
 
 #### Search For Candidate by Name
 
-```{r}
+```{r, eval = FALSE}
+
 obamas <- search_candidates(name = "Obama")
 
-head(obamas)
+select(obamas, -principal_committees) %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
 ```
-
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> load_date </th>
+   <th style="text-align:left;"> last_file_date </th>
+   <th style="text-align:left;"> candidate_id </th>
+   <th style="text-align:left;"> party </th>
+   <th style="text-align:left;"> candidate_status </th>
+   <th style="text-align:left;"> office_full </th>
+   <th style="text-align:left;"> state </th>
+   <th style="text-align:left;"> federal_funds_flag </th>
+   <th style="text-align:left;"> has_raised_funds </th>
+   <th style="text-align:left;"> office </th>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:right;"> district_number </th>
+   <th style="text-align:left;"> incumbent_challenge </th>
+   <th style="text-align:left;"> party_full </th>
+   <th style="text-align:left;"> first_file_date </th>
+   <th style="text-align:right;"> active_through </th>
+   <th style="text-align:left;"> incumbent_challenge_full </th>
+   <th style="text-align:left;"> last_f2_date </th>
+   <th style="text-align:left;"> district </th>
+   <th style="text-align:left;"> election_years </th>
+   <th style="text-align:left;"> cycles </th>
+   <th style="text-align:left;"> election_districts </th>
+   <th style="text-align:left;"> committee_id </th>
+   <th style="text-align:left;"> committee_name </th>
+   <th style="text-align:left;"> treasurer_name </th>
+   <th style="text-align:right;"> earliest_cycle </th>
+   <th style="text-align:right;"> latest_cycle </th>
+   <th style="text-align:right;"> earliest_election_year </th>
+   <th style="text-align:right;"> latest_election_year </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2016-11-17T06:10:49 </td>
+   <td style="text-align:left;"> 2016-01-11 </td>
+   <td style="text-align:left;"> S6CA00808 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> CA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> MANDELA, BARACK OBAMA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2016-01-11 </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2016-01-11 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2016) </td>
+   <td style="text-align:left;"> list(2016) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2016 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2016-11-17T06:10:49 </td>
+   <td style="text-align:left;"> 2016-01-08 </td>
+   <td style="text-align:left;"> P60019015 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:left;"> President </td>
+   <td style="text-align:left;"> US </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> P </td>
+   <td style="text-align:left;"> MANDELA, BARACK OBAMA MR. </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2016-01-08 </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2016-01-08 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2016) </td>
+   <td style="text-align:left;"> list(2016) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2016 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2009-02-02T00:00:00 </td>
+   <td style="text-align:left;"> 2009-01-29 </td>
+   <td style="text-align:left;"> S4IL00180 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> IL </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> OBAMA, BARACK </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2002-08-22 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2009-01-29 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2004, 2010) </td>
+   <td style="text-align:left;"> list(2002, 2004, 2006, 2008, 2010) </td>
+   <td style="text-align:left;"> list("00", "00") </td>
+   <td style="text-align:left;"> C00411934 </td>
+   <td style="text-align:left;"> OBAMA 2010 INC </td>
+   <td style="text-align:left;"> HARVEY S WINEBERG </td>
+   <td style="text-align:right;"> 2006 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2004 </td>
+   <td style="text-align:right;"> 2010 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2009-02-02T00:00:00 </td>
+   <td style="text-align:left;"> 2009-01-29 </td>
+   <td style="text-align:left;"> S4IL00180 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> IL </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> OBAMA, BARACK </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2002-08-22 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2009-01-29 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2004, 2010) </td>
+   <td style="text-align:left;"> list(2002, 2004, 2006, 2008, 2010) </td>
+   <td style="text-align:left;"> list("00", "00") </td>
+   <td style="text-align:left;"> C00381442 </td>
+   <td style="text-align:left;"> OBAMA FOR ILLINOIS INC </td>
+   <td style="text-align:left;"> HARVEY S. WINEBERG </td>
+   <td style="text-align:right;"> 2002 </td>
+   <td style="text-align:right;"> 2006 </td>
+   <td style="text-align:right;"> 2004 </td>
+   <td style="text-align:right;"> 2010 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2002-04-12T00:00:00 </td>
+   <td style="text-align:left;"> 1999-08-04 </td>
+   <td style="text-align:left;"> H0IL01087 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> P </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> IL </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> OBAMA, BARACK H </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 1999-08-04 </td>
+   <td style="text-align:right;"> 2000 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 1999-08-04 </td>
+   <td style="text-align:left;"> 01 </td>
+   <td style="text-align:left;"> list(2000) </td>
+   <td style="text-align:left;"> list(2000, 2002, 2004) </td>
+   <td style="text-align:left;"> list("01") </td>
+   <td style="text-align:left;"> C00347583 </td>
+   <td style="text-align:left;"> OBAMA FOR CONGRESS 2000 </td>
+   <td style="text-align:left;"> LIONEL BOLIN </td>
+   <td style="text-align:right;"> 2000 </td>
+   <td style="text-align:right;"> 2004 </td>
+   <td style="text-align:right;"> 2000 </td>
+   <td style="text-align:right;"> 2000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-17T09:16:20 </td>
+   <td style="text-align:left;"> 2015-09-26 </td>
+   <td style="text-align:left;"> P80003338 </td>
+   <td style="text-align:left;"> DEM </td>
+   <td style="text-align:left;"> P </td>
+   <td style="text-align:left;"> President </td>
+   <td style="text-align:left;"> US </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> P </td>
+   <td style="text-align:left;"> OBAMA, BARACK / JOSEPH R. BIDEN </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> DEMOCRATIC PARTY </td>
+   <td style="text-align:left;"> 2007-02-12 </td>
+   <td style="text-align:right;"> 2012 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2015-09-26 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2008, 2012) </td>
+   <td style="text-align:left;"> list(2006, 2008, 2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("00", "00") </td>
+   <td style="text-align:left;"> C00431445 </td>
+   <td style="text-align:left;"> OBAMA FOR AMERICA </td>
+   <td style="text-align:left;"> NESBITT, MARTIN H </td>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 2012 </td>
+  </tr>
+</tbody>
+</table></div>
 #### Search for All Candidates of a Party in a State
 
-```{r}
+```{r, eval = FALSE}
 texas_republicans <- search_candidates(state = "VA", party = "REP", election_year = 2018)
 
-head(texas_republicans)
+select(texas_republicans, -principal_committees) %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> load_date </th>
+   <th style="text-align:left;"> last_file_date </th>
+   <th style="text-align:left;"> candidate_id </th>
+   <th style="text-align:left;"> party </th>
+   <th style="text-align:left;"> candidate_status </th>
+   <th style="text-align:left;"> office_full </th>
+   <th style="text-align:left;"> state </th>
+   <th style="text-align:left;"> federal_funds_flag </th>
+   <th style="text-align:left;"> has_raised_funds </th>
+   <th style="text-align:left;"> office </th>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:right;"> district_number </th>
+   <th style="text-align:left;"> incumbent_challenge </th>
+   <th style="text-align:left;"> party_full </th>
+   <th style="text-align:left;"> first_file_date </th>
+   <th style="text-align:right;"> active_through </th>
+   <th style="text-align:left;"> incumbent_challenge_full </th>
+   <th style="text-align:left;"> last_f2_date </th>
+   <th style="text-align:left;"> district </th>
+   <th style="text-align:left;"> election_years </th>
+   <th style="text-align:left;"> cycles </th>
+   <th style="text-align:left;"> election_districts </th>
+   <th style="text-align:left;"> committee_id </th>
+   <th style="text-align:left;"> committee_name </th>
+   <th style="text-align:left;"> treasurer_name </th>
+   <th style="text-align:right;"> earliest_cycle </th>
+   <th style="text-align:right;"> latest_cycle </th>
+   <th style="text-align:right;"> earliest_election_year </th>
+   <th style="text-align:right;"> latest_election_year </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2018-03-26T23:01:41 </td>
+   <td style="text-align:left;"> 2018-03-26 </td>
+   <td style="text-align:left;"> H4VA07143 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> BRAT, DAVID ALAN MR. </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2014-01-13 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2018-03-26 </td>
+   <td style="text-align:left;"> 07 </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("07", "07", "07") </td>
+   <td style="text-align:left;"> C00554949 </td>
+   <td style="text-align:left;"> FRIENDS OF DAVE BRAT INC. </td>
+   <td style="text-align:left;"> AGLIANO, DEBBIE </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-08T21:14:37 </td>
+   <td style="text-align:left;"> 2017-11-27 </td>
+   <td style="text-align:left;"> H8VA06104 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> CLINE, BENJAMIN LEE </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-11-27 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2017-11-27 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00661561 </td>
+   <td style="text-align:left;"> BEN CLINE FOR CONGRESS, INC. </td>
+   <td style="text-align:left;"> CRATE, BRADLEY T. </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-03-10T21:00:28 </td>
+   <td style="text-align:left;"> 2017-03-10 </td>
+   <td style="text-align:left;"> H4VA10089 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> COMSTOCK, BARBARA </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2014-01-17 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2017-03-10 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("10", "10", "10") </td>
+   <td style="text-align:left;"> C00554261 </td>
+   <td style="text-align:left;"> COMSTOCK FOR CONGRESS </td>
+   <td style="text-align:left;"> MARSTON, CHRIS MR. </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2014 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-10T21:09:31 </td>
+   <td style="text-align:left;"> 2018-02-20 </td>
+   <td style="text-align:left;"> H8VA06153 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> DESJADON, MICHAEL </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-02-20 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2018-02-20 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00667527 </td>
+   <td style="text-align:left;"> DESJADON FOR CONGRESS </td>
+   <td style="text-align:left;"> LOFQUIST, KURT </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-27T21:22:31 </td>
+   <td style="text-align:left;"> 2018-02-09 </td>
+   <td style="text-align:left;"> S8VA00339 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> DIAZ, MINERVA DR </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-02-09 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-02-09 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> C00669903 </td>
+   <td style="text-align:left;"> MINERVA DIAZ FOR US SENATE VIRGINIA </td>
+   <td style="text-align:left;"> MITCHELL, LENNIE </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-09-27T20:56:17 </td>
+   <td style="text-align:left;"> 2017-01-01 </td>
+   <td style="text-align:left;"> H8VA11070 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> DOVE, JEFFERY ANTHONY MR. JR. </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-01-01 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-01-01 </td>
+   <td style="text-align:left;"> 11 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("11") </td>
+   <td style="text-align:left;"> C00630384 </td>
+   <td style="text-align:left;"> JEFF DOVE FOR CONGRESS </td>
+   <td style="text-align:left;"> DOVE-SMITH, LAKEISHA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-08T21:14:37 </td>
+   <td style="text-align:left;"> 2017-11-09 </td>
+   <td style="text-align:left;"> H8VA06096 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> DUNBAR, CYNTHIA </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-11-09 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2017-11-09 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00661116 </td>
+   <td style="text-align:left;"> DUNBAR FOR CONGRESS, INC. </td>
+   <td style="text-align:left;"> CURTIS, ELIZABETH </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-25T21:12:43 </td>
+   <td style="text-align:left;"> 2018-04-14 </td>
+   <td style="text-align:left;"> H8VA04034 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> FENTY, SHION </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-04-14 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-04-14 </td>
+   <td style="text-align:left;"> 04 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("04") </td>
+   <td style="text-align:left;"> C00667600 </td>
+   <td style="text-align:left;"> FENTY FOR CONGRESS </td>
+   <td style="text-align:left;"> MARSTON, CHRIS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-27T21:22:31 </td>
+   <td style="text-align:left;"> 2017-12-28 </td>
+   <td style="text-align:left;"> S8VA00313 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> FREITAS, NICHOLAS JASON </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-12-28 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-12-28 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> C00665570 </td>
+   <td style="text-align:left;"> NICK FREITAS FOR US SENATE </td>
+   <td style="text-align:left;"> WOODFIN, CHRISTOPHER M MR ESQ </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-05-23T07:10:20 </td>
+   <td style="text-align:left;"> 2017-05-16 </td>
+   <td style="text-align:left;"> H6VA05142 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> GARRETT, THOMAS ALEXANDER MR. JR. </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2016-01-27 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2017-05-16 </td>
+   <td style="text-align:left;"> 05 </td>
+   <td style="text-align:left;"> list(2016, 2018) </td>
+   <td style="text-align:left;"> list(2016, 2018) </td>
+   <td style="text-align:left;"> list("05", "05") </td>
+   <td style="text-align:left;"> C00607101 </td>
+   <td style="text-align:left;"> TOM GARRETT FOR CONGRESS </td>
+   <td style="text-align:left;"> WOODFIN, CHRISTOPHER MONTGOMERY MR. ESQ. </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-03-14T20:59:15 </td>
+   <td style="text-align:left;"> 2017-01-27 </td>
+   <td style="text-align:left;"> H2VA06115 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> GOODLATTE, ROBERT W. </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 1992-01-10 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2017-01-27 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(1992, 1994, 1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list(1992, 1994, 1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("06", "06", "06", "06", "06", "06", "06", "06", "06", "06", "06", "06", "06", "06") </td>
+   <td style="text-align:left;"> C00257956 </td>
+   <td style="text-align:left;"> BOB GOODLATTE FOR CONGRESS COMMITTEE </td>
+   <td style="text-align:left;"> MCMENAMIN, LAURA KILGORE </td>
+   <td style="text-align:right;"> 1992 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1992 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-05-09T21:04:56 </td>
+   <td style="text-align:left;"> 2017-02-17 </td>
+   <td style="text-align:left;"> H0VA09055 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> GRIFFITH, H MORGAN </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2010-03-15 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2017-02-17 </td>
+   <td style="text-align:left;"> 09 </td>
+   <td style="text-align:left;"> list(2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("09", "09", "09", "09", "09") </td>
+   <td style="text-align:left;"> C00477240 </td>
+   <td style="text-align:left;"> MORGAN GRIFFITH FOR CONGRESS </td>
+   <td style="text-align:left;"> SELPH, JOHN G. </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-08T21:14:37 </td>
+   <td style="text-align:left;"> 2017-11-29 </td>
+   <td style="text-align:left;"> H8VA06112 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> HAYWOOD, CHARLES W. MR. </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-11-29 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2017-11-29 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00661892 </td>
+   <td style="text-align:left;"> CHAZ HAYWOOD FOR CONGRESS </td>
+   <td style="text-align:left;"> SELPH, JOHN G. MR. </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-01-04T21:07:09 </td>
+   <td style="text-align:left;"> 2017-07-25 </td>
+   <td style="text-align:left;"> H8VA10155 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> HILL, SHAK </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-07-24 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-07-25 </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("10") </td>
+   <td style="text-align:left;"> C00651224 </td>
+   <td style="text-align:left;"> SHAK HILL FOR CONGRESS </td>
+   <td style="text-align:left;"> CURTIS, ELIZABETH </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-22T21:14:12 </td>
+   <td style="text-align:left;"> 2017-12-15 </td>
+   <td style="text-align:left;"> S2VA00167 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> JACKSON, EARL W SR </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2011-04-08 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-12-15 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2012, 2018) </td>
+   <td style="text-align:left;"> list(2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("00", "00") </td>
+   <td style="text-align:left;"> C00665554 </td>
+   <td style="text-align:left;"> JACKSON-US SENATE </td>
+   <td style="text-align:left;"> RICE, JENNIFER </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2012 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-22T21:14:12 </td>
+   <td style="text-align:left;"> 2017-12-15 </td>
+   <td style="text-align:left;"> S2VA00167 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> JACKSON, EARL W SR </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2011-04-08 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-12-15 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2012, 2018) </td>
+   <td style="text-align:left;"> list(2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("00", "00") </td>
+   <td style="text-align:left;"> C00495549 </td>
+   <td style="text-align:left;"> JACKSON FOR VIRGINIA </td>
+   <td style="text-align:left;"> THEODORA J JACKSON </td>
+   <td style="text-align:right;"> 2012 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2012 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-10-16T21:00:02 </td>
+   <td style="text-align:left;"> 2017-08-30 </td>
+   <td style="text-align:left;"> H8VA02079 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> JONES, MARY </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-08-30 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-08-30 </td>
+   <td style="text-align:left;"> 02 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("02") </td>
+   <td style="text-align:left;"> C00654350 </td>
+   <td style="text-align:left;"> MARY JONES FOR CONGRESS, INC. </td>
+   <td style="text-align:left;"> CURTIS, ELIZABETH </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-03T21:07:16 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> H8VA06179 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> JUSTO, ED </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-03T21:07:16 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> H8VA06187 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> LEWIS, KATHRYN </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-27T00:10:45 </td>
+   <td style="text-align:left;"> 2018-04-19 </td>
+   <td style="text-align:left;"> H8VA06195 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> LEWIS, KATHYRN </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-04-19 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2018-04-19 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00665919 </td>
+   <td style="text-align:left;"> FRIENDS OF KATHRYN LEWIS </td>
+   <td style="text-align:left;"> LEWIS, KATHRYN </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-18T21:13:54 </td>
+   <td style="text-align:left;"> 2017-12-12 </td>
+   <td style="text-align:left;"> H8VA04026 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> MCADAMS, RYAN A. MR. </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-12-12 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-12-12 </td>
+   <td style="text-align:left;"> 04 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("04") </td>
+   <td style="text-align:left;"> C00663070 </td>
+   <td style="text-align:left;"> RYAN MCADAMS FOR CONGRESS </td>
+   <td style="text-align:left;"> SELPH, JOHN G. MR. </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-20T21:22:21 </td>
+   <td style="text-align:left;"> 2018-02-06 </td>
+   <td style="text-align:left;"> S8VA00321 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> MIZUSAWA, BERT K </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-02-06 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-02-06 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-16T21:15:46 </td>
+   <td style="text-align:left;"> 2018-04-07 </td>
+   <td style="text-align:left;"> H8VA08159 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> OH, THOMAS </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-02-09 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2018-04-07 </td>
+   <td style="text-align:left;"> 08 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("08") </td>
+   <td style="text-align:left;"> C00669515 </td>
+   <td style="text-align:left;"> THOMAS OH FINANCE COMMITTEE </td>
+   <td style="text-align:left;"> OH, THOMAS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-04-10T21:09:31 </td>
+   <td style="text-align:left;"> 2018-01-22 </td>
+   <td style="text-align:left;"> H8VA06120 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> POPE, ELLIOT </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-01-22 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2018-01-22 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00667451 </td>
+   <td style="text-align:left;"> ELLIOT POPE FOR CONGRESS </td>
+   <td style="text-align:left;"> POPE, ELLIOT </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-22T21:14:12 </td>
+   <td style="text-align:left;"> 2017-11-13 </td>
+   <td style="text-align:left;"> S8VA00305 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> RAIKLIN, IVAN ERIC </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-11-13 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-11-13 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> C00653790 </td>
+   <td style="text-align:left;"> IVAN RAIKLIN FOR US SENATE </td>
+   <td style="text-align:left;"> SHEIKH, HASSAN MR </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-02-17T09:16:20 </td>
+   <td style="text-align:left;"> 2017-07-10 </td>
+   <td style="text-align:left;"> S8VA00297 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> Senate </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> STEWART, COREY ALAN </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2017-07-10 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Challenger </td>
+   <td style="text-align:left;"> 2017-07-10 </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("00") </td>
+   <td style="text-align:left;"> C00650374 </td>
+   <td style="text-align:left;"> STEWART FOR SENATE INC </td>
+   <td style="text-align:left;"> ELIZABETH CURTIS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-03-10T21:07:09 </td>
+   <td style="text-align:left;"> 2018-03-09 </td>
+   <td style="text-align:left;"> H0VA02118 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> TAYLOR, SCOTT W. MR. </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2009-09-28 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2018-03-09 </td>
+   <td style="text-align:left;"> 02 </td>
+   <td style="text-align:left;"> list(2010, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("02", "02", "02") </td>
+   <td style="text-align:left;"> C00608703 </td>
+   <td style="text-align:left;"> SCOTT TAYLOR FOR CONGRESS </td>
+   <td style="text-align:left;"> SELPH, JOHN G. </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-03-10T21:07:09 </td>
+   <td style="text-align:left;"> 2018-03-09 </td>
+   <td style="text-align:left;"> H0VA02118 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> TAYLOR, SCOTT W. MR. </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2009-09-28 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2018-03-09 </td>
+   <td style="text-align:left;"> 02 </td>
+   <td style="text-align:left;"> list(2010, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("02", "02", "02") </td>
+   <td style="text-align:left;"> C00468264 </td>
+   <td style="text-align:left;"> SCOTT TAYLOR FOR CONGRESS </td>
+   <td style="text-align:left;"> ITHIEL HARLEY THOMAS IV </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-03-14T20:59:15 </td>
+   <td style="text-align:left;"> 2016-12-12 </td>
+   <td style="text-align:left;"> H8VA01147 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> WITTMAN, ROBERT J MR. </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> I </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2007-11-13 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Incumbent </td>
+   <td style="text-align:left;"> 2016-12-12 </td>
+   <td style="text-align:left;"> 01 </td>
+   <td style="text-align:left;"> list(2008, 2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list(2008, 2010, 2012, 2014, 2016, 2018) </td>
+   <td style="text-align:left;"> list("01", "01", "01", "01", "01", "01") </td>
+   <td style="text-align:left;"> C00441014 </td>
+   <td style="text-align:left;"> ROB WITTMAN FOR CONGRESS </td>
+   <td style="text-align:left;"> MARSTON, CHRIS </td>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018-05-09T01:03:00 </td>
+   <td style="text-align:left;"> 2018-02-12 </td>
+   <td style="text-align:left;"> H8VA06146 </td>
+   <td style="text-align:left;"> REP </td>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:left;"> House </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> WRIGHT, DOUGLAS DAVID DR. </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> O </td>
+   <td style="text-align:left;"> REPUBLICAN PARTY </td>
+   <td style="text-align:left;"> 2018-02-12 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:left;"> Open seat </td>
+   <td style="text-align:left;"> 2018-02-12 </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list(2018) </td>
+   <td style="text-align:left;"> list("06") </td>
+   <td style="text-align:left;"> C00669630 </td>
+   <td style="text-align:left;"> FRIIENDS OF DOUGLAS WRIGHT, INC </td>
+   <td style="text-align:left;"> SHRADER, ORVILLE DWIGHT MR. JR </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2018 </td>
+  </tr>
+</tbody>
+</table></div>
+
+## search_elections()
+
+Use this to find scheduled elections. Some examples are below and documentation for each argument can be accessed in RStudio using `?search_elections`. 
+
+#### Search for 2018 Elections in Florida
+
+
+```{r, eval = FALSE}
+
+florida_elections <- search_elections(state = "FL", cycle = 2018)
+
+florida_elections %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> cycle </th>
+   <th style="text-align:left;"> office </th>
+   <th style="text-align:left;"> district </th>
+   <th style="text-align:left;"> incumbent_id </th>
+   <th style="text-align:left;"> state </th>
+   <th style="text-align:left;"> incumbent_name </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8FL00166 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> NELSON, BILL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 01 </td>
+   <td style="text-align:left;"> H6FL01119 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> GAETZ, MATT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 02 </td>
+   <td style="text-align:left;"> H6FL02208 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> DUNN, NEAL PATRICK MD, FACS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 03 </td>
+   <td style="text-align:left;"> H2FL06109 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> YOHO, THEODORE SCOTT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 04 </td>
+   <td style="text-align:left;"> H6FL04105 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> RUTHERFORD, JOHN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 05 </td>
+   <td style="text-align:left;"> H0FL02086 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> LAWSON, ALFRED JR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 06 </td>
+   <td style="text-align:left;"> H2FL00292 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> DESANTIS, RONALD D. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 07 </td>
+   <td style="text-align:left;"> H6FL07140 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> MURPHY, STEPHANIE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 08 </td>
+   <td style="text-align:left;"> H8FL15107 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> POSEY, BILL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 09 </td>
+   <td style="text-align:left;"> H6FL09179 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> SOTO, DARREN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:left;"> H2FL08063 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> DEMINGS, VALDEZ VAL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 11 </td>
+   <td style="text-align:left;"> H0FL08208 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> WEBSTER, DANIEL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 12 </td>
+   <td style="text-align:left;"> H6FL09070 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> BILIRAKIS, GUS M </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 13 </td>
+   <td style="text-align:left;"> H6FL13205 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> CRIST, CHARLIE JOSEPH </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 14 </td>
+   <td style="text-align:left;"> H6FL11126 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> CASTOR, KATHY </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:left;"> H0FL12101 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> ROSS, DENNIS ALAN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 16 </td>
+   <td style="text-align:left;"> H6FL13148 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> BUCHANAN, VERNON </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 17 </td>
+   <td style="text-align:left;"> H8FL16022 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> ROONEY, TOM MR. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 18 </td>
+   <td style="text-align:left;"> H6FL18097 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> MAST, BRIAN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 19 </td>
+   <td style="text-align:left;"> H6FL19087 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> ROONEY, FRANCIS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 20 </td>
+   <td style="text-align:left;"> H2FL23021 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> HASTINGS, ALCEE L </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 21 </td>
+   <td style="text-align:left;"> H2FL14053 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> FRANKEL, LOIS J. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 22 </td>
+   <td style="text-align:left;"> H0FL19080 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> DEUTCH, THEODORE ELIOT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 23 </td>
+   <td style="text-align:left;"> H4FL20023 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> WASSERMAN SCHULTZ, DEBBIE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 24 </td>
+   <td style="text-align:left;"> H0FL17068 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> WILSON, FREDERICA S. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 25 </td>
+   <td style="text-align:left;"> H2FL25018 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> DIAZ-BALART, MARIO </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 26 </td>
+   <td style="text-align:left;"> H4FL26038 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> CURBELO, CARLOS MR. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> H </td>
+   <td style="text-align:left;"> 27 </td>
+   <td style="text-align:left;"> H0FL18025 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> ROS-LEHTINEN, ILEANA THE HON. </td>
+  </tr>
+</tbody>
+</table></div>
+
+#### Search for 2018 Senate Elections
+
+```{r, eval = FALSE}
+
+senate_elections <- search_elections(office = "senate", cycle = 2018)
+
+senate_elections %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
 ```
 
-#### Search for All Candidates Running for Senate
-
-```{r}
-senate_candidates <- search_candidates(election_year = 2018, office = "S", candidate_status = "C")
-
-head(senate_candidates)
-```
-
-
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> cycle </th>
+   <th style="text-align:left;"> office </th>
+   <th style="text-align:left;"> district </th>
+   <th style="text-align:left;"> incumbent_id </th>
+   <th style="text-align:left;"> state </th>
+   <th style="text-align:left;"> incumbent_name </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6MD03177 </td>
+   <td style="text-align:left;"> MD </td>
+   <td style="text-align:left;"> CARDIN, BENJAMIN L </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6WY00068 </td>
+   <td style="text-align:left;"> WY </td>
+   <td style="text-align:left;"> BARRASSO, JOHN A </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S0NY00410 </td>
+   <td style="text-align:left;"> NY </td>
+   <td style="text-align:left;"> GILLIBRAND, KIRSTEN ELIZABETH </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8MI00281 </td>
+   <td style="text-align:left;"> MI </td>
+   <td style="text-align:left;"> STABENOW, DEBBIE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6MO00305 </td>
+   <td style="text-align:left;"> MO </td>
+   <td style="text-align:left;"> MCCASKILL, CLAIRE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8MS00196 </td>
+   <td style="text-align:left;"> MS </td>
+   <td style="text-align:left;"> WICKER, ROGER F </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2VA00142 </td>
+   <td style="text-align:left;"> VA </td>
+   <td style="text-align:left;"> KAINE, TIMOTHY MICHAEL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2ME00109 </td>
+   <td style="text-align:left;"> ME </td>
+   <td style="text-align:left;"> KING, ANGUS STANLEY JR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6UT00063 </td>
+   <td style="text-align:left;"> UT </td>
+   <td style="text-align:left;"> HATCH, ORRIN G </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S0WV00090 </td>
+   <td style="text-align:left;"> WV </td>
+   <td style="text-align:left;"> MANCHIN III, JOE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2NE00094 </td>
+   <td style="text-align:left;"> NE </td>
+   <td style="text-align:left;"> FISCHER, DEBRA S </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2TX00312 </td>
+   <td style="text-align:left;"> TX </td>
+   <td style="text-align:left;"> CRUZ, RAFAEL EDWARD TED </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2HI00106 </td>
+   <td style="text-align:left;"> HI </td>
+   <td style="text-align:left;"> HIRONO, MAZIE K </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2IN00091 </td>
+   <td style="text-align:left;"> IN </td>
+   <td style="text-align:left;"> DONNELLY, JOSEPH S </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2AZ00141 </td>
+   <td style="text-align:left;"> AZ </td>
+   <td style="text-align:left;"> FLAKE, JEFF </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6TN00216 </td>
+   <td style="text-align:left;"> TN </td>
+   <td style="text-align:left;"> CORKER, ROBERT P JR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2WI00219 </td>
+   <td style="text-align:left;"> WI </td>
+   <td style="text-align:left;"> BALDWIN, TAMMY </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S0CA00199 </td>
+   <td style="text-align:left;"> CA </td>
+   <td style="text-align:left;"> FEINSTEIN, DIANNE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2CT00132 </td>
+   <td style="text-align:left;"> CT </td>
+   <td style="text-align:left;"> MURPHY, CHRISTOPHER S MR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2ND00099 </td>
+   <td style="text-align:left;"> ND </td>
+   <td style="text-align:left;"> HEITKAMP, HEIDI </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6NJ00289 </td>
+   <td style="text-align:left;"> NJ </td>
+   <td style="text-align:left;"> MENENDEZ, ROBERT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6RI00221 </td>
+   <td style="text-align:left;"> RI </td>
+   <td style="text-align:left;"> WHITEHOUSE, SHELDON II </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6MT00162 </td>
+   <td style="text-align:left;"> MT </td>
+   <td style="text-align:left;"> TESTER, JON </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8WA00194 </td>
+   <td style="text-align:left;"> WA </td>
+   <td style="text-align:left;"> CANTWELL, MARIA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S4VT00033 </td>
+   <td style="text-align:left;"> VT </td>
+   <td style="text-align:left;"> SANDERS, BERNARD </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2NM00088 </td>
+   <td style="text-align:left;"> NM </td>
+   <td style="text-align:left;"> HEINRICH, MARTIN TREVOR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2MA00170 </td>
+   <td style="text-align:left;"> MA </td>
+   <td style="text-align:left;"> WARREN, ELIZABETH </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S2NV00183 </td>
+   <td style="text-align:left;"> NV </td>
+   <td style="text-align:left;"> HELLER, DEAN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8DE00079 </td>
+   <td style="text-align:left;"> DE </td>
+   <td style="text-align:left;"> CARPER, THOMAS R </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6PA00217 </td>
+   <td style="text-align:left;"> PA </td>
+   <td style="text-align:left;"> CASEY, ROBERT P JR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8FL00166 </td>
+   <td style="text-align:left;"> FL </td>
+   <td style="text-align:left;"> NELSON, BILL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S6OH00163 </td>
+   <td style="text-align:left;"> OH </td>
+   <td style="text-align:left;"> BROWN, SHERROD </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8MN00578 </td>
+   <td style="text-align:left;"> MN </td>
+   <td style="text-align:left;"> SMITH, TINA FLINT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> S </td>
+   <td style="text-align:left;"> 00 </td>
+   <td style="text-align:left;"> S8AL00308 </td>
+   <td style="text-align:left;"> AL </td>
+   <td style="text-align:left;"> STRANGE, LUTHER J III </td>
+  </tr>
+</tbody>
+</table></div>

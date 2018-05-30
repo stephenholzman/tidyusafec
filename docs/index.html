@@ -103,14 +103,13 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyusafec)
-<span class="kw">library</span>(tidyverse)
-
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(tidyusafec)
 <span class="co">#install api key</span>
 <span class="co">#data_gov_api_key("api-key-string")</span>
 
 
-df &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"10"</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">election_year =</span> <span class="st">"2018"</span>) <span class="op">%&gt;%</span>
+df &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"10"</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/get_candidate_totals.html">get_candidate_totals</a></span>()
 
 df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>top_level, cycle <span class="op">==</span><span class="st"> "2018"</span>) <span class="op">%&gt;%</span>
@@ -122,7 +121,6 @@ df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filte
 <span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>dollar) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="README-unnamed-chunk-3-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(tidyusafec)
 wv_senate_search &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"WV"</span>, <span class="dt">office =</span> <span class="st">"S"</span>, <span class="dt">election_year =</span> <span class="st">"2018"</span>) <span class="op">%&gt;%</span>
@@ -151,7 +149,6 @@ wv_senate_search <span class="op">%&gt;%</span><span class="st"> </span><span cl
     <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">18</span>),
     <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)
   )</code></pre></div>
-<p><img src="README-unnamed-chunk-4-1.png" width="700"></p>
 </div>
   </div>
 
