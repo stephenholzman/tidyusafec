@@ -20,8 +20,9 @@ Examples
 ``` r
 library(tidyverse)
 library(tidyusafec)
+
 #install api key
-#data_gov_api_key("api-key-string")
+save_datagov_apikey("api-key-string")
 
 
 df <- search_candidates(state = "VA", district = "10", office = "H", election_year = 2018, candidate_status = "C") %>%
@@ -37,6 +38,8 @@ df %>% filter(type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_fun
   coord_flip() +
   theme_bw()
 ```
+
+<img src="README-example-top-level.png"></img>
 
 ``` r
 library(tidyverse)
