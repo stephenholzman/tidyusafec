@@ -71,3 +71,5 @@ wv_senate_search %>% filter(type_of_funds %in% tidyusafec_filters$candidate_tota
     axis.text = element_text(size = 8)
   )
 ```
+
+<img src="README-example-top-level.png"></img>
