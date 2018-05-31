@@ -1279,7 +1279,7 @@ wv_senate_totals %>%
 ```
 
 ```{r, eval = FALSE, include = FALSE}
-ggsave(filename = "receipts-by-type-total-example.png", width = 9, height = 5)
+ggsave(filename = "receipts-by-type-total-example.png", width = 11, height = 5)
 ```
 
 <img src="receipts-by-type-total-example.png" width="100%"></img>

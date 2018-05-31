@@ -891,3 +891,4 @@ select(va_05_house_candidates[1:20,], -principal_committees) %>%
   </tr>
 </tbody>
 </table></div>
+
