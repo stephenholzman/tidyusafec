@@ -72,4 +72,4 @@ wv_senate_search %>% filter(type_of_funds %in% tidyusafec_filters$candidate_tota
   )
 ```
 
-<img src="README-example-top-level.png"></img>
+<img src="README-example-receipts-type.png"></img>
