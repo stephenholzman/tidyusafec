@@ -32,7 +32,8 @@ get_candidate_totals <- function(
   designation = NULL,
   type = NULL,
   full_election = TRUE,
-  api_key = Sys.getenv("DATAGOV_API_KEY")
+  api_key = Sys.getenv("DATAGOV_API_KEY"),
+  message = TRUE
   ){
 
   if (is.null(api_key)) {
@@ -47,6 +48,7 @@ get_candidate_totals <- function(
     if('candidate_id' %in% names(data)){
 
       candidate_id <- data[['candidate_id']]
+
 
     }else{
 
@@ -66,7 +68,22 @@ get_candidate_totals <- function(
   for(c_id in candidate_id){
 
     Sys.sleep(.5) #With an upgraded key, max limit is 120 calls per minute. May be giving up a little performance for now in favor of being nice to FEC servers.
-    message("Getting totals for: ", c_id)
+
+
+    if(message == TRUE){
+      if(!is.null(data)){
+
+        c_name <- data$name[match(c_id,data$candidate_id)]
+        message("Getting totals for: ", c_name, " (",c_id,")")
+
+      }else{
+
+        message("Getting totals for: ",c_id)
+
+      }
+    }
+
+
 
     query_parameters <- list(
       sort_null_only = sort_null_only,
