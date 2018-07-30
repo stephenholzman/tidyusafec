@@ -1,6 +1,6 @@
 #' Search FEC records for Candidates
 #'
-#' Search for candidates. If data_structure is the default 'tidy', returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).
+#' Search for candidates. If data_structure is the default 'tidy' and unnest_committees is TRUE, returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).
 #'
 #' OpenFEC Documentation: Fetch basic information about candidates and their principal committees.
 #'
@@ -8,6 +8,7 @@
 #'
 #' The candidate endpoints primarily use data from FEC registration Form 1, for candidate information, and Form 2, for committees information, with additional information to provide context.
 #' @param data_structure A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.
+#' @param unnest_committees TRUE or FALSE, whether to unnest information about candidate committees.
 #' @param candidate_id A unique identifier assigned to each candidate registered with the FEC. If a person runs for several offices, that person will have separate candidate IDs for each office.
 #' @param name Name (candidate or committee) to search for.
 #' @param max_first_file_date Selects all candidates whose first filing was received by the FEC before this date.
@@ -38,6 +39,7 @@
 #'
 search_candidates <- function(
   data_structure = 'tidy',
+  unnest_committees = TRUE,
   candidate_id = NULL,
   name = NULL,
   max_first_file_date = NULL,
@@ -175,19 +177,29 @@ search_candidates <- function(
                                                                  designation_full = NA,
                                                                  last_f1_date = NA,
                                                                  treasurer_name = NA,
-                                                                 name = NA))))) %>%
-    #We want to unnest the principal committees so we have a row for every canidate-committee pair, but keep some other lists preserved (for now at least. Eventually need to check info about committees to narrow these down further).
-    tidyr::unnest(principal_committees, .preserve = c("election_years", "cycles", "election_districts")) %>%
-    mutate(committee_id = map_chr(principal_committees, function(x) x$committee_id),
-           committee_name = map_chr(principal_committees, function(x) x$name),
-           treasurer_name = map_chr(principal_committees, function(x) x$treasurer_name),
-           earliest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% min()),
-           latest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% max()),
-           earliest_election_year = map_int(election_years, function(x) x %>% unlist() %>% min()),
-           latest_election_year = map_int(election_years, function(x) x %>% unlist() %>% max())
-           )
+                                                                 name = NA)))))
 
-  message("Total Principal Committees associated with these candidates: ",length(levels(as.factor(tidy_candidates$committee_id))))
+  if(unnest_committees == TRUE){
+
+    tidy_candidates <- tidy_candidates %>%
+      #We want to unnest the principal committees so we have a row for every canidate-committee pair, but keep some other lists preserved.
+      tidyr::unnest(principal_committees, .preserve = c("election_years", "cycles", "election_districts")) %>%
+      mutate(committee_id = map_chr(principal_committees, function(x) x$committee_id),
+             committee_name = map_chr(principal_committees, function(x) x$name),
+             treasurer_name = map_chr(principal_committees, function(x) x$treasurer_name),
+             earliest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% min()),
+             latest_cycle = map_int(principal_committees, function(x) x$cycles %>% unlist() %>% max()),
+             earliest_election_year = map_int(election_years, function(x) x %>% unlist() %>% min()),
+             latest_election_year = map_int(election_years, function(x) x %>% unlist() %>% max()),
+             committee_first_file_date = map_chr(principal_committees, function(x) x$first_file_date),
+             committee_last_file_date = map_chr(principal_committees, function(x) x$last_file_date)
+      )
+
+    message("While Unnesting: \n\tTotal Candidates: ",length(levels(as.factor(tidy_candidates$candidate_id))),"\n\tTotal Principal Committees: ",length(levels(as.factor(tidy_candidates$committee_id))),"\n\tNumber of rows: ",nrow(tidy_candidates))
+
+  }
+
+
 
   results_to_return <- list(
     tidy = tidy_candidates,

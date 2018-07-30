@@ -74,7 +74,12 @@ get_candidate_totals <- function(
       if(!is.null(data)){
 
         c_name <- data$name[match(c_id,data$candidate_id)]
-        message("Getting totals for: ", c_name, " (",c_id,")")
+        state_message <- data$state[match(c_id,data$candidate_id)]
+        office_message <- data$office_full[match(c_id,data$candidate_id)]
+        district_message <- data$district[match(c_id,data$candidate_id)]
+        party_message <- data$party[match(c_id,data$candidate_id)]
+
+        message("Getting totals for: ", c_name, " (",party_message,") | ", office_message," ",state_message,district_message," | ",c_id)
 
       }else{
 

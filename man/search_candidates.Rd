@@ -54,7 +54,7 @@ search_candidates(data_structure = "tidy", candidate_id = NULL,
 \item{district}{Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.}
 }
 \description{
-Search for candidates. If data_structure is the default 'tidy', returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).
+Search for candidates. If data_structure is the default 'tidy'.
 }
 \details{
 OpenFEC Documentation: Fetch basic information about candidates and their principal committees.

@@ -7,7 +7,7 @@
 get_candidate_totals(data = NULL, candidate_id = NULL,
   data_structure = "tidy", sort_null_only = NULL, cycle = NULL,
   sort = NULL, designation = NULL, type = NULL, full_election = TRUE,
-  api_key = Sys.getenv("DATAGOV_API_KEY"))
+  api_key = Sys.getenv("DATAGOV_API_KEY"), message = TRUE)
 }
 \arguments{
 \item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_id is required.}
