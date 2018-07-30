@@ -4,16 +4,19 @@
 \alias{search_candidates}
 \title{Search FEC records for Candidates}
 \usage{
-search_candidates(data_structure = "tidy", candidate_id = NULL,
-  name = NULL, max_first_file_date = NULL, year = NULL, party = NULL,
-  api_key = Sys.getenv("DATAGOV_API_KEY"), candidate_status = NULL,
-  state = NULL, federal_funds_flag = NULL, has_raised_funds = NULL,
-  sort_hide_null = NULL, office = NULL, election_year = NULL,
-  sort_null_only = NULL, incumbent_challenge = NULL, cycle = NULL,
-  min_first_file_date = NULL, sort = NULL, district = NULL)
+search_candidates(data_structure = "tidy", unnest_committees = TRUE,
+  candidate_id = NULL, name = NULL, max_first_file_date = NULL,
+  year = NULL, party = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
+  candidate_status = NULL, state = NULL, federal_funds_flag = NULL,
+  has_raised_funds = NULL, sort_hide_null = NULL, office = NULL,
+  election_year = NULL, sort_null_only = NULL, incumbent_challenge = NULL,
+  cycle = NULL, min_first_file_date = NULL, sort = NULL,
+  district = NULL)
 }
 \arguments{
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}
+
+\item{unnest_committees}{TRUE or FALSE, whether to unnest information about candidate committees.}
 
 \item{candidate_id}{A unique identifier assigned to each candidate registered with the FEC. If a person runs for several offices, that person will have separate candidate IDs for each office.}
 
@@ -54,7 +57,7 @@ search_candidates(data_structure = "tidy", candidate_id = NULL,
 \item{district}{Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.}
 }
 \description{
-Search for candidates. If data_structure is the default 'tidy'.
+Search for candidates. If data_structure is the default 'tidy' and unnest_committees is TRUE, returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).
 }
 \details{
 OpenFEC Documentation: Fetch basic information about candidates and their principal committees.
