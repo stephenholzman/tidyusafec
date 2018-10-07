@@ -25,7 +25,7 @@ library(tidyusafec)
 save_datagov_apikey("api-key-string")
 
 
-df <- search_candidates(state = "VA", district = "10", office = "H", election_year = 2018, candidate_status = "C") %>%
+df <- search_candidates(state = "VA", district = "05", office = "H", election_year = 2018, candidate_status = "C") %>%
   get_candidate_totals()
 
 df %>% filter(type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$top_level, cycle == "2018") %>%
