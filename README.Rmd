@@ -70,8 +70,8 @@ wv_senate_search %>% filter(type_of_funds %in% tidyusafec_filters$candidate_tota
   geom_bar(aes(x = forcats::as_factor(last_name), y = amount, fill = party), stat = "identity") +
   geom_label(aes(x = forcats::as_factor(last_name), y = amount, label = scales::dollar(amount)), hjust = -0.1, label.size = 0, label.padding = unit(0.2,"line"), size = 3) +
   facet_wrap(~factor(type_of_funds,levels = str_replace_all(tidyusafec_filters$candidate_totals$type_of_funds$receipts_smallest_components,"_"," ") %>% str_to_title), labeller = label_wrap_gen()) +
-  scale_y_continuous(labels = paste0("$",seq(0,4),"M"), breaks = seq(0,4000000,by=1000000), limits = c(0,4000000)) +
-  scale_fill_manual(values = c("DEM" = "#2c4d82", "REP" = "#8e1b1b", "IND" = "#a3a3a3", "GRE" = "#1c561d", "LIB" = "#afac3d")) +
+  scale_y_continuous(labels = paste0("$",seq(0,6),"M"), breaks = seq(0,6000000,by=1000000), limits = c(0,6000000)) +
+  scale_fill_manual(values = c("DEM" = "#2c4d82", "REP" = "#8e1b1b", "IND" = "#a3a3a3", "GRE" = "#1c561d", "LIB" = "#afac3d", "CON" = "#AEAEAE")) +
   coord_flip(clip = "off") + 
   theme(
     panel.background = element_blank(),
