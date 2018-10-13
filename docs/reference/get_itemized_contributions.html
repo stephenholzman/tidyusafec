@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:description" content="Get itemized contributions (those reported on Form F3, F3X and F3P Schedule A). Returns information about donors, their residence, occupation, and donation amount. If you just need total itemized contributions, use get_candidate_totals()." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -86,12 +89,6 @@
     <li>
       <a href="../articles/get-itemized.html">Get Itemized Data</a>
     </li>
-    <li>
-      <a href="../articles/guide-fec-data.html">Guide to FEC Data</a>
-    </li>
-    <li>
-      <a href="../articles/fec-resources.html">FEC Resources</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -143,13 +140,13 @@
 <span class='fu'>get_schedule_a</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>),
   <span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>, <span class='kw'>contributor_employer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>contributor_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_occupation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_contribution_receipt_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>contributor_city</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_zip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>contributor_state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>last_contributor_aggregate_ytd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>contributor_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>last_contribution_receipt_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_city</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>contributor_type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>contributor_zip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contributor_state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>last_contributor_aggregate_ytd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>committee_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>last_contribution_receipt_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_individual</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>max_image_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>two_year_transaction_period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>line_number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>

@@ -5,9 +5,9 @@
 \title{Search For Elections}
 \usage{
 search_elections(data_structure = "tidy",
-  api_key = Sys.getenv("DATAGOV_API_KEY"), cycle = NULL, office = NULL,
-  sort_hide_null = NULL, zip = NULL, sort = NULL, district = NULL,
-  state = NULL, sort_null_only = NULL)
+  api_key = Sys.getenv("DATAGOV_API_KEY"), cycle = NULL,
+  office = NULL, sort_hide_null = NULL, zip = NULL, sort = NULL,
+  district = NULL, state = NULL, sort_null_only = NULL)
 }
 \arguments{
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}

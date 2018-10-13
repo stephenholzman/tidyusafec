@@ -5,19 +5,21 @@
 \alias{get_schedule_f}
 \title{Get Party Expenditures for Federal Candidates}
 \usage{
-get_party_expenditures(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
-  data_structure = "tidy", payee_name = NULL, cycle = NULL,
-  sort_null_only = NULL, sort_hide_null = NULL, max_date = NULL,
-  candidate_id = NULL, sort = NULL, min_amount = NULL, min_date = NULL,
+get_party_expenditures(data = NULL,
+  api_key = Sys.getenv("DATAGOV_API_KEY"), data_structure = "tidy",
+  payee_name = NULL, cycle = NULL, sort_null_only = NULL,
+  sort_hide_null = NULL, max_date = NULL, candidate_id = NULL,
+  sort = NULL, min_amount = NULL, min_date = NULL,
   min_image_number = NULL, image_number = NULL, max_amount = NULL,
   committee_id = NULL, max_image_number = NULL, line_number = NULL)
 
 get_schedule_f(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", payee_name = NULL, cycle = NULL,
   sort_null_only = NULL, sort_hide_null = NULL, max_date = NULL,
-  candidate_id = NULL, sort = NULL, min_amount = NULL, min_date = NULL,
-  min_image_number = NULL, image_number = NULL, max_amount = NULL,
-  committee_id = NULL, max_image_number = NULL, line_number = NULL)
+  candidate_id = NULL, sort = NULL, min_amount = NULL,
+  min_date = NULL, min_image_number = NULL, image_number = NULL,
+  max_amount = NULL, committee_id = NULL, max_image_number = NULL,
+  line_number = NULL)
 }
 \arguments{
 \item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_ids is required}

@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:description" content="Get financial totals. If data_structure is the default 'tidy', returns a tibble with notable columns 'amount' and 'type_of_funds'. Use tidyfec_filters to more conveniently filter on 'type_of_funds'." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -86,12 +89,6 @@
     <li>
       <a href="../articles/get-itemized.html">Get Itemized Data</a>
     </li>
-    <li>
-      <a href="../articles/guide-fec-data.html">Guide to FEC Data</a>
-    </li>
-    <li>
-      <a href="../articles/fec-resources.html">FEC Resources</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -128,8 +125,9 @@
 
     <pre class="usage"><span class='fu'>get_candidate_totals</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>candidate_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>, <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cycle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>designation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>full_election</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>))</pre>
+  <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>designation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>full_election</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>),
+  <span class='kw'>message</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -21,17 +21,20 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Search FEC records for Candidates — search_candidates" />
 
-<meta property="og:description" content="Search for candidates. If data_structure is the default 'tidy', returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections)." />
+<meta property="og:description" content="Search for candidates. If data_structure is the default 'tidy' and unnest_committees is TRUE, returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections)." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -86,12 +89,6 @@
     <li>
       <a href="../articles/get-itemized.html">Get Itemized Data</a>
     </li>
-    <li>
-      <a href="../articles/guide-fec-data.html">Guide to FEC Data</a>
-    </li>
-    <li>
-      <a href="../articles/fec-resources.html">FEC Resources</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -122,16 +119,17 @@
 
     <div class="ref-description">
     
-    <p>Search for candidates. If data_structure is the default 'tidy', returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).</p>
+    <p>Search for candidates. If data_structure is the default 'tidy' and unnest_committees is TRUE, returns a tibble with each row describing a unique candidate and principal committee pair. Some candidates will have no principal committee (maybe they just got in, didn't do well, or didn't raise much) and others will have multiple principal committees (they formed new committees for new elections).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>search_candidates</span>(<span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>, <span class='kw'>candidate_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_first_file_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>party</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>), <span class='kw'>candidate_status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>federal_funds_flag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_raised_funds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>office</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>election_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>incumbent_challenge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cycle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>search_candidates</span>(<span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>, <span class='kw'>unnest_committees</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>candidate_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_first_file_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>party</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>),
+  <span class='kw'>candidate_status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>federal_funds_flag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>has_raised_funds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>office</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>election_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>incumbent_challenge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cycle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>min_first_file_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>district</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -140,6 +138,10 @@
     <tr>
       <th>data_structure</th>
       <td><p>A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.</p></td>
+    </tr>
+    <tr>
+      <th>unnest_committees</th>
+      <td><p>TRUE or FALSE, whether to unnest information about candidate committees.</p></td>
     </tr>
     <tr>
       <th>candidate_id</th>

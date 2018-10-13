@@ -8,8 +8,8 @@
 <title>Get Campaign Finance Data into R. tidyusafec uses the OpenFEC API. • tidyusafec</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Get Campaign Finance Data into R. tidyusafec uses the OpenFEC API.">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Get Campaign Finance Data into R. tidyusafec uses the OpenFEC API.">
 <meta property="og:description" content="The tidyusafec package works with the OpenFEC API to get campaign finance data in tidy format directly inside R. For advanced usage where tidy format isn't appropriate, you can use this package as a wrapper for the full API.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -57,12 +57,6 @@
     <li>
       <a href="articles/get-itemized.html">Get Itemized Data</a>
     </li>
-    <li>
-      <a href="articles/guide-fec-data.html">Guide to FEC Data</a>
-    </li>
-    <li>
-      <a href="articles/fec-resources.html">FEC Resources</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -92,6 +86,7 @@
 <h2 class="hasAnchor">
 <a href="#tidyusafec" class="anchor"></a>tidyusafec</h2>
 <p>The tidyusafec package aims to make campaign finance data more accessible in R and friendly with tidy workflows. It works by accessing data through the <a href="https://api.open.fec.gov/developers/">OpenFEC API</a>, which requires an <a href="https://api.data.gov/signup/">API key</a> to run.</p>
+<p><a href="https://stephenholzman.github.io/tidyusafec/articles/intro.html">A gentle introduction is available here.</a></p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -100,9 +95,9 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"stephenholzman/tidyusafec"</span>)</code></pre></div>
 </div>
-<div id="examples" class="section level2">
+<div id="quick-examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<a href="#quick-examples" class="anchor"></a>Quick Examples</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(tidyusafec)
 
@@ -110,7 +105,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="kw"><a href="reference/save_datagov_apikey.html">save_datagov_apikey</a></span>(<span class="st">"api-key-string"</span>)
 
 
-df &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"10"</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>) <span class="op">%&gt;%</span>
+df &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"05"</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/get_candidate_totals.html">get_candidate_totals</a></span>()
 
 df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>top_level, cycle <span class="op">==</span><span class="st"> "2018"</span>) <span class="op">%&gt;%</span>
@@ -125,10 +120,11 @@ df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filte
 <p><img src="README-example-top-level.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(tidyusafec)
+
 wv_senate_search &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_candidates.html">search_candidates</a></span>(<span class="dt">state =</span> <span class="st">"WV"</span>, <span class="dt">office =</span> <span class="st">"S"</span>, <span class="dt">election_year =</span> <span class="st">"2018"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/get_candidate_totals.html">get_candidate_totals</a></span>()
 
-wv_senate_search <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>receipts_smallest_components, cycle <span class="op">==</span><span class="st"> "2018"</span>, amount <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+wv_senate_search <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(type_of_funds <span class="op">%in%</span><span class="st"> </span>tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>receipts_smallest_components, cycle <span class="op">==</span><span class="st"> "2018"</span>, amount <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(name, <span class="kw">c</span>(<span class="st">'last_name'</span>, <span class="st">'first_name'</span>), <span class="dt">sep =</span> <span class="st">', '</span>, <span class="dt">extra =</span> <span class="st">"drop"</span>, <span class="dt">fill =</span> <span class="st">"right"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type_of_funds =</span> <span class="kw">str_replace_all</span>(type_of_funds,<span class="st">"_"</span>,<span class="st">" "</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_to_title</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span><span class="kw">desc</span>(amount)) <span class="op">%&gt;%</span>
@@ -136,8 +132,8 @@ wv_senate_search <span class="op">%&gt;%</span><span class="st"> </span><span cl
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> forcats<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/forcats/topics/as_factor">as_factor</a></span>(last_name), <span class="dt">y =</span> amount, <span class="dt">fill =</span> party), <span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">x =</span> forcats<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/forcats/topics/as_factor">as_factor</a></span>(last_name), <span class="dt">y =</span> amount, <span class="dt">label =</span> scales<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/scales/topics/dollar_format">dollar</a></span>(amount)), <span class="dt">hjust =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">label.size =</span> <span class="dv">0</span>, <span class="dt">label.padding =</span> <span class="kw">unit</span>(<span class="fl">0.2</span>,<span class="st">"line"</span>), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="kw">factor</span>(type_of_funds,<span class="dt">levels =</span> <span class="kw">str_replace_all</span>(tidyusafec_filters<span class="op">$</span>candidate_totals<span class="op">$</span>type_of_funds<span class="op">$</span>receipts_smallest_components,<span class="st">"_"</span>,<span class="st">" "</span>) <span class="op">%&gt;%</span><span class="st"> </span>str_to_title), <span class="dt">labeller =</span> <span class="kw">label_wrap_gen</span>()) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="kw">paste0</span>(<span class="st">"$"</span>,<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="st">"M"</span>), <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">4000000</span>,<span class="dt">by=</span><span class="dv">1000000</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">4000000</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">"DEM"</span> =<span class="st"> "#2c4d82"</span>, <span class="st">"REP"</span> =<span class="st"> "#8e1b1b"</span>, <span class="st">"IND"</span> =<span class="st"> "#a3a3a3"</span>, <span class="st">"GRE"</span> =<span class="st"> "#1c561d"</span>, <span class="st">"LIB"</span> =<span class="st"> "#afac3d"</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> <span class="kw">paste0</span>(<span class="st">"$"</span>,<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>),<span class="st">"M"</span>), <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">6000000</span>,<span class="dt">by=</span><span class="dv">1000000</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">6000000</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">"DEM"</span> =<span class="st"> "#2c4d82"</span>, <span class="st">"REP"</span> =<span class="st"> "#8e1b1b"</span>, <span class="st">"IND"</span> =<span class="st"> "#a3a3a3"</span>, <span class="st">"GRE"</span> =<span class="st"> "#1c561d"</span>, <span class="st">"LIB"</span> =<span class="st"> "#afac3d"</span>, <span class="st">"CON"</span> =<span class="st"> "#AEAEAE"</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>(<span class="dt">clip =</span> <span class="st">"off"</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(
     <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),

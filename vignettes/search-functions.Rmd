@@ -39,7 +39,9 @@ A variety of search criteria are supported. Perhaps you want to find all candida
 
 ```{r, results='asis', eval = FALSE}
 va_10_house_candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "10", candidate_status = "C")
+```
 
+```{r, eval = FALSE, include = FALSE, results='asis'}
 select(va_10_house_candidates, -principal_committees) %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%
@@ -427,9 +429,10 @@ select(va_10_house_candidates, -principal_committees) %>%
 #### Search For Candidate by Name
 
 ```{r, eval = FALSE}
-
 obamas <- search_candidates(name = "Obama")
+```
 
+```{r, eval = FALSE, include = FALSE, results='asis'}
 select(obamas, -principal_committees) %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%
@@ -662,12 +665,15 @@ select(obamas, -principal_committees) %>%
 
 ```{r, eval = FALSE}
 texas_republicans <- search_candidates(state = "VA", party = "REP", election_year = 2018)
+```
 
+```{r, eval = FALSE, include = FALSE, results='asis'}
 select(texas_republicans, -principal_committees) %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%
   kableExtra::scroll_box(width = "100%", height = "200px")
 ```
+
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
@@ -1646,12 +1652,15 @@ Use this to find scheduled elections. Some examples are below and documentation 
 ```{r, eval = FALSE}
 
 florida_elections <- search_elections(state = "FL", cycle = 2018)
+```
 
+```{r, eval = FALSE, include = FALSE, results='asis'}
 florida_elections %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%
   kableExtra::scroll_box(width = "100%", height = "200px")
 ```
+
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
@@ -1894,9 +1903,10 @@ florida_elections %>%
 #### Search for 2018 Senate Elections
 
 ```{r, eval = FALSE}
-
 senate_elections <- search_elections(office = "senate", cycle = 2018)
+```
 
+```{r, eval = FALSE, include = FALSE, results='asis'}
 senate_elections %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%

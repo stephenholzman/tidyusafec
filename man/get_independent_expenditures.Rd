@@ -9,12 +9,13 @@ get_independent_expenditures(data = NULL,
   api_key = Sys.getenv("DATAGOV_API_KEY"), data_structure = "tidy",
   is_notice = NULL, payee_name = NULL, filing_form = NULL,
   sort_null_only = NULL, cycle = NULL, sort_hide_null = NULL,
-  max_date = NULL, candidate_id = NULL, sort = NULL, min_amount = NULL,
-  support_oppose_indicator = NULL, min_date = NULL,
-  min_image_number = NULL, image_number = NULL, max_amount = NULL,
-  last_expenditure_amount = NULL, committee_id = NULL,
-  last_office_total_ytd = NULL, max_image_number = NULL,
-  last_expenditure_date = NULL, line_number = NULL)
+  max_date = NULL, candidate_id = NULL, sort = NULL,
+  min_amount = NULL, support_oppose_indicator = NULL,
+  min_date = NULL, min_image_number = NULL, image_number = NULL,
+  max_amount = NULL, last_expenditure_amount = NULL,
+  committee_id = NULL, last_office_total_ytd = NULL,
+  max_image_number = NULL, last_expenditure_date = NULL,
+  line_number = NULL)
 
 get_schedule_e(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   data_structure = "tidy", is_notice = NULL, payee_name = NULL,
@@ -22,9 +23,10 @@ get_schedule_e(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   sort_hide_null = NULL, max_date = NULL, candidate_id = NULL,
   sort = NULL, min_amount = NULL, support_oppose_indicator = NULL,
   min_date = NULL, min_image_number = NULL, image_number = NULL,
-  max_amount = NULL, last_expenditure_amount = NULL, committee_id = NULL,
-  last_office_total_ytd = NULL, max_image_number = NULL,
-  last_expenditure_date = NULL, line_number = NULL)
+  max_amount = NULL, last_expenditure_amount = NULL,
+  committee_id = NULL, last_office_total_ytd = NULL,
+  max_image_number = NULL, last_expenditure_date = NULL,
+  line_number = NULL)
 }
 \arguments{
 \item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_ids is required}

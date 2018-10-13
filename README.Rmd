@@ -17,6 +17,8 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 The tidyusafec package aims to make campaign finance data more accessible in R and friendly with tidy workflows. It works by accessing data through the [OpenFEC API](https://api.open.fec.gov/developers/), which requires an [API key](https://api.data.gov/signup/) to run.
 
+[A gentle introduction is available here.](https://stephenholzman.github.io/tidyusafec/articles/intro.html)
+
 ## Installation
 
 Though I'm developing out in the open, this is very much pre-alpha release status. Installation is through the devtools package
@@ -26,7 +28,7 @@ install.packages("devtools")
 devtools::install_github("stephenholzman/tidyusafec")
 ```
 
-## Examples
+## Quick Examples
 
 ```{r, message = FALSE, warning = FALSE, eval = FALSE}
 library(tidyverse)
@@ -59,10 +61,11 @@ ggsave("README-example-top-level.png")
 ```{r, message = FALSE, warning = FALSE, eval = FALSE}
 library(tidyverse)
 library(tidyusafec)
+
 wv_senate_search <- search_candidates(state = "WV", office = "S", election_year = "2018") %>%
   get_candidate_totals()
 
-wv_senate_search %>% filter(type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$receipts_smallest_components, cycle == "2018", amount > 0) %>%
+wv_senate_search %>% filter(type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$receipts_smallest_components, cycle == "2018", amount >= 0) %>%
   separate(name, c('last_name', 'first_name'), sep = ', ', extra = "drop", fill = "right") %>%
   mutate(type_of_funds = str_replace_all(type_of_funds,"_"," ") %>% str_to_title()) %>%
   arrange(-desc(amount)) %>%

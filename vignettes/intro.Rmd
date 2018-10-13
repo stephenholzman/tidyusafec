@@ -15,6 +15,14 @@ knitr::opts_chunk$set(
 
 tidyusafec is an [R package](https://www.r-project.org/) for accessing campaign finance data through the Federal Election Commission's [OpenFEC API](https://api.open.fec.gov/developers/). It depends on having R installed ([windows](https://cran.r-project.org/bin/windows/base/) | [mac](https://cran.r-project.org/bin/macosx/)), and suggests you also install the integrated development environment [RStudio](https://www.rstudio.com/products/rstudio/download/) if you are just beginning with R. tidyusafec is an independent open source project under MIT license maintained by [Stephen Holzman](github.com/stephenholzman). It is not affiliated with or endorsed by the FEC or any of the other software projects mentioned.
 
+## 0. Ethics and/or Warning
+
+Do your due diligence before publishing data gathered with tidyusafec. While this package eases the technical burden of working with FEC data, it does not do anything to expedite understanding the different products.
+
+This package is still young. As the package author, I'm still double or triple checking numbers with other sources to make sure the numbers I think I have and the numbers I actually have are the same. Even then FEC data has some quirks.
+
+In this early stage, please report [unexpected package behavior in an issue on GitHub](https://github.com/stephenholzman/tidyusafec/issues).
+
 ## 1. Installing
 
 Depending on where R packages are hosted, you can install them from inside R with functions. Use `install.packages` to get the `devtools` package from CRAN. Use `install_github` to get `tidyusafec` from the [Github repository](https://github.com/stephenholzman/tidyusafec).
@@ -30,7 +38,6 @@ Load packages:
 library(tidyverse)
 library(tidyusafec)
 ```
-
 
 ## 2. API Key
 
@@ -58,8 +65,9 @@ By default, the FEC limits individuals to 1000 requests every hour. This is prob
 
 ```{r, eval = FALSE}
 wv_senate <- search_candidates(state = "WV",
-                                 election_year = "2018",
-                                 office = "S")
+                               election_year = "2018",
+                               office = "S",
+                               unnest_committees = TRUE)
 ```
 
 ```{r, eval = FALSE, include = FALSE}
@@ -357,7 +365,7 @@ select(wv_senate, -principal_committees, -.) %>%
 </table></div>
 
 
-Each row returned by `search_candidates` contains a unique `candidate_id` + `committee_id` pair. Candidates just getting started or not raising money may have no committee_id, and some candidates may have multiple rows if they changed principal committees for different elections.
+Each row returned by `search_candidates` when `unnest_committees = TRUE` contains a unique `candidate_id` + `committee_id` pair. Candidates just getting started or not raising money may have no committee_id, some candidates may have multiple rows if they changed principal committees for different elections, and most will have one pair. Use `unnest_committees = FALSE` if you would prefer to keep committee information in a non-tidy list column.
 
 `candidate_status` is a notable column to filter on and be aware of. It goes by FEC status according to records filed and processed, not necessarily what candidates have announced about their intentions.
 
@@ -365,9 +373,9 @@ Some filter strategies are below, or you could use `search_candidates` better wh
 
 ```{r, eval = FALSE}
 
-#Candidates still actively campaigning based on public announcements.
+#Just select candidates.
 wv_senate %>%
-  filter(str_detect(name, "MANCHIN|MORRISEY|BLANKENSHIP"))
+  filter(str_detect(name, "MANCHIN|MORRISEY"))
 
 #Candidates who are still current as far as the FEC knows.
 wv_senate %>%
@@ -1266,7 +1274,7 @@ A list is available called `tidyusafec_filters` that contain useful vectors to f
 
 ```{r, eval = FALSE}
 wv_senate_totals %>%
-  filter(str_detect(name, "MANCHIN|MORRISEY|BLANKENSHIP"),
+  filter(str_detect(name, "MANCHIN|MORRISEY"),
          type_of_funds %in% tidyusafec_filters$candidate_totals$type_of_funds$receipts_smallest_components) %>%
   mutate(type_of_funds = type_of_funds %>%
            str_replace_all("_"," ") %>%

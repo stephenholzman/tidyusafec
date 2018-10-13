@@ -5,8 +5,8 @@
 \title{Get Election Summary}
 \usage{
 get_election_summary(data = NULL, data_structure = "tidy",
-  api_key = Sys.getenv("DATAGOV_API_KEY"), district = NULL, cycle = NULL,
-  office = NULL, election_full = NULL, state = NULL)
+  api_key = Sys.getenv("DATAGOV_API_KEY"), district = NULL,
+  cycle = NULL, office = NULL, election_full = NULL, state = NULL)
 }
 \arguments{
 \item{data}{A dataframe or tibble. Usually this will be the returned result of search_elections(). If columns called cycle, office, district, and state are in the table, . Either this argument or candidate_id is required.}

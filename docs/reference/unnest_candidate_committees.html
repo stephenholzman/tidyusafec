@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Search For Elections — search_elections • tidyusafec</title>
+<title>Unnest Candidate Committees — unnest_candidate_committees • tidyusafec</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Search For Elections — search_elections" />
+<meta property="og:title" content="Unnest Candidate Committees — unnest_candidate_committees" />
 
-<meta property="og:description" content="List elections by cycle, office, state, and district. Includes information about incumbents." />
+<meta property="og:description" content="Unnest Candidate Committees" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,64 +112,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Search For Elections</h1>
-    <small class="dont-index">Source: <a href='https://github.com/stephenholzman/tidyusafec/blob/master/R/search_elections.R'><code>R/search_elections.R</code></a></small>
-    <div class="hidden name"><code>search_elections.Rd</code></div>
+    <h1>Unnest Candidate Committees</h1>
+    <small class="dont-index">Source: <a href='https://github.com/stephenholzman/tidyusafec/blob/master/R/unnest_candidate_committees.R'><code>R/unnest_candidate_committees.R</code></a></small>
+    <div class="hidden name"><code>unnest_candidate_committees.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>List elections by cycle, office, state, and district. Includes information about incumbents.</p>
+    <p>Unnest Candidate Committees</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>search_elections</span>(<span class='kw'>data_structure</span> <span class='kw'>=</span> <span class='st'>"tidy"</span>,
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'>Sys.getenv</span>(<span class='st'>"DATAGOV_API_KEY"</span>), <span class='kw'>cycle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>office</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_hide_null</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>zip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>district</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>state</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sort_null_only</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>unnest_candidate_committees</span>(<span class='no'>data</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_structure</th>
-      <td><p>A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.</p></td>
-    </tr>
-    <tr>
-      <th>api_key</th>
-      <td><p>API key for https://api.data.gov. Get one at https://api.data.gov/signup.</p></td>
-    </tr>
-    <tr>
-      <th>cycle</th>
-      <td><p>Two-year election cycle in which a candidate runs for office. Calculated from FEC Form 2. The cycle begins with an odd year and is named for its ending, even year. This cycle follows the traditional house election cycle and subdivides the presidential and Senate elections into comparable two-year blocks. To see data for the entire four years of a presidential term or six years of a senatorial term, you will need the election_full flag.</p></td>
-    </tr>
-    <tr>
-      <th>office</th>
-      <td><p>"house", "senate", or "president."</p></td>
-    </tr>
-    <tr>
-      <th>sort_hide_null</th>
-      <td><p>Hide null values on sorted column(s).</p></td>
-    </tr>
-    <tr>
-      <th>zip</th>
-      <td><p>Zip code</p></td>
-    </tr>
-    <tr>
-      <th>sort</th>
-      <td><p>Provide a field to sort by. Use - for descending order.</p></td>
-    </tr>
-    <tr>
-      <th>district</th>
-      <td><p>Two-digit US House distirict of the office the candidate is running for. Presidential, Senate and House at-large candidates will have District 00.</p></td>
-    </tr>
-    <tr>
-      <th>state</th>
-      <td><p>US state or territory where a candidate runs for office</p></td>
-    </tr>
-    <tr>
-      <th>sort_null_only</th>
-      <td><p>Toggle that filters out all rows having sort column that is non-null</p></td>
+      <th>data</th>
+      <td></td>
     </tr>
     </table>
     

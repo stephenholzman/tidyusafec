@@ -18,9 +18,11 @@ As shown in these examples, the tidyusafec suggested workflow is to pipe (`%>%`)
 
 - `get_candidate_totals()` by default currently returns a tibble with information about a candidate's funding totals, what you would typically see on the summary tables of the FEC site. 
 - `get_committee_reports()` by default currently returns a tibble with information about committee reports. Mostly useful for looking at quarterly report trends.
-- `get_election_summary()` by default currently returns a tibble with financial summaries by election. 
+- `get_election_summary()` by default currently returns a tibble with financial summaries by election.
 
-#### Setup Libraries and API Keys
+
+
+### Setup Libraries and API Keys
 
 ```{r, eval = FALSE}
 library(tidyverse)
@@ -31,19 +33,21 @@ save_datagov_apikey(key = "DATA.GOV KEY STRING")
 
 ## get_candidate_totals()
 
-Each row of the tibble returned is a specific total given in the `amount` column. The `type_of_funds` column shows what that amount applies to. Pipe the results of `search_candidates` to get additional columns with context like name, office, state, etc.
+Each row of the tibble returned is a specific total given in the `amount` column. The `type_of_funds` column shows what that amount applies to. While you can use the function by itself, piping the results of `search_candidates` will automatically join additional columns with context like name, office, state, etc.
 
-#### Get Totals for Candidates Currently in a Particular Race
+### Get Totals for Candidates Currently in a Particular Race
 
 ```{r, results='asis', eval = FALSE}
-va_05_house_candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "10", candidate_status = "C") %>%
+va_05_house_candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "05", candidate_status = "C") %>%
   get_candidate_totals()
-
+```
+```{r, eval = FALSE, include = FALSE, results='asis'}
 select(va_05_house_candidates[1:20,], -principal_committees) %>%
   knitr::kable(format = "html") %>%
   kableExtra::kable_styling() %>%
   kableExtra::scroll_box(width = "100%", height = "200px")
 ```
+
 
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>

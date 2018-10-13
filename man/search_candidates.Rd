@@ -9,9 +9,9 @@ search_candidates(data_structure = "tidy", unnest_committees = TRUE,
   year = NULL, party = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
   candidate_status = NULL, state = NULL, federal_funds_flag = NULL,
   has_raised_funds = NULL, sort_hide_null = NULL, office = NULL,
-  election_year = NULL, sort_null_only = NULL, incumbent_challenge = NULL,
-  cycle = NULL, min_first_file_date = NULL, sort = NULL,
-  district = NULL)
+  election_year = NULL, sort_null_only = NULL,
+  incumbent_challenge = NULL, cycle = NULL,
+  min_first_file_date = NULL, sort = NULL, district = NULL)
 }
 \arguments{
 \item{data_structure}{A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.}

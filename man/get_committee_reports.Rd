@@ -4,20 +4,22 @@
 \alias{get_committee_reports}
 \title{Get Committee Reports}
 \usage{
-get_committee_reports(data = NULL, api_key = Sys.getenv("DATAGOV_API_KEY"),
-  data_structure = "tidy", committee_id = NULL, sort_null_only = NULL,
-  min_cash_on_hand_end_period_amount = NULL, beginning_image_number = NULL,
-  report_type = NULL, year = NULL, sort_hide_null = NULL,
-  max_cash_on_hand_end_period_amount = NULL,
+get_committee_reports(data = NULL,
+  api_key = Sys.getenv("DATAGOV_API_KEY"), data_structure = "tidy",
+  committee_id = NULL, sort_null_only = NULL,
+  min_cash_on_hand_end_period_amount = NULL,
+  beginning_image_number = NULL, report_type = NULL, year = NULL,
+  sort_hide_null = NULL, max_cash_on_hand_end_period_amount = NULL,
   min_independent_expenditures = NULL, min_debts_owed_amount = NULL,
   max_total_contributions = NULL, type = NULL, is_amended = NULL,
-  max_independent_expenditures = NULL, cycle = NULL, candidate_id = NULL,
-  min_disbursements_amount = NULL, min_receipts_amount = NULL,
-  max_receipts_amount = NULL, sort = NULL,
-  max_disbursements_amount = NULL,
+  max_independent_expenditures = NULL, cycle = NULL,
+  candidate_id = NULL, min_disbursements_amount = NULL,
+  min_receipts_amount = NULL, max_receipts_amount = NULL,
+  sort = NULL, max_disbursements_amount = NULL,
   min_party_coordinated_expenditures = NULL,
   max_debts_owed_expenditures = NULL,
-  max_party_coordinated_expenditures = NULL, min_total_contributions = NULL)
+  max_party_coordinated_expenditures = NULL,
+  min_total_contributions = NULL)
 }
 \arguments{
 \item{data}{A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'committee_id', get_itemized_contributions() will return results for all IDs in that column and will attempt to join data to the result by committee_id.}
