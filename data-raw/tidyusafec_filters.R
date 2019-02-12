@@ -19,7 +19,14 @@ tidyusafec_filters <- list(
         "other_receipts"
         ),
       disbursements_smallest_components = c(
-        "operating_expenditures"
+        "operating_expenditures",
+        "loan_repayment_other_loans",
+        "loan_repayment_candidate_loans",
+        "contribution_refunds",
+        "refunded_other_political_committee_contributions",
+        "refunded_political_party_committee_contributions",
+        "other_disbursements",
+        "transfers_to_other_authorized_committee"
       )
     )
   )
