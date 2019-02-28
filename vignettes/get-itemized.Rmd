@@ -30,7 +30,7 @@ All itemized data is tied to a `committee_id`.
 ### Itemized Contributions by Day
 
 ```{r, eval = FALSE}
-candidates <- search_candidates(election_year = 2018, office = "H", state = "MI", district = "06", candidate_status = "C")
+candidates <- search_candidates(election_year = 2018, office = "H", state = "MI", district = "06")
 
 itemized_contributions <- candidates %>%
   filter(str_detect(name, "UPTON")) %>%
@@ -60,7 +60,7 @@ ggsave(filename = "itemized-contributions-example.png", width = 11, height = 5)
 ### Itemized Disbursements by Category
 
 ```{r, eval = FALSE}
-candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "05", candidate_status = "C")
+candidates <- search_candidates(election_year = 2018, office = "H", state = "VA", district = "05")
 
 itemized_disbursements <- candidates %>%
   filter(str_detect(name, "COCKBURN")) %>%
