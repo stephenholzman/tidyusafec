@@ -114,7 +114,7 @@
 <div id="itemized-contributions-by-day" class="section level3">
 <h3 class="hasAnchor">
 <a href="#itemized-contributions-by-day" class="anchor"></a>Itemized Contributions by Day</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">candidates &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">state =</span> <span class="st">"MI"</span>, <span class="dt">district =</span> <span class="st">"06"</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">candidates &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">state =</span> <span class="st">"MI"</span>, <span class="dt">district =</span> <span class="st">"06"</span>)
 
 itemized_contributions &lt;-<span class="st"> </span>candidates <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"UPTON"</span>)) <span class="op">%&gt;%</span>
@@ -140,7 +140,7 @@ itemized_contributions <span class="op">%&gt;%</span>
 <div id="itemized-disbursements-by-category" class="section level3">
 <h3 class="hasAnchor">
 <a href="#itemized-disbursements-by-category" class="anchor"></a>Itemized Disbursements by Category</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">candidates &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"05"</span>, <span class="dt">candidate_status =</span> <span class="st">"C"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">candidates &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_candidates.html">search_candidates</a></span>(<span class="dt">election_year =</span> <span class="dv">2018</span>, <span class="dt">office =</span> <span class="st">"H"</span>, <span class="dt">state =</span> <span class="st">"VA"</span>, <span class="dt">district =</span> <span class="st">"05"</span>)
 
 itemized_disbursements &lt;-<span class="st"> </span>candidates <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(name, <span class="st">"COCKBURN"</span>)) <span class="op">%&gt;%</span>
