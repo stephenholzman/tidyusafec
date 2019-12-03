@@ -12,7 +12,7 @@
 #' @param data_structure A character describing how you want OpenFEC results. Options are 'tidy', 'list', or 'both.' Choose list for raw results.
 #' @param designation The one-letter designation code of the organization: - A: authorized by a candidate - J: joint fundraising committee - P: principal campaign committee of a candidate - U: unauthorized - B: lobbyist/registrant PAC - D: leadership PAC
 #' @param type The one-letter type code of the organization:  - C: communication cost - D: delegate - E: electioneering communication - H: House - I: independent expenditor (person or group) - N: PAC - nonqualified - O: independent expenditure-only (super PACs) - P: presidential - Q: PAC - qualified - S: Senate - U: single candidate independent expenditure - V: PAC with non-contribution account, nonqualified - W: PAC with non-contribution account, qualified - X: party, nonqualified - Y: party, qualified - Z: national party non-federal account
-#' @param full_election Get totals for full election period. Boolean.
+#' @param election_full Get totals for full election period. Boolean.
 #' @param api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.
 #'
 #' @return
@@ -31,7 +31,7 @@ get_candidate_totals <- function(
   sort = NULL,
   designation = NULL,
   type = NULL,
-  full_election = TRUE,
+  election_full = TRUE,
   api_key = Sys.getenv("DATAGOV_API_KEY"),
   message = TRUE
   ){
@@ -96,7 +96,7 @@ get_candidate_totals <- function(
       sort = sort,
       designation = designation,
       type = type,
-      full_election = full_election,
+      election_full = election_full,
       api_key = api_key,
       page = 1,
       per_page = 100
@@ -147,7 +147,7 @@ get_candidate_totals <- function(
       political_party_committee_contributions = map_dbl(. , "political_party_committee_contributions", .default = NA),
       coverage_start_date = map_chr(. , "coverage_start_date", .default = NA),
       exempt_legal_accounting_disbursement = map_dbl(. , "exempt_legal_accounting_disbursement", .default = NA),
-      full_election = map_lgl(. , "full_election", .default = NA),
+      election_full = map_lgl(. , "election_full", .default = NA),
       loan_repayments_candidate_loans = map_dbl(. , "loan_repayments_candidate_loans", .default = NA),
       offsets_to_legal_accounting = map_dbl(. , "offsets_to_legal_accounting", .default = NA),
       last_debts_owed_to_committee = map_dbl(. , "last_debts_owed_to_committee", .default = NA),
