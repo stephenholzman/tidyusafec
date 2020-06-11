@@ -2,7 +2,7 @@
 #'
 #' Get financial totals. If data_structure is the default 'tidy', returns a tibble with notable columns 'amount' and 'type_of_funds'. Use tidyfec_filters to more conveniently filter on 'type_of_funds'.
 #'
-#' OpenFEC Documentation: This endpoint provides information about a committee's Form 3, Form 3X, or Form 3P financial reports, which are aggregated by two-year period. We refer to two-year periods as a cycle.
+#' OpenFEC Documentation: This endpoint provides information about a committee's Form 3, Form 3X, or Form 3P financial reports, which are aggregated by two-year period. We refer to two-year periods as a 'cycle'. The cycle is named after the even-numbered year and includes the year before it. To see totals from 2013 and 2014, you would use 2014. In odd-numbered years, the current cycle is the next year — for example, in 2015, the current cycle is 2016. For presidential and Senate candidates, multiple two-year cycles exist between elections.
 #'
 #' @param data A dataframe or tibble. Usually this will be the returned result of search_candidates(). If a column is called 'candidate_id', get_candidate_totals() will return results for all IDs in that column and will attempt to join data to the result by candidate_id. Either this argument or candidate_id is required.
 #' @param candidate_id A character vector of candidate ids to get financial totals for. Either this argument or a dataframe containing a column called 'candidate_id' passed in the 'data' argument is required.
@@ -14,6 +14,9 @@
 #' @param type The one-letter type code of the organization:  - C: communication cost - D: delegate - E: electioneering communication - H: House - I: independent expenditor (person or group) - N: PAC - nonqualified - O: independent expenditure-only (super PACs) - P: presidential - Q: PAC - qualified - S: Senate - U: single candidate independent expenditure - V: PAC with non-contribution account, nonqualified - W: PAC with non-contribution account, qualified - X: party, nonqualified - Y: party, qualified - Z: national party non-federal account
 #' @param election_full Get totals for full election period. Boolean.
 #' @param api_key API key for https://api.data.gov. Get one at https://api.data.gov/signup.
+#' @param sort_nulls_last Toggle that sorts null values last.
+#' @param sort_hide_null Hide null values on sorted column(s).
+#' @param message Control message updates as the request progresses.
 #'
 #' @return
 #' @export
@@ -26,7 +29,9 @@ get_candidate_totals <- function(
   data = NULL,
   candidate_id = NULL,
   data_structure = 'tidy',
+  sort_nulls_last = NULL,
   sort_null_only = NULL,
+  sort_hide_null = NULL,
   cycle = NULL,
   sort = NULL,
   designation = NULL,
@@ -48,7 +53,6 @@ get_candidate_totals <- function(
     if('candidate_id' %in% names(data)){
 
       candidate_id <- data[['candidate_id']]
-
 
     }else{
 
@@ -99,7 +103,9 @@ get_candidate_totals <- function(
       election_full = election_full,
       api_key = api_key,
       page = 1,
-      per_page = 100
+      per_page = 100,
+      sort_nulls_last = sort_nulls_last,
+      sort_hide_null = sort_hide_null
     )
 
     query_parameters <- query_parameters[!sapply(query_parameters, is.null)]
@@ -166,6 +172,7 @@ get_candidate_totals <- function(
       individual_itemized_contributions = map_dbl(. , "individual_itemized_contributions", .default = NA),
       loans = map_dbl(. , "loans", .default = NA),
       cycle = map_int(. , "cycle", .default = NA),
+      candidate_election_year = map_int(. , "candidate_election_year", .default = NA),
       last_report_type_full = map_chr(. , "last_report_type_full", .default = NA),
       last_cash_on_hand_end_period = map_dbl(. , "last_cash_on_hand_end_period", .default = NA),
       loan_repayments_other_loans = map_dbl(. , "loan_repayments_other_loans", .default = NA),
